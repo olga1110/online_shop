@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Contacts</title>
+    <link rel="stylesheet" href="/static/css/style.css"> </head>
+
+<body>
+    <div class="Contacts container">
+        <div class="content">
+            <header>
+                <a href="index.html"> <img src="/static/img/logo.jpg" alt="Логотип" class="logo"> </a>
+                <nav>
+                    <ul class="menu">
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/Catalog/" class="expand-catalog">Каталог</a></li>
+                        <li><a href="/Contacts/">Контакты</a></li>
+                        <li><a href="/Registration/" >Регистрация</a></li>
+                    </ul>
+                </nav>
+            </header>
+            <!--Обратная связь -->
+            <details class="customers-form">
+                <summary>Напишите нам</summary>
+                <form class="feetback">
+                    <fieldset>
+                        <legend> Ваши контактные данные </legend>
+                        <br>
+                        <br>
+                        <label>Имя:
+                            <input type="text" placeholder="Имя"> </label>
+                        <br>
+                        <br>
+                        <label> Номер телефона:
+                            <input type="tel" name="tel" placeholder="Номер телефона"> </label>
+                        <br>
+                        <br>
+                        <label> Сайт организации:
+                            <input type="url" name="url" placeholder="Сайт"> </label>
+                        <br>
+                        <br>
+                        <label>Email:
+                            <input type="email" placeholder="Email"> </label>
+                        <br>
+                        <br> </fieldset>
+                    <br>
+                    <br>
+                    <label class="news">
+                        <input type="checkbox" checked>Подключить рассылку новостей </label>
+                    <!--
+                    <label>Выберите тему:
+                        <select>
+                            <option>Тема1</option>
+                            <option>Тема2</option>
+                            <option>Тема3</option>
+                        </select>
+                    </label>
+-->
+                    <br>
+                    <br>
+                    <textarea> Ваши пожелания</textarea>
+                    <br>
+                    <div class="button">
+                        <button type="submit">Отправить&gt;</button>
+                        <button type="reset">Очистить</button>
+                    </div>
+                </form>
+            </details>
+        </div>
+        <main>
+            <br>
+            <h2>Наш адрес:</h2> <address>
+           <p>Контактный телефон: 8(342)229-78-28</p>
+           <p>г. Пермь, ул. Леонова, 68 </p>
+           <p>info@kitchen-perm.ru</p>
+       </address>
+            <p>Мы&nbsp;ждем Вас! Магазин работает ежедневно с&nbsp;10&nbsp;до&nbsp;21&nbsp;ч</p>
+            <br>
+            <br>
+            <div class="map">
+                <script charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Ab597349d9802ccdbab8d83d89b347bb236109bc842b280dce6f09f1096d25bea&amp;lang=ru_RU&amp;scroll=true"></script>
+            </div>
+            <main>
+                <footer>
+                    <p>&copy;All rights reserved</p>
+                </footer>
+    </div>
+    </div>
+</body>
+
+</html>
