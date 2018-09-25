@@ -1,90 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'master.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Catalog</title>
-    <link rel="stylesheet" href="/static/css/style.css"> </head>
+{% load staticfiles %}
 
-<body>
-    <div class="catalog-page container">
-        <div class="content">
-            <header>
-                <a href="index.html"> <img src="/static/img/logo.jpg" alt="Логотип" class="logo"> </a>
-                <nav>
-                    <ul class="menu">
-                        <li><a href="/">Главная</a></li>
-                        <li><a href="/Catalog/" class="expand-catalog">Каталог</a></li>
-                        <li><a href="/Contacts/">Контакты</a></li>
-                        <li><a href="/Registration/" >Регистрация</a></li>
-                    </ul>
-                </nav>
-                <!--<form><input type="search"></form>-->
-            </header>
-            <br>
-            <br>
-            <div class="sale">
-            <h2><strong>Акция!!!</strong></h2>
-            <h2><strong>Акция!!!</strong></h2>
-            <h2><strong>Акция!!!</strong></h2>            
-            </div>
-            <main class="main">
-                <figure class="item">
-                    <a href="#"> <img src="/static/img/table.jpg" alt="Обеденный стол(стекло)" title="Обеденный стол(стекло)">
-                        <br>
-                        <p>Обеденный стол</p>
-                    </a>
-                </figure>
-                <figure class="item">
-                    <a href="#"> <img src="/static/img/sofa.png" alt="Диван для кухни" title="Диван для кухни">
-                        <br>
-                        <p> Диван для кухни </p>
-                    </a>
-                </figure>
-                <figure class="item">
-                    <a href="#"> <img src="/static/img/kitchen_set.jpg" alt="Кухонный гарнитур" title="Кухонный гарнитур">
-                        <br>
-                        <p>Кухонный гарнитур</p>
-                    </a>
-                </figure>
-                <figure class="item">
-                    <a href="#"> <img src="/static/img/kukhonnyy_ugolok_komfort.jpg" alt="Кухонный уголок(комфорт)" title="Кухонный уголок(комфорт)">
-                        <br>
-                        <p>Кухонный уголок(комфорт)</p>
-                    </a>
-                </figure>
-            </main>
-            <!--
-        <figure>
-            <a href="catalog/table.html">
-          <img src="/static/img/table.jpg" alt="Обеденный стол(стекло)" title="Обеденный стол(стекло)" height="300">
-          <br>
-         <figcaption>Обеденный стол</figcaption>
-          </a>
-        </figure>
-        <br>
-        <figure>
-            <a href="catalog/sofa.html">
-          <img src="/static/img/sofa.png" alt="Диван для кухни" title="Диван для кухни" height="300">
-          <br>
+{% block page_title %} Catalog
+{% endblock %}
+{% block page_styles %}
+<link rel="stylesheet" href="{% static 'mainapp/css/style.css' %}">
+{% endblock %}
 
-              <figcaption> Диван для кухни </figcaption>
-          </a>
-        </figure>
-        <br>
-        <figure>
-            <a href="catalog/kitchen_set.html">
-          <img src="/static/img/kitchen_set.jpg" alt="Кухонный гарнитур" title="Кухонный гарнитур" height="300">
-          <br>
+{% block page_content %}
+{{ block.super }}
+<div class="catalog-page">
 
-
-          <figcaption>Кухонный гарнитур</figcaption>
-          </a>
-        </figure>
-    -->
-        </div>
-        <footer class="footer">
-            <p>&copy;All rights reserved</p>
-        </footer>
+    <br>
+    <br>
+    <div class="sale">
+        <h2><strong>Акция!!!</strong></h2>
+        <h2><strong>Акция!!! {{proc|floatformat:"-1"}}%</strong></h2>
+        <h2><strong>Акция!!!</strong></h2>
     </div>
-</body>
+
+    <main class="main">
+        {% for link in links %}
+        <figure class="item">
+            <a href={{link.href}}> <img src={{link.src}} title={{link.name}}>
+                <br>
+                <p>{{link.name}}</p>
+            </a>
+        </figure>
+
+        {% endfor %}
+    </main>
+
+</div>
+{% endblock %}
+        

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block page_title %}
+        {% endblock %}
+    </title>     
+
+	{% block page_styles %}
+    {% endblock %}
+	
+</head>
+
+<body>
+    <div class="container">
+        <div class="content">
+            <header> 
+               <a href="/"><img src="{%static 'mainapp/img/logo.jpg' %}" alt="Логотип" class="logo"></a>
+                <nav>
+                    <ul class="menu">
+                        <li><a href="{% url 'main'%}">Главная</a></li>
+                        <li><a href="{% url 'catalog'%}" class="expand-catalog">Каталог</a>
+                            <div class="submenu">                             
+                                <a href="#">Обеденный стол</a>
+                                <a href="#">Диван для кухни</a>
+                                <a href="#">Кухонный гарнитур</a>                            
+                        </div>
+                        </li>
+                        <li><a href="{% url 'contacts'%}">Контакты</a></li>
+                        <li><a href="{% url 'registration'%}" >Регистрация</a></li>
+                    </ul>
+                </nav>
+            </header>            
+            {% block page_content %}
+            {% now "D/M/Y" %}
+            {% endblock %}
+            
+        </div>
+        <footer>
+            <p>&copy;All rights reserved</p>
+        </footer>
+    </div>
+</body>
+
+</html>

@@ -386,8 +386,10 @@ button:hover {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
+/*
     margin-top: 50px;
     margin-bottom: 50px;
+*/
 }
 
 .main .item img {
@@ -583,7 +585,12 @@ p: {
 }
 
 .item img {
-    width: 500px;
+    width: 500px;    
+}
+
+.item{
+    margin-bottom: 20px;
+    margin-right: 20px;
 }
 
 .catalog-page .main .item {

@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+{% load staticfiles %}
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cozy kitchen</title>     
+	<link rel="stylesheet" href="{%static 'mainapp/css/style.css' %}">
+	
+	</head>
+
+<body>
+    <div class="container">
+        <div class="content">
+            <header> <a href="/"><img src="{%static 'mainapp/img/logo.jpg' %}" alt="Логотип" class="logo"></a>
+                <nav>
+                    <ul class="menu">
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/Catalog/" class="expand-catalog">Каталог</a>
+                            <div class="submenu">                             
+                                <a href="catalog/table.html">Обеденный стол</a>
+                                <a href="catalog/sofa.html">Диван для кухни</a>
+                                <a href="catalog/kitchen_set.html">Кухонный гарнитур</a>                            
+                        </div>
+                        </li>
+                        <li><a href="/Contacts/">Контакты</a></li>
+                        <li><a href="/Registration/" >Регистрация</a></li>
+                    </ul>
+                </nav>
+            </header>
+           <main>
+                <h1><strong><em>Cozy kitchen</em></strong></h1>
+                <sector><em>Самая лучшая мебель для кухни здесь!!!</em></sector>
+                <p><em><bold>С нами уютно:)</bold></em></p> <img src="/static/img/main-photo.jpg" alt="Изумруд"> </main>  
+        </div>
+        <footer>
+            <p>&copy;All rights reserved</p>
+        </footer>
+    </div>
+</body>
+
+</html>

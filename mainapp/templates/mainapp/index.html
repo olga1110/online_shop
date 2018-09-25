@@ -1,39 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'master.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Cozy kitchen</title>
-    <link rel="stylesheet" href="/static/css/style.css"> </head>
+{% load staticfiles %}
 
-<body>
-    <div class="main-page container">
-        <div class="content">
-            <header> <img src="/static/img/logo.jpg" alt="Логотип" class="logo">
-                <nav>
-                    <ul class="menu">
-                        <li><a href="/">Главная</a></li>
-                        <li><a href="/Catalog/" class="expand-catalog">Каталог</a>
-                            <div class="submenu">                             
-                                <a href="catalog/table.html">Обеденный стол</a>
-                                <a href="catalog/sofa.html">Диван для кухни</a>
-                                <a href="catalog/kitchen_set.html">Кухонный гарнитур</a>                            
-                        </div>
-                        </li>
-                        <li><a href="/Contacts/">Контакты</a></li>
-                        <li><a href="/Registration/" >Регистрация</a></li>
-                    </ul>
-                </nav>
-            </header>
-            <main>
-                <h1><strong><em>Cozy kitchen</em></strong></h1>
-                <sector><em>Самая лучшая мебель для кухни здесь!!!</em></sector>
-                <p><em><bold>С нами уютно:)</bold></em></p> <img src="/static/img/main-photo.jpg" alt="Изумруд"> </main>
-        </div>
-        <footer>
-            <p>&copy;All rights reserved</p>
-        </footer>
-    </div>
-</body>
+{% block page_title %} Cozy kitchen {% endblock %}
+{% block page_styles %}
+<link rel="stylesheet" href="{%static 'mainapp/css/style.css' %}">   
+{% endblock %}
 
-</html>
+
+{% block page_content %}
+{{ block.super }} 
+<div class="main-page">
+<main>
+<h1><strong><em> {{company.title}}</em></strong></h1>
+<sector><em>{{company.advertisement}}</em></sector>
+<p><em><bold>С нами уютно:)</bold></em></p> <img src="{%static 'mainapp/img/main-photo.jpg' %}"
+alt="Изумруд"> </main>
+</div>  
+{% endblock %}
+
