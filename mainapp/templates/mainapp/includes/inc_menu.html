@@ -1,26 +1,3 @@
-<!DOCTYPE html>
-{% load staticfiles %}
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>
-        {% block page_title %}
-        {% endblock %}
-    </title>     
-
-	{% block page_styles %}
-    {% endblock %}
-	
-</head>
-
-<body>
-    <div class="container">
-        <div class="content">
-            <header> 
-               <a href="/"><img src="{%static 'mainapp/img/logo.jpg' %}" alt="Логотип" class="logo"></a>
-               {% include 'mainapp/includes/inc_menu.html' %}
-<!--
                 <nav>
                     <ul class="menu">
                         <li><a href="{% url 'main'%}">Главная</a></li>
@@ -33,19 +10,5 @@
                         </li>
                         <li><a href="{% url 'contacts'%}">Контакты</a></li>
                         <li><a href="{% url 'registration'%}" >Регистрация</a></li>
-                    </ul>
+                    </ul>                   
                 </nav>
--->
-            </header>            
-            {% block page_content %}
-            {% now "j F Y" %}
-            {% endblock %}
-            
-        </div>
-        <footer>
-            <p>&copy;All rights reserved</p>
-        </footer>
-    </div>
-</body>
-
-</html>

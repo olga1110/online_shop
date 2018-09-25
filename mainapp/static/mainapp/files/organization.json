@@ -1,8 +1,10 @@
-{'contact_details':
+{"contact_details":
         {
-            'tel': '8(342)229-78-28',
-            'address': 'г. Пермь, ул. Леонова, 68',
-            'email': 'info@kitchen-perm.ru',
-            'start_time': 10,
-            'end_time': 21,
-        }}
+            "tel": "8(342)229-78-28",
+            "address": "г. Пермь, ул. Леонова, 68",
+            "email": "info@kitchen-perm.ru",
+            "start_time": 10,
+            "end_time": 21
+        }
+		
+}
