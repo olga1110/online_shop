@@ -20,10 +20,10 @@ from . import views
 # from first.views import index
 
 urlpatterns = [
-    path('', views.mainapp_index),
-    path('Catalog/', views.mainapp_catalog),
-    path('Contacts/', views.mainapp_Contacts),
-    path('Registration/', views.mainapp_registration),
+    path('', views.mainapp_index, name='main'),
+    path('Catalog/', views.mainapp_catalog, name='catalog'),
+    path('Contacts/', views.mainapp_Contacts, name='contacts'),
+    path('Registration/', views.mainapp_registration, name='registration'),
 ]
 
 

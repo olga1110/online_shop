@@ -1,0 +1,14 @@
+                <nav>
+                    <ul class="menu">
+                        <li><a href="{% url 'main'%}">Главная</a></li>
+                        <li><a href="{% url 'catalog'%}" class="expand-catalog">Каталог</a>
+                            <div class="submenu">                             
+                                <a href="#">Обеденный стол</a>
+                                <a href="#">Диван для кухни</a>
+                                <a href="#">Кухонный гарнитур</a>                            
+                        </div>
+                        </li>
+                        <li><a href="{% url 'contacts'%}">Контакты</a></li>
+                        <li><a href="{% url 'registration'%}" >Регистрация</a></li>
+                    </ul>                   
+                </nav>
