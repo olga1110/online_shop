@@ -15,9 +15,13 @@
     <br>
     <br>
     <div class="sale">
-        <h2><strong>Акция!!!</strong></h2>
-        <h2><strong>Акция!!! <span class = "new_price"></span> </strong></h2>
-        <h2><strong>Акция!!!</strong></h2>
+        {% for cat in categories %}
+        <h2><strong>{{cat.name}}</strong></h2>
+        {% endfor %}
+
+        <!--<h2><strong>Акция!!!</strong></h2>-->
+        <!--<h2><strong>Акция!!! <span class = "new_price"></span> </strong></h2>-->
+        <!--<h2><strong>Акция!!!</strong></h2>-->
     </div>
 
     <main class="main">
