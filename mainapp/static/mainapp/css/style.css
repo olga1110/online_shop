@@ -195,7 +195,13 @@ h1 {
 
 /*Окончание стилей страницы "Контакты"*/
 
-.Description h2 {
+.Description .title{    
+    display:flex;
+    justify-content: space-between;
+    align-items: center;    
+}
+
+.Description h2, caption {
     color: #8B3A3A;
     font-size: 20px;
     font-weight: 800;
@@ -210,9 +216,9 @@ h1 {
 }
 
 .full_desc {
-    color: #484343;
+    color: #790c0c;
     font-size: 16px;
-    font-weight: 400;
+    font-weight: 500;
     line-height: 24px;
     text-align: left;
 }
@@ -224,7 +230,7 @@ h1 {
     line-height: 16px;
 }
 
-.short_desc label, .in_stock{
+.short_desc label, .in_stock, .title p{
     color: black;
     font-size: 20px;
     font-style: italic;
@@ -238,7 +244,7 @@ h1 {
     font-weight: 500;
 }
 
-.Description .feature li {
+.feature li {
     color: #5F9EA0;
     font-size: 14px;
     font-style: italic;
@@ -265,18 +271,55 @@ h1 {
 
 .Description img {
     border: 2px solid #483D8B;
-    float: left;
+    float: left;    
     margin-bottom: 30px;
-    margin-right: 20px;
+    margin-right: 30px;    
 }
 
 .Description img:hover {
     border: 2px solid transparent;
 }
 
+
+.product-hover {
+    border: 1px solid #9c9c9c;
+    background-color: #ffffff;
+    opacity: 0.9;
+    width: 512.61px;
+    height:304px;
+    position: absolute;
+    top: 0;
+    left: 0;    
+    box-sizing: border-box;
+/*
+    padding-top: 62px;
+    padding-bottom: 68px;
+*/
+    display: none;
+}
+
+.product-item{
+    margin-top: 50px;    
+    position:relative;
+}
+
+.product-item:hover .product-hover {
+    transition: 3s;   
+    display: block;
+}
+
+.full_desc p {
+    text-align:justify;
+}
+
+
 .full_desc p:first-letter {
     color: brown;
     font: 22px Verdana;
+}
+
+.desc_item {
+    overflow:hidden;
 }
 
 .Contacts textarea {
@@ -298,6 +341,7 @@ table {
     width: 350px;
     border: 2px solid #8B4513;
     border-collapse: collapse;
+    margin:auto;
 }
 
 td {
@@ -339,6 +383,7 @@ td {
     display: flex;
     justify-content: space-between;
     align-content: center;
+    
 }
 
 .product-page button {
@@ -386,10 +431,8 @@ button:hover {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-/*
     margin-top: 50px;
     margin-bottom: 50px;
-*/
 }
 
 .main .item img {
@@ -501,9 +544,10 @@ summary {
     font-size: 40px;
     font-weight: 900;
     color: red;
+    margin-top: 10px;
 }
 
-.short_desc label,
+.short_desc label, select
 p: {
     color: black;
     font-size: 16px;
@@ -585,12 +629,7 @@ p: {
 }
 
 .item img {
-    width: 500px;    
-}
-
-.item{
-    margin-bottom: 20px;
-    margin-right: 20px;
+    width: 500px;
 }
 
 .catalog-page .main .item {

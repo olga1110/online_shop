@@ -1,0 +1,115 @@
+{% extends 'product.html' %}
+{% load staticfiles %}
+ {% block product_image %}
+ 
+<a href="../Img/kitchen_set.jpg" target="_blank"> <img src="{%static 'mainapp/img/kitchen_set.jpg' %}" alt="Кухонный гарнитур" title="Кухонный гарнитур" height=300></a>
+{% endblock %}
+
+{% block product_table %}
+<table class="kitchen_set">
+                                <caption>Технические характеристики:</caption>
+                                <tr>
+                                    <td>
+                                        <h3>Цвет корпуса:</h3> </td>
+                                    <td>Серый</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h3>Цвет фасада:</h3> </td>
+                                    <td>Лён</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h3>Материал:</h3> </td>
+                                    <td>
+                                        <ul>
+                                            <li>Корпус ЛДСП</li>
+                                            <li>Столешница в&nbsp;стоимость модулей не&nbsp;входит, приобретается отдельно</li>
+                                            <li>Фасад: ЛДСП + Декоративное стекло с&nbsp;орнаментом</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </table>
+{% block modules_of_product %}
+<article>
+                    <h3>Модули и&nbsp;цены: </h3>
+                    <br>
+                    <ol class="feature">
+                        <li>Стол-рабочий 1000 (угловой под мойку) М1000У&nbsp;&mdash; 1&nbsp;950 руб</li>
+                        <li> Стол-рабочий 850 (угловой под мойку) М850У&nbsp;&mdash; 2&nbsp;010 руб</li>
+                        <li> Стол-рабочий 800 (под мойку) М800&nbsp;&mdash; 2&nbsp;200 руб</li>
+                        <li>Стол-рабочий 600 (под мойку) М600&nbsp;&mdash; 1&nbsp;800 руб </li>
+                        <li> Стол-рабочий 800 С800&nbsp;&mdash; 2&nbsp;240 руб</li>
+                        <li>Стол-рабочий 800 (с&nbsp;ящиком и&nbsp;створками) С800ЯС&nbsp;&mdash; 2&nbsp;690 руб</li>
+                        <li>Стол-рабочий 600 С600&nbsp;&mdash; 1&nbsp;850 руб</li>
+                        <li>Стол-рабочий 600 (под плиту) С600П&nbsp;&mdash; 1&nbsp;550 руб</li>
+                        <li> Стол-рабочий 600 (с&nbsp;ящиками) С600Я&nbsp;&mdash; 2&nbsp;760 руб</li>
+                        <li>Стол-рабочий 600 (с&nbsp;ящиком и&nbsp;створками) С600ЯС&nbsp;&mdash; 2&nbsp;310 руб</li>
+                        <li> Стол-рабочий 550 С550&nbsp;&mdash; 1&nbsp;760 руб Стол-рабочий 500 С500&nbsp;&mdash; 1&nbsp;720 руб</li>
+                        <li>Стол-рабочий 500 (с&nbsp;ящиками) С500Я&nbsp;&mdash; 2&nbsp;580 руб</li>
+                        <li>Стол-рабочий 500 (с&nbsp;ящиком и&nbsp;створками) С500ЯС&nbsp;&mdash; 1&nbsp;980 руб</li>
+                        <li> Стол-рабочий 450 С450&nbsp;&mdash; 1&nbsp;660 руб Стол-рабочий 400 С400&nbsp;&mdash; 1&nbsp;550 руб</li>
+                        <li>Стол-рабочий 400 (торцевой) С400Т&nbsp;&mdash; 1&nbsp;900 руб </li>
+                        <li>Стол-рабочий 400 (торцевой с&nbsp;полками) С400ТП&nbsp;&mdash; 1&nbsp;660 руб</li>
+                        <li>Стол-рабочий 400 (с&nbsp;ящиками) С400Я&nbsp;&mdash; 2&nbsp;210 руб</li>
+                        <li>Стол-рабочий 400 (с&nbsp;ящиком и&nbsp;створками) С400ЯС&nbsp;&mdash; 1&nbsp;760 руб</li>
+                        <li>Стол-рабочий 350 С350&nbsp;&mdash; 1&nbsp;440 руб Стол-рабочий 300 С300&nbsp;&mdash; 1&nbsp;380 руб</li>
+                    </ol>
+                </article>
+                <br>
+                <br>
+{% endblock %}
+
+{% block analogue %}
+
+
+<article class="analogue">
+                    <table>
+                        <caption>
+                            <h3>Сравнение с&nbsp;аналогами:</h3>
+                            <br> </caption>
+                        <tr>
+                            <th>Наименование</th>
+                            <th>Цвет корпуса</th>
+                            <th>Цвет фасада</th>
+                            <th>Материал</th>
+                            <th>Страна&nbsp;&mdash; производитель</th>
+                            <th>Стоимость</th>
+                        </tr>
+                        <tr>
+                            <td>Оптима</td>
+                            <td>Бежевый</td>
+                            <td>Венге</td>
+                            <td>ЛДСП+стекло</td>
+                            <td rowspan="3">Россия</td>
+                            <td>65&nbsp;тыс</td>
+                        </tr>
+                        <tr>
+                            <td>Стандарт</td>
+                            <td>Изумрудный</td>
+                            <td>Лайм</td>
+                            <td rowspan="2">ЛДСП</td>
+                            <td>57&nbsp;тыс</td>
+                        </tr>
+                        <tr>
+                            <td>Люкс</td>
+                            <td>Серебристый</td>
+                            <td>Золотистый</td>
+                            <td>80&nbsp;тыс</td>
+                        </tr>
+                        <tr>
+                            <td>Медиум</td>
+                            <td colspan="2">Бронза</td>
+                            <td>ЛДСП+стекло</td>
+                            <td>Белоруссия</td>
+                            <td>60&nbsp;тыс</td>
+                        </tr>
+                        <tr>
+                            <td>New model*</td>
+                            <td colspan="5">Отсутствует в&nbsp;продаже</td>
+                        </tr>
+                    </table>
+                </article>
+{% endblock %} 
+
+{% endblock %}

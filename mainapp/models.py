@@ -1,3 +1,37 @@
 from django.db import models
 
+
 # Create your models here.
+
+class Category(models.Model):
+    name = models.CharField(verbose_name='Наименование продукта', max_length=200, unique=True)
+    descr = models.TextField(verbose_name='Подробное описание', blank=True)
+    modified = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Product(models.Model):
+    name = models.CharField(verbose_name='Наименование продукта', max_length=150, unique=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='products_images', blank=True)
+    short_desc = models.CharField(verbose_name='Краткое описание', max_length=60,
+                                  blank=True)
+    descr = models.TextField(verbose_name='Подробное описание', blank=True)
+    price = models.DecimalField(verbose_name='Цена', max_digits=8,
+                                decimal_places=2, default=0)
+    discount = models.DecimalField(verbose_name='Скидка', max_digits=4,
+                                decimal_places=2, default=0)
+    quantity = models.PositiveIntegerField(verbose_name='Количество на складе', default=0)
+
+    modified = models.DateTimeField(auto_now=True)
+
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return "{} ({}р., {}шт.)".format(self.name, self.price, self.quantity)
+
+
+

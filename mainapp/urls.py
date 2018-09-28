@@ -24,6 +24,10 @@ urlpatterns = [
     path('Catalog/', views.mainapp_catalog, name='catalog'),
     path('Contacts/', views.mainapp_Contacts, name='contacts'),
     path('Registration/', views.mainapp_registration, name='registration'),
+    path('Catalog/Table/', views.mainapp_table, name='table'),
+    path('Catalog/Sofa/', views.mainapp_sofa, name='sofa'),
+    path('Catalog/Kitchen_set/', views.mainapp_kitchen_set, name='set'),
+    path('Catalog/Area/', views.mainapp_area_comfort, name='area_comfort'),
 ]
 
 

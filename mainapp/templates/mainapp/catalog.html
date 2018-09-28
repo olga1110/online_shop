@@ -16,14 +16,14 @@
     <br>
     <div class="sale">
         <h2><strong>Акция!!!</strong></h2>
-        <h2><strong>Акция!!! {{proc|floatformat:"-1"}}%</strong></h2>
+        <h2><strong>Акция!!! <span class = "new_price"></span> </strong></h2>
         <h2><strong>Акция!!!</strong></h2>
     </div>
 
     <main class="main">
         {% for link in links %}
         <figure class="item">
-            <a href={{link.href}}> <img src={{link.src}} title={{link.name}}>
+            <a href={{link.href}}>  <img src={{link.src}} title={{link.name}}>
                 <br>
                 <p>{{link.name}}</p>
             </a>

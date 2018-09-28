@@ -1,0 +1,59 @@
+{% extends 'master.html' %}
+{% load staticfiles %}
+{% block page_title %} Table
+{% endblock %}
+{% block page_styles %}
+<link rel="stylesheet" href="{% static 'mainapp/css/style.css' %}">
+{% endblock %}
+
+{% block page_content %}
+{{ block.super }}
+<div class="product-page Description">
+    <div class="title">        
+        <h1>{{product.short_desc}}</h1>
+        <p> Скидка: <span class="new_price">{{product.discount|floatformat}}%</span></p>
+    </div>
+    <div class="product-item">
+ {% block product_image %}
+ {% endblock %}
+        <div class="product-hover">
+            <section class="feature">
+
+                <br>
+{% block product_table %}
+{% endblock %}
+            </section>
+        </div>
+    </div>
+    <div class="desc_item">
+        <section class="short_desc">
+            <div class="price">
+                <p class="old_price">{{product.price|floatformat}}р</p>
+                <p class="new_price">{{new_price|floatformat}}p</p>
+
+            </div>
+            <br>
+            <br>
+            <br>
+            <p class="in_stock">В наличии: {{product.quantity}} шт</p>
+            <br>
+            <br></section>
+        <section class="full_desc">
+            <details class="customers-form">
+                <summary>Подробнее...</summary>
+                <article>
+                    <p>{{product.descr}}</p>
+                </article>
+            </details>
+        </section>
+        <button type="submit">В&nbsp;корзину!</button>
+    </div>
+    </div>
+{% block modules_of_product %}
+{% endblock %}
+
+{% block analogue %}
+{% endblock %}   
+
+   
+    {% endblock %}

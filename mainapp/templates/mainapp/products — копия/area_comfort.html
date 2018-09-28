@@ -1,0 +1,121 @@
+{% extends 'master.html' %}
+
+{% load staticfiles %}
+
+{% block page_title %} Kitchen corner
+{% endblock %}
+{% block page_styles %}
+<link rel="stylesheet" href="{% static 'mainapp/css/style.css' %}">
+{% endblock %}
+
+{% block page_content %}
+{{ block.super }}
+            <div class="product-page Description">
+               <div class="title">
+                <h1>Кухонный уголок(комфорт)</h1>
+                <p> Скидка: <span class="new_price">15%</span></p>                
+                </div>
+                <div class="product-item">
+                    <a href="{%static 'mainapp/img/kukhonnyy_ugolok_komfort.jpg' %}"target="_blank"> <img src="{%static 'mainapp/img/kukhonnyy_ugolok_komfort.jpg' %}" alt="Кухонный уголок" title="Кухонный уголок" height=300> </a>
+                    <div class="product-hover">
+                        <section class="feature">
+                            <!--                    <h2>Технические характеристики:</h2>-->
+                            <br>
+                            <!--<h3>Размеры:</h3>
+                <p>1180*1840*900&nbsp;мм</p>
+                <h3>Материал:</h3>
+                <ul>
+                    <li>ЛДСП</li>
+                    <li>Кож.зам</li>
+                </ul>
+                <h3>Цвет:</h3>
+                <p>Венге/Жемчужный</p>
+                <h3>Производитель:</h3>
+                <p>фабрика Новокузнецк</p>-->
+                            <table>
+                                <caption>Технические характеристики:</caption>
+                                <tr>
+                                    <td colspan="2">
+                                        <h3>Габариты (мм):</h3> </td>
+                                </tr>
+                                <tr>
+                                    <td>Длина</td>
+                                    <td>1180</td>
+                                </tr>
+                                <tr>
+                                    <td>Глубина</td>
+                                    <td>1840</td>
+                                </tr>
+                                <tr>
+                                    <td>Высота</td>
+                                    <td>900</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <h3>Дополнительные характеристики:</h3> </td>
+                                </tr>
+                                <tr>
+                                    <td>Материал</td>
+                                    <td>
+                                        <ul>
+                                            <li>ЛДСП</li>
+                                            <li>Кож.зам</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Цвет</td>
+                                    <td>Венге/Жемчужный</td>
+                                </tr>
+                                <tr>
+                                    <td>Производитель</td>
+                                    <td>фабрика Новокузнецк</td>
+                                </tr>
+                                <tr>
+                                    <td>Съемные чехлы</td>
+                                    <td>Нет</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <h3>Гарантия 12&nbsp;мес.</h3> </td>
+                                </tr>
+                            </table>
+                        </section>
+                    </div>
+                </div>
+                <div class="desc_item">
+                    <section class="short_desc">                        
+                        <div class="price">
+                            <p class="old_price">19 100р</p>
+                            <p class="new_price">16 200p</p>
+                            
+                        </div>
+                        
+                        <br>
+<!--
+                        <label>Выберите другой цвет:
+                            <select>
+                                <option>Изумрудный</option>
+                                <option>Бирюзовый</option>
+                                <option>Коралловый</option>
+                            </select>
+                        </label>
+-->
+                        <br>
+                        <br>
+                        <p class="in_stock">В наличии: 5 шт</p>
+                        <br>
+                        <br> </section>
+                    <section class="full_desc">
+                        <details class="customers-form">
+                            <summary>Подробнее...</summary>
+                            <article>
+                                <p>Кухонный уголок даст возможность организовать обеденную зону в компактной кухне. У этой модели масса преимуществ: универсальный угол, раздвижная боковая секция, позволяющая при необходимости увеличить количество посадочных мест, вместительный отсек для хранения бытовых мелочей и белья, удобные широкие подлокотники. Кроме того, уголок оборудован спальным местом, что весьма актуально, если необходимо на ночь разместить гостя.</p>
+                                <p>Удобная скамья и спинка углового дивана делают пребывание за столом необыкновенно комфортным. Обивка из искусственной кожи – идеальный вариант для кухонной мягкой мебели, поскольку практически не требует усилий при уборке.</p>
+                            </article>
+                        </details>
+                    </section>
+                    <button type="submit">В&nbsp;корзину!</button>
+                </div>
+            </div>
+{% endblock %}
