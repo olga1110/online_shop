@@ -1,0 +1,37 @@
+{% extends 'master.html' %}
+
+{% load staticfiles %}
+
+{% block page_title %} Catalog
+{% endblock %}
+{% block page_styles %}
+<link rel="stylesheet" href="{% static 'mainapp/css/style.css' %}">
+{% endblock %}
+
+{% block page_content %}
+{{ block.super }}
+<h1><strong><em> {{category.short_desc}}</em></strong></h1>
+
+<div class="catalog-page">
+
+    <br>
+    <br>
+
+
+        <main class="main">
+            {% for product in products %}
+            <figure class="item">
+                <a href="/Catalog/{{category.name}}/{{product.name}}/"> <img src="{{ product.image.url }}"
+                                                   alt={{product.short_desc}}
+                                                   title={{product.short_desc}}
+                                                   height=300>
+                <br>
+                <p>{{product.short_desc}}</p>
+    </a>
+    </figure>
+
+    {% endfor %}
+    </main>
+
+</div>
+{% endblock %}

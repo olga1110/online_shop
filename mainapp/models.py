@@ -5,6 +5,8 @@ from django.db import models
 
 class Category(models.Model):
     name = models.CharField(verbose_name='Наименование продукта', max_length=200, unique=True)
+    short_desc = models.CharField(verbose_name='Краткое описание', max_length=60,
+                                  blank=True)
     descr = models.TextField(verbose_name='Подробное описание', blank=True)
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)

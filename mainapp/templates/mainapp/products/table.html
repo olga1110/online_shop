@@ -1,55 +1,56 @@
 {% extends 'product.html' %}
 {% load staticfiles %}
- {% block product_image %}
- 
-        <a href="{%static 'mainapp/img/table.jpg' %}" target="_blank"> <img src="{%static 'mainapp/img/table.jpg' %}"
-                                                         alt="Обеденный стол(стекло)" title="Обеденный стол(стекло)"
-                                                         height=300> </a>
-                                                         {% endblock %}
-{% block product_table %}
-<table>
-                    <caption>Технические характеристики:</caption>
-                    <tr>
-                        <td colspan="2">
-                            <h3>Габариты (см):</h3></td>
-                    </tr>
-                    <tr>
-                        <td>Длина</td>
-                        <td>1710</td>
-                    </tr>
-                    <tr>
-                        <td>Глубина</td>
-                        <td>750</td>
-                    </tr>
-                    <tr>
-                        <td>Высота</td>
-                        <td>1000</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <h3>Дополнительные характеристики:</h3></td>
-                    </tr>
-                    <tr>
-                        <td>Материал</td>
-                        <td>
-                            <ul>
-                                <li>ЛДСП</li>
-                                <li>Металл</li>
-                                <li>Стекло</li>
-                            </ul>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Производитель</td>
-                        <td>ЦМ</td>
-                    </tr>
-                    <tr>
-                        <td>Съемные чехлы</td>
-                        <td>Нет</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <h3>Гарантия 18&nbsp;мес.</h3></td>
-                    </tr>
-                </table>
+ <!--{% block product_image %}-->
+
+<!--"{%static 'mainapp/img/table.jpg' %}"-->
+        <!--<a href="{%static 'mainapp/img/table.jpg' %}" target="_blank"> <img src={{ entry.image.url }}-->
+                                                         <!--alt="Обеденный стол(стекло)" title="Обеденный стол(стекло)"-->
+                                                         <!--height=300> </a>-->
+                                                         <!--{% endblock %}-->
+<!--{% block product_table %}-->
+<!--<table>-->
+                    <!--<caption>Технические характеристики:</caption>-->
+                    <!--<tr>-->
+                        <!--<td colspan="2">-->
+                            <!--<h3>Габариты (см):</h3></td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td>Длина</td>-->
+                        <!--<td>1710</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td>Глубина</td>-->
+                        <!--<td>750</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td>Высота</td>-->
+                        <!--<td>1000</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td colspan="2">-->
+                            <!--<h3>Дополнительные характеристики:</h3></td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td>Материал</td>-->
+                        <!--<td>-->
+                            <!--<ul>-->
+                                <!--<li>ЛДСП</li>-->
+                                <!--<li>Металл</li>-->
+                                <!--<li>Стекло</li>-->
+                            <!--</ul>-->
+                        <!--</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td>Производитель</td>-->
+                        <!--<td>ЦМ</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td>Съемные чехлы</td>-->
+                        <!--<td>Нет</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td colspan="2">-->
+                            <!--<h3>Гарантия 18&nbsp;мес.</h3></td>-->
+                    <!--</tr>-->
+                <!--</table>-->
 {% endblock %}

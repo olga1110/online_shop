@@ -1,6 +1,6 @@
 {% extends 'master.html' %}
 {% load staticfiles %}
-{% block page_title %} Table
+{% block page_title %} {{product.name}}
 {% endblock %}
 {% block page_styles %}
 <link rel="stylesheet" href="{% static 'mainapp/css/style.css' %}">
@@ -9,19 +9,24 @@
 {% block page_content %}
 {{ block.super }}
 <div class="product-page Description">
-    <div class="title">        
+    <div class="title">
         <h1>{{product.short_desc}}</h1>
         <p> Скидка: <span class="new_price">{{product.discount|floatformat}}%</span></p>
     </div>
     <div class="product-item">
- {% block product_image %}
- {% endblock %}
+        <!--{% block product_image %}-->
+        <!--{% endblock %}-->
+
+        <a href=="{{ product.image.url }}" target="_blank"> <img src="{{ product.image.url }}"
+                                                                            alt={{product.short_desc}}
+                                                                            title={{product.short_desc}}
+                                                                            height=300> </a>
         <div class="product-hover">
             <section class="feature">
 
                 <br>
-{% block product_table %}
-{% endblock %}
+                {% block product_table %}
+                {% endblock %}
             </section>
         </div>
     </div>
@@ -48,12 +53,12 @@
         </section>
         <button type="submit">В&nbsp;корзину!</button>
     </div>
-    </div>
+</div>
 {% block modules_of_product %}
 {% endblock %}
 
 {% block analogue %}
-{% endblock %}   
+{% endblock %}
 
-   
-    {% endblock %}
+
+{% endblock %}

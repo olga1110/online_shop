@@ -25,10 +25,10 @@ def mainapp_catalog(request):
     # content = {'title': title, 'products': products}
 
     product_items = {'links':
-                         [{'href': 'Table/', 'src': '/static/img/table.jpg', 'name': 'Обеденный стол(стекло)', },
-                          {'href': 'Sofa/', 'src': '/static/img/sofa.png', 'name': 'Диван для кухни', },
-                          {'href': 'Kitchen_set/', 'src': '/static/img/kitchen_set.jpg', 'name': 'Кухонный гарнитур', },
-                          {'href': 'Area/', 'src': '/static/img/corner_komfort.jpg',
+                         [{'href': '/Catalog/Tables/Table/', 'src': '/static/img/table.jpg', 'name': 'Обеденный стол(стекло)', },
+                          {'href': '/Catalog/Sofas/Sofa/', 'src': '/static/img/sofa.png', 'name': 'Диван для кухни', },
+                          {'href': '/Catalog/Suite/Set/', 'src': '/static/img/kitchen_set.jpg', 'name': 'Кухонный гарнитур', },
+                          {'href': '/Catalog/Suite/Couch/', 'src': '/static/img/corner_komfort.jpg',
                            'name': 'Кухонный уголок(комфорт)', },
                           ],
                      'proc': 20,
@@ -79,32 +79,46 @@ def mainapp_registration(request):
 
 
 # Страницы товаров из каталога
-def mainapp_area_comfort(request):
-    update_database('Уголок')
-    table = models.Product.objects.get(name='Уголок')
-    context = {'product': table, 'new_price': table.price * (1 - table.discount / 100)}
-    return render(request, 'mainapp/products/area_comfort.html', context)
+# def mainapp_area_comfort(request):
+#     update_database('Уголок')
+#     table = models.Product.objects.get(name='Уголок')
+#     context = {'product': table, 'new_price': table.price * (1 - table.discount / 100)}
+#     return render(request, 'mainapp/products/area_comfort.html', context)
+#
+#
+# def mainapp_kitchen_set(request):
+#     update_database('Гарнитур')
+#     table = models.Product.objects.get(name='Гарнитур')
+#     context = {'product': table, 'new_price': table.price * (1 - table.discount / 100)}
+#     return render(request, 'mainapp/products/kitchen_set.html', context)
+#
+#
+# def mainapp_sofa(request):
+#     update_database('Диван')
+#     table = models.Product.objects.get(name='Диван')
+#     context = {'product': table, 'new_price': table.price * (1 - table.discount / 100)}
+#     return render(request, 'mainapp/products/sofa.html', context)
+#
+#
+# def mainapp_table(request):
+#     update_database('Стол')
+#     table = models.Product.objects.get(name='Стол')
+#     context = {'product': table, 'new_price': table.price * (1 - table.discount / 100)}
+#
+#     return render(request, 'mainapp/components/product.html', context)
 
 
-def mainapp_kitchen_set(request):
-    update_database('Гарнитур')
-    table = models.Product.objects.get(name='Гарнитур')
-    context = {'product': table, 'new_price': table.price * (1 - table.discount / 100)}
-    return render(request, 'mainapp/products/kitchen_set.html', context)
+def product_detail(request, title):
+    update_database(title)
+    obj = get_object_or_404(models.Product, name=title)
+    context = {'product': obj, 'new_price': obj.price * (1 - obj.discount / 100)}
+    return render(request, 'mainapp/components/product.html', context)
 
+def category_detail(request, title):
+    cat = models.Category.objects.get(name=title)
 
-def mainapp_sofa(request):
-    update_database('Диван')
-    table = models.Product.objects.get(name='Диван')
-    context = {'product': table, 'new_price': table.price * (1 - table.discount / 100)}
-    return render(request, 'mainapp/products/sofa.html', context)
+    products = models.Product.objects.filter(category=cat.id)
 
-
-def mainapp_table(request):
-    update_database('Стол')
-    table = models.Product.objects.get(name='Стол')
-    context = {'product': table, 'new_price': table.price * (1 - table.discount / 100)}
-
-    return render(request, 'mainapp/products/table.html', context)
+    return render(request, 'mainapp/components/categories.html', {'products':products, 'category':cat})
 
 

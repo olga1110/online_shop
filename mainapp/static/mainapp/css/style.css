@@ -285,7 +285,7 @@ h1 {
     border: 1px solid #9c9c9c;
     background-color: #ffffff;
     opacity: 0.9;
-    width: 512.61px;
+    width: 428.33px;
     height:304px;
     position: absolute;
     top: 0;
@@ -303,10 +303,12 @@ h1 {
     position:relative;
 }
 
+/*
 .product-item:hover .product-hover {
     transition: 3s;   
     display: block;
 }
+*/
 
 .full_desc p {
     text-align:justify;
