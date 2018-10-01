@@ -21,7 +21,7 @@
         <main class="main">
             {% for product in products %}
             <figure class="item">
-                <a href="/Catalog/{{category.name}}/{{product.name}}/"> <img src="{{ product.image.url }}"
+                <a href="/Catalog/{{category.name}}/{{product.name}}/"> <img src="/media/{{product.image.value}}"
                                                    alt={{product.short_desc}}
                                                    title={{product.short_desc}}
                                                    height=300>
