@@ -16,11 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path
 from . import views
-# from first.views import index
+
+
+# app_name = 'mainapp'
 
 urlpatterns = [
-    path('', views.mainapp_index, name='main'),
-    path('Catalog/', views.mainapp_catalog, name='catalog'),
+    path('', views.mainapp_index, name='start_page'),
     path('Contacts/', views.mainapp_Contacts, name='contacts'),
     path('Registration/', views.mainapp_registration, name='registration'),
     # path('Catalog/Table/', views.mainapp_table, name='table'),
@@ -34,6 +35,8 @@ urlpatterns = [
     path('Catalog/Suite/<slug:title>/', views.product_detail, name='suite'),
     # re_path(r'^Catalog/(\w+)/<slug:title>$', views.product_detail, name='product_detail'),
     path('Catalog/<slug:title>/', views.category_detail, name='category'),
+    path('Catalog/', views.mainapp_catalog, name='catalog'),
+    path('update/<slug:title>/', views.product_update, name='update'),
 ]
 
 

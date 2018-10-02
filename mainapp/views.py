@@ -1,7 +1,8 @@
 import json
 # import simplejson
-from django.shortcuts import render, get_list_or_404, get_object_or_404
+from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404
 from django.template.loader import get_template
+from django.urls import reverse_lazy
 from django.http import HttpResponse
 from . import models
 from . import forms
@@ -98,32 +99,63 @@ def category_create(request):
     return render(request, 'mainapp/create.html', {'form': form})
 
 
+# def product_create(request):
+#
+#     form = forms.ProductForm(request.POST)
+#     if request.method == 'POST':
+#         if form.is_valid():
+#             name = form.cleaned_data.get('name')
+#             category = form.cleaned_data.get('category')
+#             image = form.cleaned_data.get('image')
+#             short_desc = form.cleaned_data.get('short_desc')
+#             desc = form.cleaned_data.get('desc')
+#             price = form.cleaned_data.get('price')
+#             discount = form.cleaned_data.get('discount')
+#             quantity = form.cleaned_data.get('quantity')
+#
+#         models.Product.objects.create(
+#             name=name,
+#             category=category,
+#             image=image,
+#             short_desc=short_desc,
+#             desc=desc,
+#             price=price,
+#             discount=discount,
+#             quantity=quantity
+#              )
+#
+#     return render(request, 'mainapp/create.html', {'form': form})
+
+
 def product_create(request):
 
-    form = forms.ProductForm(request.POST)
+    redir_url = reverse_lazy('catalog')
+    form = forms.ProductModelForm(request.POST)
     if request.method == 'POST':
         if form.is_valid():
-            name = form.cleaned_data.get('name')
-            category = form.cleaned_data.get('category')
-            image = form.cleaned_data.get('image')
-            short_desc = form.cleaned_data.get('short_desc')
-            desc = form.cleaned_data.get('desc')
-            price = form.cleaned_data.get('price')
-            discount = form.cleaned_data.get('discount')
-            quantity = form.cleaned_data.get('quantity')
-
-        models.Product.objects.create(
-            name=name,
-            category=category,
-            image=image,
-            short_desc=short_desc,
-            desc=desc,
-            price=price,
-            discount=discount,
-            quantity=quantity
-             )
-
+            form.save()
+            # return redirect('/')
+            return redirect(redir_url)
     return render(request, 'mainapp/create.html', {'form': form})
+
+
+def product_update(request, title):
+    redir_url = reverse_lazy('catalog')
+    obj = get_object_or_404(models.Product, name=title)
+    form = forms.ProductModelForm(instance=obj)
+    if request.method == 'POST':
+        form = forms.ProductModelForm(
+            request.POST,
+            instance=obj
+        )
+        if form.is_valid():
+            form.save()
+            return redirect(redir_url)
+    return render(request, 'mainapp/create.html', {'form': form})
+
+
+
+
 
 
 
