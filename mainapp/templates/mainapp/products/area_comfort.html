@@ -1,0 +1,60 @@
+{% extends 'product.html' %}
+{% load staticfiles %}
+ {% block product_image %}
+ 
+<a href="{%static 'mainapp/img/kukhonnyy_ugolok_komfort.jpg' %}"target="_blank"> <img src="{%static 'mainapp/img/kukhonnyy_ugolok_komfort.jpg' %}" alt="Кухонный уголок" title="Кухонный уголок" height=300> </a>
+{% endblock %}
+
+{% block product_table %}
+<table>
+     <caption>Технические характеристики:</caption>
+                                <tr>
+                                    <td colspan="2">
+                                        <h3>Габариты (мм):</h3> </td>
+                                </tr>
+                                <tr>
+                                    <td>Длина</td>
+                                    <td>1180</td>
+                                </tr>
+                                <tr>
+                                    <td>Глубина</td>
+                                    <td>1840</td>
+                                </tr>
+                                <tr>
+                                    <td>Высота</td>
+                                    <td>900</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <h3>Дополнительные характеристики:</h3> </td>
+                                </tr>
+                                <tr>
+                                    <td>Материал</td>
+                                    <td>
+                                        <ul>
+                                            <li>ЛДСП</li>
+                                            <li>Кож.зам</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Цвет</td>
+                                    <td>Венге/Жемчужный</td>
+                                </tr>
+                                <tr>
+                                    <td>Производитель</td>
+                                    <td>фабрика Новокузнецк</td>
+                                </tr>
+                                <tr>
+                                    <td>Съемные чехлы</td>
+                                    <td>Нет</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <h3>Гарантия 12&nbsp;мес.</h3> </td>
+                                </tr>                          
+                           </table>
+
+
+
+{% endblock %}
