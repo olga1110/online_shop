@@ -18,7 +18,7 @@
         {% for cat in categories %}
         <h2><a href="/Catalog/{{cat.id}}/" title={{cat.descr}}>{{cat.short_desc}}</a></h2>
         {% endfor %}
-
+        <a href="{% url 'categories:create'%}">Добавить категорию</a>
         <!--<h2><strong>Акция!!!</strong></h2>-->
         <!--<h2><strong>Акция!!! <span class = "new_price"></span> </strong></h2>-->
         <!--<h2><strong>Акция!!!</strong></h2>-->

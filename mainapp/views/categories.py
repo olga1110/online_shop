@@ -10,7 +10,7 @@ from django.views.generic import (
     DeleteView, ListView, DetailView,
 )
 from mainapp.models import Category, Product
-from mainapp.forms import CategoryForm
+from mainapp.forms import CategoryForm, CategoryModelForm
 
 
 # class CategoryCreate(View):
@@ -32,14 +32,14 @@ from mainapp.forms import CategoryForm
 
 class CategoryGenericCreate(CreateView):
     model = Category
-    form_class = CategoryForm
+    form_class = CategoryModelForm
     template_name = 'create.html'
     success_url = reverse_lazy('products:catalog')
 
 
 class CategoryGenericUpdate(UpdateView):
     model = Category
-    form_class = CategoryForm
+    form_class = CategoryModelForm
     template_name = 'create.html'
     success_url = reverse_lazy('products:catalog')
 
@@ -64,6 +64,7 @@ class CategoryGenericUpdate(UpdateView):
 
 class CategoryDetail(DetailView):
     model = Category
+    form_class = CategoryModelForm
     template_name = 'mainapp/components/categories.html'
     context_object_name = 'category'
 
