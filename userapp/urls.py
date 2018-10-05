@@ -6,7 +6,14 @@ from django.conf.urls.static import static
 import userapp.views as userapp
 import mainapp.urls
 
+
+app_name = 'auth'
+
 urlpatterns = [
-    # path(r'^login/$', userapp.login, name='login'),
-    # path(r'^logout/$', userapp.logout, name='logout'),
+    path('login/', userapp.login, name='login'),
+    path('logout/', userapp.logout, name='logout'),
+    path('register/', userapp.register, name='register'),
+    path('edit/', userapp.edit, name='edit'),
 ]
+
+
