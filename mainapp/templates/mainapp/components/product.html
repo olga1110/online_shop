@@ -17,7 +17,7 @@
         <!--{% block product_image %}-->
         <!--{% endblock %}-->
 
-        <a href=="{{ product.image.url }}" target="_blank"> <img src="{{ product.image.url }}"
+        <a href=="{{ product.image.url }}" target="_blank"> <img src="/media/{{product.image.value}}"
                                                                             alt={{product.short_desc}}
                                                                             title={{product.short_desc}}
                                                                             height=300> </a>
@@ -47,7 +47,7 @@
             <details class="customers-form">
                 <summary>Подробнее...</summary>
                 <article>
-                    <p>{{product.descr}}</p>
+                    <p>{{product.desc}}</p>
                 </article>
             </details>
         </section>
