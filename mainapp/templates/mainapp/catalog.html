@@ -16,7 +16,7 @@
     <br>
     <div class="sale">
         {% for cat in categories %}
-        <h2><a href="/Catalog/{{cat.name}}/" title = {{cat.descr}}>{{cat.short_desc}}</a></h2>
+        <h2><a href="/Catalog/{{cat.id}}/" title={{cat.descr}}>{{cat.short_desc}}</a></h2>
         {% endfor %}
 
         <!--<h2><strong>Акция!!!</strong></h2>-->
@@ -26,17 +26,32 @@
 
     <h3>Акция только в октябре! Скидки до 20% </h3>
 
-    <main class="main">
-        {% for link in links %}
-        <figure class="item">
-            <a href={{link.href}}><img src={{link.src}} title={{link.name}}>
-                <br>
-                <p>{{link.name}}</p>
-            </a>
-        </figure>
+    <!--<main class="main">-->
+        <!--{% for link in links %}-->
+        <!--<figure class="item">-->
+            <!--<a href={{link.href}}><img src={{link.src}} title={{link.name}}>-->
+                <!--<br>-->
+                <!--<p>{{link.name}}</p>-->
+            <!--</a>-->
+        <!--</figure>-->
 
-        {% endfor %}
+        <!--{% endfor %}-->
+    <!--</main>-->
+         <main class="main">
+            {% for product in products%}
+            <figure class="item">
+                <a href="/Catalog/{{product.category.name}}/{{product.id}}/"> <img src="/media/{{product.image.value}}"
+                                                   alt={{product.short_desc}}
+                                                   title={{product.short_desc}}
+                                                   height=300>
+                <br>
+                <p>{{product.short_desc}}</p>
+    </a>
+    </figure>
+
+    {% endfor %}
     </main>
+
 
 </div>
 {% endblock %}

@@ -1,5 +1,6 @@
 {% extends 'master.html' %}
 {% load staticfiles %}
+{% load my_tags %}
 {% block page_title %} {{product.name}}
 {% endblock %}
 {% block page_styles %}
@@ -34,7 +35,8 @@
         <section class="short_desc">
             <div class="price">
                 <p class="old_price">{{product.price|floatformat}}р</p>
-                <p class="new_price">{{new_price|floatformat}}p</p>
+                <!--<p class="new_price">{{new_price|floatformat}}p</p>-->
+                <p class="new_price">{{product.price|discount:product.discount|floatformat}}p</p>
 
             </div>
             <br>

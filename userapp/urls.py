@@ -7,6 +7,6 @@ import userapp.views as userapp
 import mainapp.urls
 
 urlpatterns = [
-    url(r'^login/$', userapp.login, name='login'),
-    url(r'^logout/$', userapp.logout, name='logout'),
+    # path(r'^login/$', userapp.login, name='login'),
+    # path(r'^logout/$', userapp.logout, name='logout'),
 ]
