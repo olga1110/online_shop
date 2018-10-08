@@ -10,18 +10,18 @@
 
 {% block page_content %}
 {{ block.super }}
+<div class="customers-form">
 <h1><strong><em> {{category.short_desc}}</em></strong></h1>
-
+<a href="{% url 'products:create'%}">Добавить товар</a>
+</div>
 <div class="catalog-page">
 
     <br>
     <br>
-
-
         <main class="main">
-            {% for product in products %}
+            {% for product in products%}
             <figure class="item">
-                <a href="/Catalog/{{category.name}}/{{product.name}}/"> <img src="{{ product.image.url }}"
+                <a href="/Catalog/{{category.name}}/{{product.id}}/"> <img src="/media/{{product.image.value}}"
                                                    alt={{product.short_desc}}
                                                    title={{product.short_desc}}
                                                    height=300>
@@ -32,6 +32,8 @@
 
     {% endfor %}
     </main>
-
+<a href="/categories/update/{{category.id}}/">Редактировать</a>
+<br><br>
+<a href="/categories/delete/{{category.id}}/">Удалить</a>
 </div>
 {% endblock %}

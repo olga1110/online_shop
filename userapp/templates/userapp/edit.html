@@ -1,0 +1,32 @@
+{% extends 'master.html' %}
+{% load staticfiles %}
+
+{% block page_title %}
+Регистрация
+{% endblock %}
+
+{% block page_styles %}
+<!--<link rel="stylesheet" href="{%static 'mainapp/css/style.css' %}">-->
+{% endblock %}
+
+
+{% block page_content %}
+
+<form class =" form - horizontal " action ="{% url 'auth:edit' %}" method="post"
+enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ edit_form.as_p }}
+    <input class="form-control" type="submit" value="сохранить">
+    </form>
+    <button class="btn btn-round form-control last">
+    <a href="{% url 'products:start_page' %}" class="">
+    На главную
+    </a>
+    </button>
+    <div class="user_avatar"><img src="/media/{{user.avatar}}"></div>
+{% endblock %}
+
+
+
+
+

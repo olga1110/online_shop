@@ -1,5 +1,6 @@
 {% extends 'master.html' %}
 {% load staticfiles %}
+{% load my_tags %}
 {% block page_title %} {{product.name}}
 {% endblock %}
 {% block page_styles %}
@@ -17,7 +18,7 @@
         <!--{% block product_image %}-->
         <!--{% endblock %}-->
 
-        <a href=="{{ product.image.url }}" target="_blank"> <img src="{{ product.image.url }}"
+        <a href=="{{ product.image.url }}" target="_blank"> <img src="/media/{{product.image.value}}"
                                                                             alt={{product.short_desc}}
                                                                             title={{product.short_desc}}
                                                                             height=300> </a>
@@ -34,7 +35,8 @@
         <section class="short_desc">
             <div class="price">
                 <p class="old_price">{{product.price|floatformat}}р</p>
-                <p class="new_price">{{new_price|floatformat}}p</p>
+                <!--<p class="new_price">{{new_price|floatformat}}p</p>-->
+                <p class="new_price">{{product.price|discount:product.discount|floatformat}}p</p>
 
             </div>
             <br>
@@ -47,7 +49,7 @@
             <details class="customers-form">
                 <summary>Подробнее...</summary>
                 <article>
-                    <p>{{product.descr}}</p>
+                    <p>{{product.desc}}</p>
                 </article>
             </details>
         </section>
@@ -59,6 +61,9 @@
 
 {% block analogue %}
 {% endblock %}
-
-
+<br><br><br><br>
+<a href="/update/{{product.id}}/">Редактировать</a>
+<br><br>
+<a href="/delete/{{product.id}}/">Удалить</a>
 {% endblock %}
+
