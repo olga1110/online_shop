@@ -1,0 +1,47 @@
+{% extends 'master.html' %}
+
+{% load staticfiles %}
+
+{% block page_title %} Корзина {% endblock %}
+{% block page_styles %}
+<link rel="stylesheet"href="{%static 'mainapp/css/style.css' %}">
+{% endblock %}
+
+
+{% block page_content %}
+
+    
+    {% for item in basket_items %}
+        <div class="product-page Description">
+        
+             <div class="product-item">
+                <img src ="/media/{{item.product.image.value}}" alt ="{{item.product.short_desc}}">
+             </div>
+            <div class="desc_item">
+            <span class = "category_name">{{item.product.short_desc}}</span>
+            <br><br>
+            <span class = "product_price">Цена: {{item.product.price}}&nbsp;руб</span >
+                <br>
+            Количество: <input type = "number"name ="{{item.pk}}" min ="0" value ="{{item.quantity}}">
+                <br>
+            <!--<span class = "product_cost">{{item.cost}}&nbsp;руб</span>-->
+            <button class = "basket-delete">
+            <a href ="{% url 'basket:basket_remove' item.pk %}" class=""> Удалить</a>
+            </button>
+            </div>
+        </div>
+        
+    {% endfor %}
+    {% if basket_items %}
+        <div class="basket_summary">
+            В корзине {{basket_items.0.total_quantity}} товаров общей стоимостью
+            {{ basket_items.0.total_cost}} руб
+        </div>
+    {% endif %}
+    <button class="btn btn-round">
+        <a href="{% url 'products:start_page' %}"> На главную </a>
+    </button>
+    
+
+
+{% endblock %}

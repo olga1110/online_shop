@@ -8,6 +8,7 @@ class Category(models.Model):
     short_desc = models.CharField(verbose_name='Краткое описание', max_length=60,
                                   blank=True)
     desc = models.TextField(verbose_name='Подробное описание', blank=True)
+    active = models.BooleanField(verbose_name='Запись активна', default=True)
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
@@ -30,6 +31,7 @@ class Product(models.Model):
                                 decimal_places=2, default=0)
     discount = models.DecimalField(verbose_name='Скидка', max_digits=4,
                                 decimal_places=2, default=0)
+    active = models.BooleanField(verbose_name='Запись активна', default=True)
     quantity = models.PositiveIntegerField(verbose_name='Количество на складе', default=0)
 
     modified = models.DateTimeField(auto_now=True)

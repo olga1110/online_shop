@@ -42,7 +42,34 @@ class CategoryGenericUpdate(UpdateView):
     form_class = CategoryModelForm
     template_name = 'create.html'
     success_url = reverse_lazy('products:catalog')
+    slug_field = 'name'
 
+
+class CategoryDetail(DetailView):
+    model = Category
+    form_class = CategoryModelForm
+    template_name = 'mainapp/components/categories.html'
+    context_object_name = 'category'
+    slug_field = 'name'
+
+    def get_context_data(self, **kwargs):
+        context = super(CategoryDetail, self).get_context_data(**kwargs)
+        context['products'] = Product.objects.filter(category=self.object.id)
+        return context
+
+
+class CategoryDelete(DeleteView):
+    model = Category
+    template_name = 'delete.html'
+    success_url = reverse_lazy('products:catalog')
+    slug_field = 'name'
+
+
+# def category_detail(request, slug):
+#     cat = Category.objects.get(title=slug)
+#     products = Product.objects.filter(category=cat.id)
+#     return render(request, 'mainapp/components/categories.html',
+#                   {'category': cat})
 
 # def category_create(request):
 #     form = CategoryForm(request.POST)
@@ -60,31 +87,3 @@ class CategoryGenericUpdate(UpdateView):
 #         )
 #
 #     return render(request, 'create.html', {'form': form})
-
-
-class CategoryDetail(DetailView):
-    model = Category
-    form_class = CategoryModelForm
-    template_name = 'mainapp/components/categories.html'
-    context_object_name = 'category'
-
-    def get_context_data(self, **kwargs):
-        context = super(CategoryDetail, self).get_context_data(**kwargs)
-        context['products'] = Product.objects.filter(category=self.object.id)
-        return context
-
-
-# def category_detail(request, title):
-#     cat = Category.objects.get(name=title)
-def category_detail(request, pk):
-    cat = Category.objects.get(id=pk)
-    # products = Product.objects.filter(category=cat.id)
-    products = Product.objects.filter(category=pk)
-    return render(request, 'mainapp/components/categories.html',
-                  {'category': cat})
-
-
-class CategoryDelete(DeleteView):
-    model = Category
-    template_name = 'delete.html'
-    success_url = reverse_lazy('products:catalog')

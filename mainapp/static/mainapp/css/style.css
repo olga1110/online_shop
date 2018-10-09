@@ -273,7 +273,8 @@ h1 {
     border: 2px solid #483D8B;
     float: left;    
     margin-bottom: 30px;
-    margin-right: 30px;    
+    margin-right: 30px;
+    height: 300px;
 }
 
 .Description img:hover {
@@ -718,8 +719,13 @@ input:not([type="checkbox"]):focus {
 	color:red;
 }
 
+.basket_summary{
+    margin-top:250px;
+}
 
-
+.basket-delete{
+height:50px;
+}
 footer {
     background-color: whitesmoke;
     height: 70px;
@@ -728,3 +734,4 @@ footer {
     margin-top: 20px;
     align-items: center;
 }
+
