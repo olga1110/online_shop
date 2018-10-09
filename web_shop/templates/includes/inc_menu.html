@@ -6,15 +6,13 @@
         </li>
         <li><a href="{% url 'products:contacts'%}">Контакты</a></li>
         <!--<li><a href="{% url 'products:registration'%}">Регистрация</a></li>-->
+
         {% if user.is_authenticated %}
 
                 <li>
             <a href="{% url 'auth:edit' %}">
                 {{ user.username|default:'Пользователь'}}
             </a>
-        </li>
-        <li>
-            <a href="{% url 'basket:basket' %}"><img src="{%static 'mainapp/img/basket.png' %}" alt="Корзина" class="basket" height="80px"></a>
         </li>
         {% endif %}
         <li class="userapp">
@@ -23,6 +21,9 @@
             {% else %}
             <a href="{% url 'auth:login' %}">войти</a>
             {% endif %}
+                 <li>
+            <a href="{% url 'basket:basket' %}"><img src="{%static 'mainapp/img/basket.png' %}" alt="Корзина" class="basket" height="80px"></a>
+        </li>
         </li>
     </ul>
 </nav>
