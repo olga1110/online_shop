@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block page_title %}
+        {% endblock %}
+    </title>
+
+	{% block page_styles %}
+        <link rel= "stylesheet" href= "{% static 'css/style.css' %}">
+    {% endblock %}
+</head>
+
+<body>
+    <div class="container">
+        <div class="content">
+            <header>
+                <nav>
+                    <ul class="menu">
+                        <li><a href="{% url 'products:start_page'%}">Вернуться на сайт</a></li>
+                        <li><a href="{% url 'admin:users'%}">Пользователи</a></li>
+                        <li><a href="{% url 'admin:category'%}">Категории</a></li>
+                        <li><a href="{% url 'admin:product_list'%}">Товары</a></li>
+                    </ul>
+                </nav>
+            </header>
+            <section>
+                {% block page_content %}
+                {% now "j F Y" %}
+                {% endblock %}
+            </section>
+            {% block page_js %}
+            {% endblock %}
+        </div>
+        <footer>
+            <p>&copy;All rights reserved</p>
+        </footer>
+    </div>
+</body>
+
+</html>

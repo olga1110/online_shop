@@ -1,0 +1,58 @@
+{% extends 'adminapp/master.html' %}
+
+{% load staticfiles %}
+
+{% block page_title %} Товары {% endblock %}
+{% block page_styles %}
+    <link rel="stylesheet" href="{%static 'adminapp/css/style.css' %}">
+{% endblock %}
+
+{% block page_content %}
+{{ block.super }}
+
+<div class = "products_list">
+    <button class = "new_product">
+    <a href = "{% url 'admin:product_create' category.name %}">
+        Добавить новый товар
+    </a>
+    </button>
+    {% for object in objects %}
+        <div class="product_record">
+            <img src = "{%static 'mainapp/img/default.jpg' %}"
+            alt="{{object.name}}">
+            <div class="product_name">
+            {{object.name|title}}
+        </div>
+        <div class="product_actions">
+            <button>
+                <a href="{% url 'admin:product_read' %}">
+                    Подробнее
+                </a>
+            </button>
+            <button>
+                <a href="{% url 'admin:product_update'%}">
+                    Редактировать
+                </a>
+            </button>
+            <button>
+                <a href="{% url 'admin:product_delete'%}">
+                    Удалить
+                </a>
+            </button>
+        </div>
+        <div class="summary">
+            <b>Цена:</b>
+            <p>{{object.price}} руб</p>
+            <b>Количество:</b>
+            <p>{{object.quantity}}</p>
+            <b>Скидка:</b>
+            <p>{{object.discount}}</p>
+        </div>
+        <div class="product_desc">
+            {{object.short_desc|title}}
+        </div>
+    </div>
+{% endfor%}
+</div>
+
+{% endblock %}

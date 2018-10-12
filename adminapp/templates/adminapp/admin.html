@@ -1,0 +1,16 @@
+{% extends 'adminapp/master.html' %}
+
+{% load staticfiles %}
+
+{% block page_title %} Панель управления {% endblock %}
+{% block page_styles %}
+    <link rel="stylesheet" href="{%static 'adminapp/css/style.css' %}">
+{% endblock %}
+
+{% block page_content %}
+{{ block.super }}
+
+<h2>Панель управления интернет-магазином</h2>
+
+
+{% endblock %}

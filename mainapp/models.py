@@ -41,5 +41,8 @@ class Product(models.Model):
     def __str__(self):
         return "{} ({}р., {}шт.)".format(self.name, self.price, self.quantity)
 
+    class Meta:
+        ordering = ['price', 'modified', 'created']
+
 
 

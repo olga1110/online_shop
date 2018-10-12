@@ -17,10 +17,11 @@
         {% endif %}
         <li class="userapp">
             {% if user.is_authenticated %}
-            <a href="{% url 'auth:logout' %}">выйти</a>
+            <a href="{% url 'auth:logout' %}">Выйти</a>
             {% else %}
-            <a href="{% url 'auth:login' %}">войти</a>
+            <a href="{% url 'auth:login' %}">Войти</a>
             {% endif %}
+        <li><a href="{% url 'admin:admin_page' %}">Настройка</a></li>
                  <li>
             <a href="{% url 'basket:basket' %}"><img src="{%static 'mainapp/img/basket.png' %}" alt="Корзина" class="basket" height="80px"></a>
         </li>
