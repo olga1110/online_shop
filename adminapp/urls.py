@@ -5,10 +5,10 @@ app_name = 'admin'
 urlpatterns = [
     path('', adminapp.admin_page, name='admin_page'),
     path('users/', adminapp.UserList.as_view(), name='users'),
-    path('users/create/', adminapp.user_create, name='user_create'),
-    path('users/update/<slug:slug>/', adminapp.user_update, \
+    path('users/create/', adminapp.UserCreate.as_view(), name='user_create'),
+    path('users/update/<slug:slug>/', adminapp.UserUpdate.as_view(), \
          name='user_update'),
-    path('users/delete/<slug:slug>/', adminapp.user_delete, \
+    path('users/delete/<slug:title>/', adminapp.user_delete, \
          name='user_delete'),
     path('catalog/create/', adminapp.category_create, \
          name='category_create'),
@@ -16,16 +16,16 @@ urlpatterns = [
     path('catalog/update/<slug:slug>/', adminapp.category_update, \
          name='category_update'),
     path('products/', adminapp.ProductList.as_view(), name='product_list'),
-    path('catalog/delete/<slug:slug>/', adminapp.category_delete, \
+    path('catalog/delete/<slug:title>/', adminapp.category_delete, \
          name='category_delete'),
-    path('products/create/category/<slug:slug>/', adminapp.product_create, \
+    path('products/create/category/<slug:title>/', adminapp.product_create, \
          name='product_create'),
-    path('products/category/<slug:slug>/', adminapp.products, \
+    path('products/category/<slug:title>/', adminapp.products, \
          name='products'),
-    path('products/<slug:slug>/', adminapp.product_read, \
+    path('products/<slug:title>/', adminapp.product_read, \
          name='product_read'),
-    path('products/update/<slug:slug>/', adminapp.product_update, \
+    path('products/update/<slug:title>/', adminapp.product_update, \
          name='product_update'),
-    path('products/delete/<slug:slug>/', adminapp.product_delete, \
+    path('products/delete/<slug:title>/', adminapp.product_delete, \
          name='product_delete'),
 ]

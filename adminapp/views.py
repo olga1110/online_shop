@@ -1,3 +1,4 @@
+from django.urls import reverse, reverse_lazy
 from django.shortcuts import render
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
 from django.views.generic import (
@@ -7,6 +8,8 @@ from django.views.generic import (
 
 from userapp.models import ShopUser
 from mainapp.models import Category, Product
+from userapp.forms import ShopUserLoginForm, ShopUserRegisterForm, ShopUserEditForm
+from adminapp.forms import ShopUserAdminEditForm
 
 
 def admin_page(request):
@@ -36,6 +39,52 @@ class UserList(ListView):
 
 def user_create(request):
     return HttpResponseRedirect('/')
+
+
+
+# def user_create(request):
+#
+#     if request.method == 'POST':
+#         user_form = ShopUserRegisterForm(request.POST, request.FILES)
+#     if user_form.is_valid():
+#         user_form.save()
+#         return HttpResponseRedirect(reverse('admin:users'))
+#     else:
+#         user_form = ShopUserRegisterForm()
+#         content = {'update_form': user_form}
+#         return render(request, 'adminapp/user_update.html', content)
+
+
+class UserCreate(CreateView):
+    model = ShopUser
+    form_class = ShopUserRegisterForm
+    template_name = 'adminapp/user_update.html'
+    success_url = reverse_lazy('admin:users')
+
+
+class UserUpdate(UpdateView):
+    model = ShopUser
+    form_class = ShopUserAdminEditForm
+    template_name = 'adminapp/user_update.html'
+    success_url = reverse_lazy('admin:users')
+    slug_field = 'username'
+
+
+# class UserDelete(DeleteView):
+#     model = ShopUser
+#     template_name = 'adminapp/user_delete.html'
+#     success_url = reverse_lazy('admin:users')
+#     slug_field = 'name'
+
+
+def user_delete (request, title):
+    user = get_object_or_404(ShopUser, username=title)
+    if request.method == 'POST':
+        user.is_active = False
+        user.save()
+        return HttpResponseRedirect(reverse('admin:users'))
+    content = {'user_to_delete': user}
+    return render(request, 'adminapp/user_delete.html', content)
 
 
 def user_update(request, title):

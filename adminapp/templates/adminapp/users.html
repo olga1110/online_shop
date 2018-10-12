@@ -20,12 +20,12 @@
     {% for object in objects %}
         <div  class="user_record {% if not object.is_active %} not_active {% endif %}">
             <div class="user_name">
-                <p><strong>Логин: {{object.username}}</strong></p>
+                <p><strong>Login: {{object.username}}</strong></p>
                 <p>
                 {% if object.first_name %}
-                <b>{{object.first_name|title }}</b>
+                <b>Name:</b> {{object.first_name|title }}
                 {% if object.last_name %}
-                <p>{{object.last_name|title}}</p>
+                {{object.last_name|title}}
                 {% endif %}
                 {% endif %}
                 </p>
@@ -45,23 +45,21 @@
             </button>
             <br>
             {% if object.is_superuser %}
-                Роль в системе: Администратор
+            <b> Role: </b> Администратор
             {% else %}
-                Роль в системе: Пользователь
+                Role: Пользователь
             {% endif %}
             </div>
 
             <div class="user_email">
-        email: {{object.email}}
+                {% if object.email %} <b>Email: </b> {{object.email}} {% endif %}
+            </div>
+            <div class="user_lastlogin">
+            <b>Last seen:</b> {{object.last_login}}
+            </div>
         </div>
-        <div class="user_lastlogin">
-        logged: {{object.last_login}}
-        </div>
-    </div>
-    {% endfor%}
+        {% endfor%}
 </div>
-
-
 
 
 {% endblock %}
