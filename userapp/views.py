@@ -5,16 +5,21 @@ from django.urls import reverse
 
 
 def login(request):
-    login_form = ShopUserLoginForm(data=request.POST)
+    login_form = ShopUserLoginForm(data=request.POST or None)
+    next = request.GET['next'] if 'next' in request.GET.keys() else ''
     if request.method == 'POST' and login_form.is_valid():
         username = request.POST['username']
         password = request.POST['password']
         user = auth.authenticate(username=username, password=password)
         if user and user.is_active:
             auth.login(request, user)
+            if 'next' in request.POST.keys():
+                return HttpResponseRedirect(request.POST['next'])
             # return HttpResponseRedirect(reverse( 'main' ))
             return HttpResponseRedirect('/')
-    content = {'login_form': login_form}
+    content = {'login_form': login_form,
+               'next': next
+               }
     return render(request, 'userapp/login.html', content)
 
 
@@ -39,7 +44,7 @@ def register(request):
             return HttpResponseRedirect(reverse('auth:login'))
     else:
         register_form = ShopUserRegisterForm()
-        content = {'register_form': register_form}
+        content = {'register_form': register_form, 'next':next}
         return render(request, 'userapp/register.html', content)
 
 

@@ -6,13 +6,15 @@ from django.conf.urls.static import static
 import mainapp.urls.products as products
 import mainapp.urls.categories as categories
 import userapp.urls as userapp
+import basketapp.urls as basketapp
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(products)),
-    path('', include(categories)),
+    path('catalog/', include(categories)),
     path('auth/', include(userapp)),
+    path('basket/', include(basketapp)),
     # url(r'^catalog/', include(('mainapp.urls', 'catalog'), namespace='catalog')),
     # url(r'^admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

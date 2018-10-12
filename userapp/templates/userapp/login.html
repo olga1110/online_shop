@@ -6,13 +6,17 @@
 {% endblock %}
 
 {% block page_styles %}
-<!--<link rel="stylesheet" href="{%static 'mainapp/css/style.css' %}">-->
+<link rel="stylesheet" href="{%static 'mainapp/css/style.css' %}">
 {% endblock %}
 
 
 {% block page_content %}
 <form class="form-horizontal" action="{% url 'auth:login' %}" method="post">
     {% csrf_token %}
+    {% if next %}
+    <input type= "hidden" name= "next" value= "{{next}}" >
+    {% endif %}
+
     {{ login_form.as_p }}
     <br>
     <input class="form-control" type="submit" value="войти">

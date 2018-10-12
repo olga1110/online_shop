@@ -1,15 +1,12 @@
+{% load staticfiles %}
 <nav>
     <ul class="menu">
         <li><a href="{% url 'products:start_page'%}">Главная</a></li>
         <li><a href="{% url 'products:catalog'%}" class="expand-catalog">Каталог</a>
-            <!--<div class="submenu">-->
-                <!--<a href="#">Обеденный стол</a>-->
-                <!--<a href="#">Диван для кухни</a>-->
-                <!--<a href="#">Кухонный гарнитур</a>-->
-            <!--</div>-->
         </li>
         <li><a href="{% url 'products:contacts'%}">Контакты</a></li>
         <!--<li><a href="{% url 'products:registration'%}">Регистрация</a></li>-->
+
         {% if user.is_authenticated %}
 
                 <li>
@@ -24,6 +21,9 @@
             {% else %}
             <a href="{% url 'auth:login' %}">войти</a>
             {% endif %}
+                 <li>
+            <a href="{% url 'basket:basket' %}"><img src="{%static 'mainapp/img/basket.png' %}" alt="Корзина" class="basket" height="80px"></a>
+        </li>
         </li>
     </ul>
 </nav>

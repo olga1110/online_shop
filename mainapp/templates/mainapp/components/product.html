@@ -18,7 +18,7 @@
         <!--{% block product_image %}-->
         <!--{% endblock %}-->
 
-        <a href=="{{ product.image.url }}" target="_blank"> <img src="/media/{{product.image.value}}"
+        <a href="/media/{{product.image.value}}" target="_blank"> <img src="/media/{{product.image.value}}"
                                                                             alt={{product.short_desc}}
                                                                             title={{product.short_desc}}
                                                                             height=300> </a>
@@ -53,7 +53,11 @@
                 </article>
             </details>
         </section>
-        <button type="submit">В&nbsp;корзину!</button>
+        <button type="submit">
+            <a href ="/basket/add/{{product.id}}">
+            В&nbsp;корзину!
+            </a>
+        </button>
     </div>
 </div>
 {% block modules_of_product %}
@@ -62,8 +66,8 @@
 {% block analogue %}
 {% endblock %}
 <br><br><br><br>
-<a href="/update/{{product.id}}/">Редактировать</a>
+<a href="/update/{{product.name}}/">Редактировать</a>
 <br><br>
-<a href="/delete/{{product.id}}/">Удалить</a>
+<a href="/delete/{{product.name}}/">Удалить</a>
 {% endblock %}
 

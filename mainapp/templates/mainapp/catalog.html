@@ -16,7 +16,7 @@
     <br>
     <div class="sale">
         {% for cat in categories %}
-        <h2><a href="/Catalog/{{cat.id}}/" title={{cat.descr}}>{{cat.short_desc}}</a></h2>
+        <h2><a href="/catalog/{{cat.name}}/" title={{cat.descr}}>{{cat.short_desc}}</a></h2>
         {% endfor %}
         <a href="{% url 'categories:create'%}">Добавить категорию</a>
         <!--<h2><strong>Акция!!!</strong></h2>-->
@@ -40,7 +40,7 @@
          <main class="main">
             {% for product in products%}
             <figure class="item">
-                <a href="/Catalog/{{product.category.name}}/{{product.id}}/"> <img src="/media/{{product.image.value}}"
+                <a href="/catalog/{{product.category.name}}/{{product.name}}/"> <img src="/media/{{product.image.value}}"
                                                    alt={{product.short_desc}}
                                                    title={{product.short_desc}}
                                                    height=300>

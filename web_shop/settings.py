@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'userapp',
     'mainapp',
     'images',
+    'basketapp',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -123,3 +124,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 AUTH_USER_MODEL = 'userapp.ShopUser'
+LOGIN_URL = '/auth/login/'
