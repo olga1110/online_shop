@@ -18,11 +18,12 @@
     </button>
     {% for object in objects %}
         <div class="product_record">
-            <img src = "{%static 'mainapp/img/default.jpg' %}"
-            alt="{{object.name}}">
             <div class="product_name">
-            {{object.name|title}}
+                <strong>{{object.name|title}}</strong>
         </div>
+            <img src = "/media/{{object.image.value|default:'mainapp/img/default.jpg'}}" height = "300px"
+            alt="{{object.name}}">
+
         <div class="product_actions">
             <button>
                 <a href="{% url 'admin:product_read' object.name%}">
@@ -41,17 +42,18 @@
             </button>
         </div>
         <div class="summary">
-            <b>Цена:</b>
-            <p>{{object.price}} руб</p>
-            <b>Количество:</b>
-            <p>{{object.quantity}}</p>
-            <b>Скидка:</b>
-            <p>{{object.discount}}</p>
+            <p><b>Цена:</b>
+            {{object.price|floatformat}} руб</p>
+            <p><b>Количество:</b>
+            {{object.quantity}} шт.</p>
+            <p><b>Скидка:</b>
+            {{object.discount|floatformat}}%</p>
         </div>
         <div class="product_desc">
             {{object.short_desc|title}}
         </div>
     </div>
+    <br>
 {% endfor%}
 </div>
 

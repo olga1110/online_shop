@@ -2,7 +2,7 @@
 
 {% load staticfiles %}
 
-{% block page_title %} Добавление пользователя {% endblock %}
+{% block page_title %} {{title}} {% endblock %}
 {% block page_styles %}
     <link rel="stylesheet" href="{%static 'adminapp/css/style.css' %}">
 {% endblock %}
@@ -37,8 +37,8 @@
 
 
 <button class =" btn btn - round form - control last ">
-    <a href ="{% url 'admin:users' %}">
-        К списку пользователей
+    <a href ="/admin/{{url_name}}/">
+        {{return}}
     </a>
 </button>
 

@@ -13,7 +13,7 @@ urlpatterns = [
     path('catalog/create/', adminapp.category_create, \
          name='category_create'),
     path('catalog/', adminapp.CategoryList.as_view(), name='category'),
-    path('catalog/update/<slug:slug>/', adminapp.category_update, \
+    path('catalog/update/<slug:slug>/', adminapp.CategoryUpdate.as_view(), \
          name='category_update'),
     path('products/', adminapp.ProductList.as_view(), name='product_list'),
     path('catalog/delete/<slug:title>/', adminapp.category_delete, \

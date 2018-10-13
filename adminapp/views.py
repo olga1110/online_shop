@@ -9,7 +9,7 @@ from django.views.generic import (
 from userapp.models import ShopUser
 from mainapp.models import Category, Product
 from userapp.forms import ShopUserLoginForm, ShopUserRegisterForm, ShopUserEditForm
-from adminapp.forms import ShopUserAdminEditForm
+from adminapp.forms import ShopUserAdminEditForm, CategoryEditForm
 
 
 def admin_page(request):
@@ -52,23 +52,52 @@ def user_create(request):
 #     else:
 #         user_form = ShopUserRegisterForm()
 #         content = {'update_form': user_form}
-#         return render(request, 'adminapp/user_update.html', content)
+#         return render(request, 'adminapp/update.html', content)
 
 
 class UserCreate(CreateView):
     model = ShopUser
     form_class = ShopUserRegisterForm
-    template_name = 'adminapp/user_update.html'
+    template_name = 'adminapp/update.html'
     success_url = reverse_lazy('admin:users')
 
 
 class UserUpdate(UpdateView):
     model = ShopUser
     form_class = ShopUserAdminEditForm
-    template_name = 'adminapp/user_update.html'
+    template_name = 'adminapp/update.html'
     success_url = reverse_lazy('admin:users')
     slug_field = 'username'
 
+    def get_context_data(self, **kwargs):
+        context = super(UserUpdate, self).get_context_data(**kwargs)
+        context['title'] = 'Добавление пользователя'
+        context['return'] = 'К списку пользователей'
+        context['url_name'] = 'users'
+        return context
+
+
+class CategoryUpdate(UpdateView):
+    model = Category
+    form_class = CategoryEditForm
+    template_name = 'adminapp/update.html'
+    success_url = reverse_lazy('admin:category')
+    slug_field = 'name'
+
+    def get_context_data(self, **kwargs):
+        context = super(CategoryUpdate, self).get_context_data(**kwargs)
+        context['title'] = 'Добавление категории'
+        context['return'] = 'К списку категорий'
+        context['url_name'] = 'catalog'
+        return context
+
+
+class ProductUpdate(UpdateView):
+    model = ShopUser
+    form_class = ShopUserAdminEditForm
+    template_name = 'adminapp/update.html'
+    success_url = reverse_lazy('admin:users')
+    slug_field = 'username'
 
 # class UserDelete(DeleteView):
 #     model = ShopUser
@@ -77,22 +106,16 @@ class UserUpdate(UpdateView):
 #     slug_field = 'name'
 
 
-def user_delete (request, title):
+def user_delete(request, title):
     user = get_object_or_404(ShopUser, username=title)
+    content = {'object_to_delete': user, 'title': 'Удаление пользователя', 'subject': 'пользователя',
+               'name': user.username, 'part_name': 'Заблокированные пользователи',
+               'url_name': 'admin:user_delete', 'url_arg': user.username}
     if request.method == 'POST':
         user.is_active = False
         user.save()
-        return HttpResponseRedirect(reverse('admin:users'))
-    content = {'user_to_delete': user}
-    return render(request, 'adminapp/user_delete.html', content)
-
-
-def user_update(request, title):
-    return HttpResponseRedirect('/')
-
-
-def user_delete(request, title):
-    return HttpResponseRedirect('/')
+        return HttpResponseRedirect("/admin/users/")
+    return render(request, 'adminapp/delete.html', content)
 
 
 # class ProductGenericUpdate(UpdateView):
@@ -127,7 +150,15 @@ def category_update(request, title):
 
 
 def category_delete(request, title):
-    pass
+    category = get_object_or_404(Category, name=title)
+    content = {'object_to_delete': category, 'title': 'Удаление категории', 'subject': 'категории',
+               'name': category.name, 'part_name': 'Архив',
+               'url_name': 'admin:category_delete', 'url_arg': category.name}
+    if request.method == 'POST':
+        category.is_active = False
+        category.save()
+        return HttpResponseRedirect("/admin/catalog/")
+    return render(request, 'adminapp/delete.html', content)
 
 
 # Модель Product. CRUD

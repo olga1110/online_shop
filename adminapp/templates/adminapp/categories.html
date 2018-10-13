@@ -16,33 +16,66 @@
             Добавить новую категорию
         </a>
     </button>
+    <br>
     {% for object in objects %}
-        <div class="category_record">
-            <div class="category_name">
-            {{object.name|title}}
+        {% if object.is_active %}
+            <div class="category_record">
+                <div class="category_name">
+                {{object.name|title}}
+                </div>
+                <div class="category_actions">
+                <button>
+                    <a href="{% url 'admin:products' object.name %}">
+                        Товары категории
+                    </a>
+                </button>
+                <button>
+                    <a href= "{% url 'admin:category_update' object.name %}">
+                        Редактировать
+                    </a>
+                </button>
+                <button>
+                    <a href="{% url 'admin:category_delete' object.name %}">
+                        Удалить
+                    </a>
+                </button>
+                </div>
+                <div class="category_desc">
+                    {{object.descr|title}}
+                </div>
             </div>
-            <div class="category_actions">
-            <button>
-                <a href="{% url 'admin:products' object.name %}">
-                    Товары категории
-                </a>
-            </button>
-            <button>
-                <a href= "{% url 'admin:category_update' object.name %}">
-                    Редактировать
-                </a>
-            </button>
-            <button>
-                <a href="{% url 'admin:category_delete' object.name %}">
-                    Удалить
-                </a>
-            </button>
+    {% endif %}
+    {% endfor %}
+     <h2>Категории в архиве</h2>
+    {% for object in objects %}
+        {% if not object.is_active %}
+            <div class="category_record">
+                <div class="category_name">
+                {{object.name|title}}
+                </div>
+                <div class="category_actions">
+                <button>
+                    <a href="{% url 'admin:products' object.name %}">
+                        Товары категории
+                    </a>
+                </button>
+                <button>
+                    <a href= "{% url 'admin:category_update' object.name %}">
+                        Редактировать
+                    </a>
+                </button>
+                <button>
+                    <a href="{% url 'admin:category_delete' object.name %}">
+                        Удалить
+                    </a>
+                </button>
+                </div>
+                <div class="category_desc">
+                    {{object.descr|title}}
+                </div>
             </div>
-            <div class="category_desc">
-                {{object.descr|title}}
-            </div>
-        </div>
-    {% endfor%}
+        {% endif %}
+    {% endfor %}
 </div>
 
 {% endblock %}
