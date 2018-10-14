@@ -1,7 +1,7 @@
 from django import forms
 from userapp.models import ShopUser
 from userapp.forms import ShopUserEditForm
-from mainapp.models import Category, Product
+from mainapp.models import Category
 from mainapp.forms import CategoryForm
 
 
@@ -18,18 +18,6 @@ class CategoryEditForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(CategoryEditForm, self).__init__(*args, **kwargs)
-        for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control'
-        field.help_text = ''
-
-
-class ProductEditForm(forms.ModelForm):
-    class Meta:
-        model = Product
-        fields = '__all__'
-
-    def __init__(self, *args, **kwargs):
-        super(ProductEditForm, self).__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'
         field.help_text = ''
