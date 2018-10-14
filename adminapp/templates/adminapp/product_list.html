@@ -12,46 +12,80 @@
 
 <div class = "products_list">
     <button class = "new_product">
-    <a href = "{% url 'admin:product_create' category.name %}">
+    <a href = "{% url 'admin:product_create' %}">
         Добавить новый товар
     </a>
     </button>
     {% for object in objects %}
+        {% if object.is_active %}
         <div class="product_record">
-            <img src = "{%static 'mainapp/img/default.jpg' %}"
-            alt="{{object.name}}">
             <div class="product_name">
-            {{object.name|title}}
+                <p><strong>{{object.name|title}}</strong></p>
+                <div class="product_desc">
+            {{object.short_desc|title}}
         </div>
+            </div>
+            <img src = "/media/{{object.image.value|default:'mainapp/img/default.jpg'}}" height = "300px"
+            alt="{{object.name}}">
         <div class="product_actions">
+
             <button>
-                <a href="{% url 'admin:product_read' %}">
-                    Подробнее
-                </a>
-            </button>
-            <button>
-                <a href="{% url 'admin:product_update'%}">
+                <a href="{% url 'admin:product_update' object.name %}">
                     Редактировать
                 </a>
             </button>
             <button>
-                <a href="{% url 'admin:product_delete'%}">
+                <a href="{% url 'admin:product_delete' object.name %}">
                     Удалить
                 </a>
             </button>
         </div>
         <div class="summary">
-            <b>Цена:</b>
-            <p>{{object.price}} руб</p>
-            <b>Количество:</b>
-            <p>{{object.quantity}}</p>
-            <b>Скидка:</b>
-            <p>{{object.discount}}</p>
-        </div>
-        <div class="product_desc">
-            {{object.short_desc|title}}
+            <p> <b>Цена:</b>
+            {{object.price}} руб</p>
+            <p> <b>Количество:</b>
+            {{object.quantity}}</p>
+            <p> <b>Скидка:</b>
+            {{object.discount}}</p>
         </div>
     </div>
+    {% endif %}
+{% endfor%}
+    <h2>Товары в архиве</h2>
+    {% for object in objects %}
+        {% if not object.is_active %}
+        <div class="product_record">
+            <div class="product_name">
+                <p><strong>{{object.name|title}}</strong></p>
+                <div class="product_desc">
+            {{object.short_desc|title}}
+        </div>
+            </div>
+            <img src = "/media/{{object.image.value|default:'mainapp/img/default.jpg'}}" height = "300px"
+            alt="{{object.name}}">
+        <div class="product_actions">
+
+            <button>
+                <a href="{% url 'admin:product_update' object.name %}">
+                    Редактировать
+                </a>
+            </button>
+            <button>
+                <a href="{% url 'admin:product_delete' object.name %}">
+                    Удалить
+                </a>
+            </button>
+        </div>
+        <div class="summary">
+            <p> <b>Цена:</b>
+            {{object.price}} руб</p>
+            <p> <b>Количество:</b>
+            {{object.quantity}}</p>
+            <p> <b>Скидка:</b>
+            {{object.discount}}</p>
+        </div>
+    </div>
+    {% endif %}
 {% endfor%}
 </div>
 
