@@ -1,21 +1,23 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 from django.template.loader import render_to_string
-from . import models
+from mainapp.models import Product, Category
+
 
 
 # class ProductAdmin(admin.ModelAdmin):
 #     list_display = ['name', 'category', 'image', 'short_desc', 'price', 'modified', 'created']
 
 
+@admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = [
         'name', 'category_name', 'picture', 'short_desc',
-        'price', 'modified', 'created',
+        'price', 'is_active', 'modified', 'created',
     ]
 
     list_filter = [
-        'category', 'image',
+        'category', 'image', 'is_active',
         'modified', 'created',
     ]
 
@@ -52,7 +54,33 @@ class ProductAdmin(admin.ModelAdmin):
     )
 
 
+class ProductInline(admin.TabularInline):
+    model = Product
+    fk_name = 'category'
 
 
-admin.site.register(models.Product, ProductAdmin)
-admin.site.register(models.Category)
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = [
+        'name', 'short_desc', 'is_active',
+        'modified', 'created',
+    ]
+
+    list_filter = [
+        'is_active',
+        'modified', 'created',
+    ]
+
+    search_fields = [
+        'name', 'desc', 'short_desc',
+    ]
+
+    inlines = [
+        ProductInline
+    ]
+
+
+
+# admin.site.register(models.Product, ProductAdmin)
+# admin.site.register(Category)
