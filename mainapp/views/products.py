@@ -6,12 +6,16 @@ from django.template.loader import get_template
 from django.urls import reverse_lazy
 from django.http import HttpResponse
 from django.views import View
+from django.contrib.auth.decorators import login_required
 from django.views.generic import (
     FormView, CreateView, UpdateView,
     DeleteView, ListView, DetailView,
 )
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 from mainapp.models import Product, Category
 from mainapp.forms import ProductModelForm
+
 
 
 def update_price_from_file(product):
@@ -25,6 +29,7 @@ def update_price_from_file(product):
     obj.save()
 
 
+
 def mainapp_Contacts(request):
     path = 'mainapp/static/mainapp/files/organization.json'
     with open(path) as json_data:
@@ -32,6 +37,7 @@ def mainapp_Contacts(request):
 
     template = get_template('mainapp/contacts.html')
     return HttpResponse(template.render(context))
+
 
 
 def mainapp_index(request):
@@ -42,62 +48,68 @@ def mainapp_index(request):
     return render(request, 'mainapp/index.html', context)
 
 
+
 def mainapp_registration(request):
     context = {'reg': 'Регистрация'}
     return render(request, 'mainapp/registration.html', context)
 
 
-class ProductGenericCreate(CreateView):
+class ProductGenericCreate(LoginRequiredMixin, CreateView):
     model = Product
     form_class = ProductModelForm
     template_name = 'create.html'
     success_url = reverse_lazy('products:catalog')
+    login_url = reverse_lazy('auth:login')
 
 
-class ProductGenericUpdate(UpdateView):
+class ProductGenericUpdate(LoginRequiredMixin, UpdateView):
     model = Product
     form_class = ProductModelForm
-    template_name = 'create.html'
-    success_url = reverse_lazy('products:catalog')
-
-
-class ProductCreate(View):
-    template_name = 'create.html'
-    context_object_name = 'form'
-    success_url = reverse_lazy('products:catalog')
-
-
-    def get(self, request):
-        form = ProductModelForm()
-        return render(request, self.template_name, {self.context_object_name: form})
-
-    def post(self, request):
-        form = ProductModelForm(request.POST)
-
-        if form.is_valid():
-            form.save()
-            return redirect(self.success_url)
-        return render(request, self.template_name, {self.context_object_name: form})
-
-
-class ProductUpdate(FormView):
-    form_class = ProductModelForm
-    success_url = reverse_lazy('products:catalog')
     template_name = 'create.html'
     slug_field = 'name'
-
-    def post(self, request, title):
-        obj = get_object_or_404(Product, name=title)
-        form = self.form_class(
-            request.POST,
-            instance=obj
-        )
-        if form.is_valid():
-            form.save()
-            return redirect(self.success_url)
-        return render(request, self.template_name, {'form': form})
+    success_url = reverse_lazy('products:catalog')
+    login_url = reverse_lazy('auth:login')
 
 
+
+# class ProductCreate(View):
+#     template_name = 'create.html'
+#     context_object_name = 'form'
+#     success_url = reverse_lazy('products:catalog')
+#
+#
+#     def get(self, request):
+#         form = ProductModelForm()
+#         return render(request, self.template_name, {self.context_object_name: form})
+#
+#     def post(self, request):
+#         form = ProductModelForm(request.POST)
+#
+#         if form.is_valid():
+#             form.save()
+#             return redirect(self.success_url)
+#         return render(request, self.template_name, {self.context_object_name: form})
+
+
+# class ProductUpdate(FormView):
+#     form_class = ProductModelForm
+#     success_url = reverse_lazy('products:catalog')
+#     template_name = 'create.html'
+#     slug_field = 'name'
+#
+#     def post(self, request, title):
+#         obj = get_object_or_404(Product, name=title)
+#         form = self.form_class(
+#             request.POST,
+#             instance=obj
+#         )
+#         if form.is_valid():
+#             form.save()
+#             return redirect(self.success_url)
+#         return render(request, self.template_name, {'form': form})
+
+
+# @login_required(login_url=reverse_lazy('auth:login'))
 def category_product_list(request):
     cat = Category.objects.all()
     prod = Product.objects.all().order_by('price')[:6]
@@ -117,11 +129,12 @@ class ProductDetail(DetailView):
 #     return render(request, 'mainapp/components/product.html', {'product': obj})
 
 
-class ProductDelete(DeleteView):
+class ProductDelete(LoginRequiredMixin, DeleteView):
     model = Product
     template_name = 'delete.html'
     success_url = reverse_lazy('products:catalog')
     slug_field = 'name'
+    login_url = reverse_lazy('auth:login')
 
 
 # def product_update(request, title):

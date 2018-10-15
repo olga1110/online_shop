@@ -9,6 +9,8 @@ from django.views.generic import (
     FormView, CreateView, UpdateView,
     DeleteView, ListView, DetailView,
 )
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 from mainapp.models import Category, Product
 from mainapp.forms import CategoryForm, CategoryModelForm
 
@@ -30,14 +32,15 @@ from mainapp.forms import CategoryForm, CategoryModelForm
 #         return render(request, 'create.html', {'form': form})
 
 
-class CategoryGenericCreate(CreateView):
+class CategoryGenericCreate(LoginRequiredMixin, CreateView):
     model = Category
     form_class = CategoryModelForm
     template_name = 'create.html'
     success_url = reverse_lazy('products:catalog')
+    login_url = reverse_lazy('auth:login')
 
 
-class CategoryGenericUpdate(UpdateView):
+class CategoryGenericUpdate(LoginRequiredMixin, UpdateView):
     model = Category
     form_class = CategoryModelForm
     template_name = 'create.html'
@@ -58,7 +61,7 @@ class CategoryDetail(DetailView):
         return context
 
 
-class CategoryDelete(DeleteView):
+class CategoryDelete(LoginRequiredMixin, DeleteView):
     model = Category
     template_name = 'delete.html'
     success_url = reverse_lazy('products:catalog')

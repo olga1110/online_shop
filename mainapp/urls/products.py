@@ -19,7 +19,7 @@ from django.urls import path, re_path
 from mainapp.endpoints.products import (product_list,
                                     )
 
-from mainapp.views.products import (ProductGenericCreate, ProductGenericUpdate, ProductCreate, ProductUpdate,
+from mainapp.views.products import (ProductGenericCreate, ProductGenericUpdate,
                                     ProductDetail, mainapp_index, mainapp_Contacts,
                                     mainapp_registration, ProductDelete, category_product_list
                                     )
