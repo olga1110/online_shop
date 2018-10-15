@@ -6,22 +6,22 @@ from images.models import Image
 
 class CategoryForm(forms.Form):
     name = forms.CharField(
-        label = 'name',
+        label='name',
         widget=forms.widgets.TextInput(attrs={'class': 'form-control'}
-        )
+                                       )
     )
     short_desc = forms.CharField(label='short_desc', required=False)
     desc = forms.CharField(label='desc',
-        required=False,
-        widget=forms.widgets.Textarea(attrs={'class':'form-control'}
-        )
-    )
+                           required=False,
+                           widget=forms.widgets.Textarea(attrs={'class': 'form-control'}
+                                                         )
+                           )
 
 
 class ProductForm(forms.Form):
     name = forms.CharField(
         label='name',
-        widget=forms.widgets.TextInput(attrs={'class': 'form-control'}                                       )
+        widget=forms.widgets.TextInput(attrs={'class': 'form-control'})
     )
 
     category = forms.ModelChoiceField(
@@ -74,8 +74,3 @@ class CategoryModelForm(forms.ModelForm):
     class Meta:
         model = Category
         fields = ['name', 'short_desc', 'desc']
-
-
-
-
-

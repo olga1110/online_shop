@@ -1,7 +1,15 @@
 from django.shortcuts import get_list_or_404, get_object_or_404
 from django.http import JsonResponse
+from rest_framework.viewsets import ModelViewSet
 
+from mainapp.serializers import ProductSerializer
 from mainapp.models import Product
+
+
+class ProductViewSet(ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
 
 
 def product_list(request):
