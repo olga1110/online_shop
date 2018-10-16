@@ -2,7 +2,7 @@
 <nav>
     <ul class="menu">
         <li><a href="{% url 'products:start_page'%}">Главная</a></li>
-        <li><a href="{% url 'products:catalog'%}" class="expand-catalog">Каталог</a>
+        <li><a href="{% url 'products:catalog' 1%}" class="expand-catalog">Каталог</a>
         </li>
         <li><a href="{% url 'products:contacts'%}">Контакты</a></li>
         <!--<li><a href="{% url 'products:registration'%}">Регистрация</a></li>-->
@@ -21,7 +21,7 @@
             {% else %}
             <a href="{% url 'auth:login' %}">Войти</a>
             {% endif %}
-        <li><a href="{% url 'admin:admin_page' %}">Настройка</a></li>
+        <li><a href="{% url 'admin_custom:admin_page' %}">Настройка</a></li>
                  <li>
             <a href="{% url 'basket:basket' %}"><img src="{%static 'mainapp/img/basket.png' %}" alt="Корзина" class="basket" height="80px"></a>
         </li>

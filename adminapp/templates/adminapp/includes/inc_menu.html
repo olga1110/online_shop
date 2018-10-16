@@ -5,13 +5,13 @@
         </a>
     </li>
     <li>
-        <a href = "{% url 'admin:users' %}"
+        <a href = "{% url 'admin_custom:users' %}"
             class="{% if request.resolver_match.url_name == 'users' %} active {% endif %}">
             Пользователи
         </a>
     </li>
     <li>
-    <a href="{% url 'admin:catalog' %}"
+    <a href="{% url 'admin_custom:catalog' %}"
        class="{% if request.resolver_match.url_name == ' catalog ' or category.name %} active {% endif %}">
             Категории
         {% if category %}

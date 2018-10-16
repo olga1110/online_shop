@@ -1,7 +1,7 @@
 from django.urls import path, re_path
 import adminapp.views as adminapp
 
-app_name = 'admin'
+app_name = 'admin_custom'
 urlpatterns = [
     path('', adminapp.admin_page, name='admin_page'),
     path('users/', adminapp.UserList.as_view(), name='users'),

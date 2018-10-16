@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'mainapp',
     'images',
     'basketapp',
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -74,6 +75,12 @@ WSGI_APPLICATION = 'web_shop.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 3
+}
+
 
 DATABASES = {
     'default': {

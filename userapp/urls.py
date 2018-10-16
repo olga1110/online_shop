@@ -12,7 +12,7 @@ app_name = 'auth'
 urlpatterns = [
     path('login/', userapp.LoginView.as_view(), name='login'),
     path('logout/', userapp.logout, name='logout'),
-    path('register/', userapp.register, name='register'),
+    path('register/', userapp.RegisterView.as_view(), name='register'),
     path('edit/', userapp.edit, name='edit'),
 ]
 

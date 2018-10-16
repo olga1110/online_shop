@@ -3,16 +3,22 @@ from django.urls import path, include
 from django.conf.urls import url
 from django.conf import settings
 from django.conf.urls.static import static
+from rest_framework.routers import DefaultRouter
+
+from mainapp.endpoints.products import ProductViewSet
 import mainapp.urls.products as products
 import mainapp.urls.categories as categories
 import userapp.urls as userapp
 import adminapp.urls as adminapp
 import basketapp.urls as basketapp
 
+router = DefaultRouter()
+router.register('products', ProductViewSet)
 
 urlpatterns = [
-    # path('admin/', admin.site.urls),
-    path('admin/', include(adminapp)),
+    path('admin/', admin.site.urls),
+    path('admin_custom/', include(adminapp)),
+    path('api/', include(router.urls)),
     path('', include(products)),
     path('catalog/', include(categories)),
     path('auth/', include(userapp)),

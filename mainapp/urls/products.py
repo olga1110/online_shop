@@ -34,7 +34,9 @@ urlpatterns = [
     path('', mainapp_index, name='start_page'),
     path('Contacts/', mainapp_Contacts, name='contacts'),
     path('registration/', mainapp_registration, name='registration'),
-    path('catalog/', category_product_list, name='catalog'),
+
+    path('catalog/<int:page>', category_product_list, name='catalog'),
+
     # path('Catalog/Table/', products.mainapp_table, name='table'),
     # path('Catalog/Sofa/', products.mainapp_sofa, name='sofa'),
     # path('Catalog/Kitchen_set/', products.mainapp_kitchen_set, name='set'),
@@ -48,7 +50,8 @@ urlpatterns = [
     path('delete/<slug:slug>/', ProductDelete.as_view(), name='delete'),
             ] + endpointspatterns
 
-
+# url( r'^category/(?P<pk>\d+)/page/(?P<page>\d+)/$' , mainapp.products,\
+# name= 'page' ),
 
 
 

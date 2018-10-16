@@ -37,6 +37,25 @@
 
         <!--{% endfor %}-->
     <!--</main>-->
+
+<div class ="paginator ">
+{% if products.has_previous %}
+<a href ="{% url 'products:catalog' products.previous_page_number %}">
+Prev
+</a>
+{% endif %}
+<span class="current">
+страница {{products.number}} из
+{{products.paginator.num_pages}}
+</span>
+{% if products.has_next %}
+<a href="{% url 'products:catalog' products.next_page_number %}">
+Next
+</a>
+{% endif %}
+</div>
+
+
          <main class="main">
             {% for product in products%}
             <figure class="item">

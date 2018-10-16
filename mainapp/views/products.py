@@ -1,7 +1,6 @@
-import os
+
 import json
-# import simplejson
-from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404
+from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404, HttpResponseRedirect
 from django.template.loader import get_template
 from django.urls import reverse_lazy
 from django.http import HttpResponse
@@ -12,6 +11,7 @@ from django.views.generic import (
     DeleteView, ListView, DetailView,
 )
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from mainapp.models import Product, Category
 from mainapp.forms import ProductModelForm
@@ -109,11 +109,17 @@ class ProductGenericUpdate(LoginRequiredMixin, UpdateView):
 #         return render(request, self.template_name, {'form': form})
 
 
-# @login_required(login_url=reverse_lazy('auth:login'))
-def category_product_list(request):
+def category_product_list(request, page=1):
     cat = Category.objects.all()
-    prod = Product.objects.all().order_by('price')[:6]
-    return render(request, 'mainapp/catalog.html',{'categories': cat, 'products': prod})
+    prod = Product.objects.all().order_by('price')
+    paginator = Paginator(prod, 2)
+    try:
+        products_paginator = paginator.page(page)
+    except PageNotAnInteger:
+        products_paginator = paginator.page(1)
+    except EmptyPage:
+        products_paginator = paginator.page(paginator.num_pages)
+    return render(request, 'mainapp/catalog.html',{'categories': cat, 'products': products_paginator})
 
 
 class ProductDetail(DetailView):
@@ -135,6 +141,12 @@ class ProductDelete(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('products:catalog')
     slug_field = 'name'
     login_url = reverse_lazy('auth:login')
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.is_active = False
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
 
 
 # def product_update(request, title):

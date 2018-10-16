@@ -11,7 +11,6 @@ class ProductViewSet(ModelViewSet):
     serializer_class = ProductSerializer
 
 
-
 def product_list(request):
     query = get_list_or_404(Product)
     data = map(lambda itm: {

@@ -12,7 +12,7 @@
 
 <div class = "categories_list">
     <button class = "new_category">
-        <a href = "{% url 'admin:category_create' %}">
+        <a href = "{% url 'admin_custom:category_create' %}">
             Добавить новую категорию
         </a>
     </button>
@@ -25,17 +25,17 @@
                 </div>
                 <div class="category_actions">
                 <button>
-                    <a href="{% url 'admin:products' object.name %}">
+                    <a href="{% url 'admin_custom:products' object.name %}">
                         Товары категории
                     </a>
                 </button>
                 <button>
-                    <a href= "{% url 'admin:category_update' object.name %}">
+                    <a href= "{% url 'admin_custom:category_update' object.name %}">
                         Редактировать
                     </a>
                 </button>
                 <button>
-                    <a href="{% url 'admin:category_delete' object.name %}">
+                    <a href="{% url 'admin_custom:category_delete' object.name %}">
                         Удалить
                     </a>
                 </button>
@@ -55,17 +55,17 @@
                 </div>
                 <div class="category_actions">
                 <button>
-                    <a href="{% url 'admin:products' object.name %}">
+                    <a href="{% url 'admin_custom:products' object.name %}">
                         Товары категории
                     </a>
                 </button>
                 <button>
-                    <a href= "{% url 'admin:category_update' object.name %}">
+                    <a href= "{% url 'admin_custom:category_update' object.name %}">
                         Редактировать
                     </a>
                 </button>
                 <button>
-                    <a href="{% url 'admin:category_delete' object.name %}">
+                    <a href="{% url 'admin_custom:category_delete' object.name %}">
                         Удалить
                     </a>
                 </button>

@@ -1,6 +1,6 @@
 import json
 # import simplejson
-from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404
+from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404, HttpResponseRedirect
 from django.template.loader import get_template
 from django.urls import reverse_lazy
 from django.http import HttpResponse
@@ -10,6 +10,7 @@ from django.views.generic import (
     DeleteView, ListView, DetailView,
 )
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from mainapp.models import Category, Product
 from mainapp.forms import CategoryForm, CategoryModelForm
@@ -54,10 +55,23 @@ class CategoryDetail(DetailView):
     template_name = 'mainapp/components/categories.html'
     context_object_name = 'category'
     slug_field = 'name'
+    paginate_by = 1
+
 
     def get_context_data(self, **kwargs):
         context = super(CategoryDetail, self).get_context_data(**kwargs)
         context['products'] = Product.objects.filter(category=self.object.id)
+
+        # purchases_page = self.request.GET.get("purchases_page")
+        # purchases = self.object.get_purchases().filter()
+        # purchases_paginator = paginator.Paginator(purchases, self.purchases_paginate_by)
+        # # Catch invalid page numbers
+        # try:
+        #     purchases_page_obj = purchases_paginator.page(purchases_page)
+        # except (paginator.PageNotAnInteger, paginator.EmptyPage):
+        #     purchases_page_obj = purchases_paginator.page(1)
+        #
+        # context["purchases_page_obj"] = purchases_page_obj
         return context
 
 
@@ -67,6 +81,11 @@ class CategoryDelete(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('products:catalog')
     slug_field = 'name'
 
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.is_active = False
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
 
 # def category_detail(request, slug):
 #     cat = Category.objects.get(title=slug)

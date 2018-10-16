@@ -14,16 +14,14 @@
     <br>
     Подтвердите перемещение {{subject}} {{name}} в раздел {{part_name}}.
     <p>Запись останется в БД с is_active=0</p>
-<form action ="{% url url_name url_arg %}" method="post">
+<form method="post">
     {% csrf_token %}
     <input class="btn btn-danger" type="submit" value="Переместить">
 <!--<button class="btn btn-danger">-->
-    <!--<a href="{% url 'admin:users' %}">-->
+    <!--<a href="{% url 'admin_custom:users' %}">-->
         <!--Удалить-->
     <!--</a>-->
 </button>
-
-
 
 </form>
 <button class="btn btn-success">

@@ -5,6 +5,7 @@ from django.views.generic import (
     FormView, CreateView, UpdateView,
     DeleteView, ListView, DetailView,
 )
+from django.contrib.auth.decorators import user_passes_test
 
 from userapp.models import ShopUser
 from mainapp.models import Category, Product
@@ -12,6 +13,7 @@ from userapp.forms import ShopUserLoginForm, ShopUserRegisterForm, ShopUserEditF
 from adminapp.forms import ShopUserAdminEditForm, CategoryEditForm, ProductEditForm
 
 
+@user_passes_test(lambda u: u.is_superuser)
 def admin_page(request):
     return render(request, 'adminapp/admin.html', {})
 
@@ -43,7 +45,7 @@ class UserList(ListView):
 #         user_form = ShopUserRegisterForm(request.POST, request.FILES)
 #     if user_form.is_valid():
 #         user_form.save()
-#         return HttpResponseRedirect(reverse('admin:users'))
+#         return HttpResponseRedirect(reverse('admin_custom:users'))
 #     else:
 #         user_form = ShopUserRegisterForm()
 #         content = {'update_form': user_form}
@@ -54,14 +56,14 @@ class UserCreate(CreateView):
     model = ShopUser
     form_class = ShopUserRegisterForm
     template_name = 'adminapp/update.html'
-    success_url = reverse_lazy('admin:users')
+    success_url = reverse_lazy('admin_custom:users')
 
 
 class UserUpdate(UpdateView):
     model = ShopUser
     form_class = ShopUserAdminEditForm
     template_name = 'adminapp/update.html'
-    success_url = reverse_lazy('admin:users')
+    success_url = reverse_lazy('admin_custom:users')
     slug_field = 'username'
 
     def get_context_data(self, **kwargs):
@@ -70,7 +72,7 @@ class UserUpdate(UpdateView):
         context['return'] = 'К списку пользователей'
         return_path = self.request.META.get('HTTP_REFERER', '/')
         context['url_name'] = return_path
-        context['url_form'] = 'admin:users'
+        context['url_form'] = 'admin_custom:users'
         context['url_arg'] = ''
         return context
 
@@ -79,11 +81,11 @@ def user_delete(request, title):
     user = get_object_or_404(ShopUser, username=title)
     content = {'object_to_delete': user, 'title': 'Удаление пользователя', 'subject': 'пользователя',
                'name': user.username, 'part_name': 'Заблокированные пользователи',
-               'url_name': 'admin:user_delete', 'url_arg': user.username}
+               'url_cancel': 'admin_custom:users'}
     if request.method == 'POST':
         user.is_active = False
         user.save()
-        return HttpResponseRedirect("/admin/users/")
+        return HttpResponseRedirect("/admin_custom/users/")
     return render(request, 'adminapp/delete.html', content)
 
 
@@ -98,7 +100,7 @@ class CategoryUpdate(UpdateView):
     model = Category
     form_class = CategoryEditForm
     template_name = 'adminapp/update.html'
-    success_url = reverse_lazy('admin:category')
+    success_url = reverse_lazy('admin_custom:category')
     slug_field = 'name'
 
     def get_context_data(self, **kwargs):
@@ -107,7 +109,7 @@ class CategoryUpdate(UpdateView):
         context['return'] = 'К списку категорий'
         return_path = self.request.META.get('HTTP_REFERER', '/')
         context['url_name'] = return_path
-        context['url_form'] = 'admin:products'
+        context['url_form'] = 'admin_custom:products'
         context['url_arg'] = self.object.name
 
         return context
@@ -117,25 +119,24 @@ class CategoryCreate(CreateView):
     model = Category
     form_class = CategoryEditForm
     template_name = 'adminapp/update.html'
-    success_url = reverse_lazy('admin:catalog')
+    success_url = reverse_lazy('admin_custom:catalog')
 
 
 def category_delete(request, title):
     category = get_object_or_404(Category, name=title)
     content = {'object_to_delete': category, 'title': 'Удаление категории', 'subject': 'категории',
-               'name': category.name, 'part_name': 'Архив',
-               'url_name': 'admin:category_delete', 'url_arg': category.name, 'url_cancel': 'admin:category'}
+               'name': category.name, 'part_name': 'Архив', 'url_cancel': 'admin_custom:category'}
     if request.method == 'POST':
         category.is_active = False
         category.save()
-        return HttpResponseRedirect("/admin/catalog/")
+        return HttpResponseRedirect("/admin_custom/catalog/")
     return render(request, 'adminapp/delete.html', content)
 
 
 # class UserDelete(DeleteView):
 #     model = ShopUser
 #     template_name = 'adminapp/user_delete.html'
-#     success_url = reverse_lazy('admin:users')
+#     success_url = reverse_lazy('admin_custom:users')
 #     slug_field = 'name'
 
 
@@ -179,7 +180,7 @@ class ProductCreate(CreateView):
     model = Product
     form_class = ProductEditForm
     template_name = 'adminapp/update.html'
-    success_url = reverse_lazy('admin:products')
+    success_url = reverse_lazy('admin_custom:products')
 
 
 def product_read(request, title):
@@ -190,7 +191,7 @@ class ProductUpdate(UpdateView):
     model = Product
     form_class = ProductEditForm
     template_name = 'adminapp/update.html'
-    success_url = reverse_lazy('admin:product_list')
+    success_url = reverse_lazy('admin_custom:product_list')
     slug_field = 'name'
 
     def get_context_data(self, **kwargs):
@@ -199,7 +200,7 @@ class ProductUpdate(UpdateView):
         context['return'] = 'К списку товаров'
         return_path = self.request.META.get('HTTP_REFERER', '/')
         context['url_name'] = return_path
-        context['url_form'] = 'admin:products'
+        context['url_form'] = 'admin_custom:products'
         context['url_arg'] = self.object.category.name
         return context
 
@@ -207,13 +208,12 @@ class ProductUpdate(UpdateView):
 def product_delete(request, title):
     product = get_object_or_404(Product, name=title)
     content = {'object_to_delete': product, 'title': 'Удаление товара', 'subject': 'товара',
-               'name': product.name, 'part_name': 'Архив',
-               'url_name': 'admin:product_delete', 'url_arg': product.name, 'url_cancel': 'admin:product_list'}
+               'name': product.name, 'part_name': 'Архив', 'url_cancel': 'admin_custom:product_list'}
     if request.method == 'POST':
         product.is_active = False
         product.save()
         # return HttpResponseRedirect(request.META["HTTP_REFERER"])
-        return HttpResponseRedirect("/admin/products/category/"+product.category.name)
+        return HttpResponseRedirect("/admin_custom/products/category/"+product.category.name)
     return render(request, 'adminapp/delete.html', content)
 
 

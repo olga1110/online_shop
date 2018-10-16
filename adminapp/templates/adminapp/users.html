@@ -13,7 +13,7 @@
 
 <div class =" users_list ">
     <button class = "new_user">
-        <a href ="{% url 'admin:user_create' %}">
+        <a href ="{% url 'admin_custom:user_create' %}">
            {{title}}
         </a>
     </button>
@@ -36,12 +36,12 @@
         <div class="user_role">
 
             <button>
-                <a href="{% url 'admin:user_update' object.username %}">
+                <a href="{% url 'admin_custom:user_update' object.username %}">
                     Редактировать
                 </a>
             </button>
             <button>
-                <a href="{% url 'admin:user_delete' object.username %}">
+                <a href="{% url 'admin_custom:user_delete' object.username %}">
                     Удалить
                 </a>
             </button>
@@ -81,12 +81,12 @@
         <div class="user_role">
 
             <button>
-                <a href="{% url 'admin:user_update' object.username %}">
+                <a href="{% url 'admin_custom:user_update' object.username %}">
                     Редактировать
                 </a>
             </button>
             <button>
-                <a href="{% url 'admin:user_delete' object.username %}">
+                <a href="{% url 'admin_custom:user_delete' object.username %}">
                     Удалить
                 </a>
             </button>

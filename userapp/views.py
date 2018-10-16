@@ -4,6 +4,9 @@ from django.contrib import auth
 from django.urls import reverse, reverse_lazy
 from userapp.forms import ShopUserLoginForm, ShopUserRegisterForm, ShopUserEditForm
 from userapp.models import ShopUser
+from userapp.mixins import AnonRequiredMixin
+
+
 
 
 # def login(request):
@@ -25,11 +28,12 @@ from userapp.models import ShopUser
 #     return render(request, 'userapp/login.html', content)
 
 
-class LoginView(FormView):
+class LoginView(AnonRequiredMixin, FormView):
     model = ShopUser
     form_class = ShopUserLoginForm
     template_name = 'userapp/login.html'
     success_url = reverse_lazy('products:start_page')
+    redirect_url = reverse_lazy('products:start_page')
 
     def post(self, request, *args, **kwargs):
         next = request.GET['next'] if 'next' in request.GET.keys() else ''
@@ -65,16 +69,40 @@ def logout(request):
     return HttpResponseRedirect('/')
 
 
-def register(request):
-    if request.method == 'POST':
-        register_form = ShopUserRegisterForm(request.POST, request.FILES)
-        if register_form.is_valid():
-            register_form.save()
-            return HttpResponseRedirect(reverse('auth:login'))
-    else:
-        register_form = ShopUserRegisterForm()
-        content = {'register_form': register_form}
-        return render(request, 'userapp/register.html', content)
+# def register(request):
+#     if request.method == 'POST':
+#         register_form = ShopUserRegisterForm(request.POST, request.FILES)
+#         if register_form.is_valid():
+#             register_form.save()
+#             return HttpResponseRedirect(reverse('auth:login'))
+#     else:
+#         register_form = ShopUserRegisterForm()
+#         content = {'register_form': register_form}
+#         return render(request, 'userapp/register.html', content)
+
+
+class RegisterView(AnonRequiredMixin, FormView):
+    model = ShopUser
+    form_class = ShopUserRegisterForm
+    template_name = 'userapp/register.html'
+    success_url = reverse_lazy('products:start_page')
+    redirect_url = reverse_lazy('products:start_page')
+
+    def post(self, request, *args, **kwarg):
+        form = self.form_class(data=request.POST)
+
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.is_active = True
+
+            password = request.POST.get('password')
+            user.set_password(password)
+            user.save()
+
+            auth.login(request, user)
+            return redirect(self.success_url)
+
+        return render(request, self.template_name, {'form': form})
 
 
 def edit(request):
