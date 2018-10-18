@@ -109,3 +109,4 @@ class CategoryDelete(LoginRequiredMixin, DeleteView):
 #         )
 #
 #     return render(request, 'create.html', {'form': form})
+

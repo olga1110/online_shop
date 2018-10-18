@@ -43,6 +43,7 @@ class Product(models.Model):
 
     class Meta:
         ordering = ['price', 'modified', 'created']
+        permissions = (('analyse_model', 'Can analyse model'),)
 
 
 
