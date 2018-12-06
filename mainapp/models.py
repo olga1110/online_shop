@@ -15,6 +15,9 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ['name', 'active']
+
 
 class Product(models.Model):
     name = models.CharField(verbose_name='Наименование продукта', max_length=150, unique=True)
@@ -40,6 +43,9 @@ class Product(models.Model):
 
     def __str__(self):
         return "{} ({}р., {}шт.)".format(self.name, self.price, self.quantity)
+
+    class Meta:
+        ordering = ['name', 'active']
 
 
 

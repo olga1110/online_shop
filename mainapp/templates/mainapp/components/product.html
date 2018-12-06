@@ -12,7 +12,11 @@
 <div class="product-page Description">
     <div class="title">
         <h1>{{product.short_desc}}</h1>
-        <p> Скидка: <span class="new_price">{{product.discount|floatformat}}%</span></p>
+        <p> Скидка: <span class="new_price">{{product.discount|spec_offer|floatformat}}%</span></p>
+        {% offer as discount%}
+        {% if discount %}
+        <p>СПЕЦПРЕДЛОЖЕНИЕ ДНЯ!!!</p>>
+        {% endif %}
     </div>
     <div class="product-item">
         <!--{% block product_image %}-->

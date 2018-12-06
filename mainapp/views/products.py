@@ -27,11 +27,13 @@ def update_price_from_file(product):
 
 def mainapp_Contacts(request):
     path = 'mainapp/static/mainapp/files/organization.json'
-    with open(path) as json_data:
+    with open(path, encoding='utf-8') as json_data:
         context = json.load(json_data)
 
-    template = get_template('mainapp/contacts.html')
-    return HttpResponse(template.render(context))
+    # template = get_template('mainapp/Сontacts.html')
+    # return HttpResponse(template.render(context))
+
+    return render(request, 'mainapp/Сontacts.html', context)
 
 
 def mainapp_index(request):
