@@ -10,7 +10,7 @@ import mainapp.urls
 app_name = 'auth'
 
 urlpatterns = [
-    path('login/', userapp.login, name='login'),
+    path('login/', userapp.LoginView.as_view(), name='login'),
     path('logout/', userapp.logout, name='logout'),
     path('register/', userapp.register, name='register'),
     path('edit/', userapp.edit, name='edit'),

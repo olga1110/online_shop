@@ -1,0 +1,114 @@
+{% extends 'adminapp/master.html' %}
+
+{% load staticfiles %}
+
+{% block page_title %} Пользователи {% endblock %}
+{% block page_styles %}
+<link rel="stylesheet" href="{%static 'adminapp/css/style.css' %}">
+{% endblock %}
+
+{% block page_content %}
+{{ block.super }}
+
+
+<div class =" users_list ">
+    <button class = "new_user">
+        <a href ="{% url 'admin:user_create' %}">
+           {{title}}
+        </a>
+    </button>
+    <h2>Активные пользователи</h2>
+    {% for object in objects %}
+        {% if object.is_active %}
+        <div  class="user_record {% if not object.is_active %} not_active {% endif %}">
+            <div class="user_name">
+                <p><strong>Login: {{object.username}}</strong></p>
+                <p>
+                {% if object.first_name %}
+                <b>Name:</b> {{object.first_name|title }}
+                {% if object.last_name %}
+                {{object.last_name|title}}
+                {% endif %}
+                {% endif %}
+                </p>
+        </div>
+            <img src="/media/{{object.avatar|default:'users_avatars/avatar.png'}}" alt="{{object.username}}">
+        <div class="user_role">
+
+            <button>
+                <a href="{% url 'admin:user_update' object.username %}">
+                    Редактировать
+                </a>
+            </button>
+            <button>
+                <a href="{% url 'admin:user_delete' object.username %}">
+                    Удалить
+                </a>
+            </button>
+            <br>
+            {% if object.is_superuser %}
+            <b> Role: </b> Администратор
+            {% else %}
+                Role: Пользователь
+            {% endif %}
+            </div>
+
+            <div class="user_email">
+                {% if object.email %} <b>Email: </b> {{object.email}} {% endif %}
+            </div>
+            <div class="user_lastlogin">
+            <b>Last seen:</b> {{object.last_login}}
+            </div>
+        </div>
+        {% endif %}
+        {% endfor%}
+    <h2>Заблокированные пользователи</h2>
+    {% for object in objects %}
+        {% if not object.is_active %}
+        <div  class="user_record {% if not object.is_active %} not_active {% endif %}">
+            <div class="user_name">
+                <p><strong>Login: {{object.username}}</strong></p>
+                <p>
+                {% if object.first_name %}
+                <b>Name:</b> {{object.first_name|title }}
+                {% if object.last_name %}
+                {{object.last_name|title}}
+                {% endif %}
+                {% endif %}
+                </p>
+        </div>
+            <img src="/media/{{object.avatar|default:'users_avatars/avatar.png'}}" alt="{{object.username}}">
+        <div class="user_role">
+
+            <button>
+                <a href="{% url 'admin:user_update' object.username %}">
+                    Редактировать
+                </a>
+            </button>
+            <button>
+                <a href="{% url 'admin:user_delete' object.username %}">
+                    Удалить
+                </a>
+            </button>
+            <br>
+            {% if object.is_superuser %}
+            <b> Role: </b> Администратор
+            {% else %}
+                Role: Пользователь
+            {% endif %}
+            </div>
+
+            <div class="user_email">
+                {% if object.email %} <b>Email: </b> {{object.email}} {% endif %}
+            </div>
+            <div class="user_lastlogin">
+            <b>Last seen:</b> {{object.last_login}}
+            </div>
+        </div>
+        {% endif %}
+        {% endfor%}
+
+</div>
+
+
+{% endblock %}
