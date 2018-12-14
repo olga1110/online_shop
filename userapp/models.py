@@ -13,5 +13,5 @@ class ShopUser(AbstractUser):
         null=True
     )
 
-    def __str__(self):
-        return self.username
+    # def __str__(self):
+    #     return self.username

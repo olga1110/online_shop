@@ -1,0 +1,75 @@
+{% extends 'master.html' %}
+{% load static %}
+{% block page_title %} Contacts {% endblock %}
+{% block page_styles %}
+<link rel="stylesheet" href="{%static 'mainapp/css/style.css' %}">   
+{% endblock %}
+
+{% block page_content %}
+{{ block.super }}
+<div class="Contacts">
+            <!--Обратная связь -->
+            <details class="customers-form">
+                <summary>Напишите нам</summary>
+                <!--<form class="feetback">-->
+                    <!--<fieldset>-->
+                        <!--<legend> Ваши контактные данные </legend>-->
+                        <!--<br>-->
+                        <!--<br>-->
+                        <!--<label> Имя:-->
+                            <!--<input type="text" placeholder="Имя"> </label>-->
+                        <!--<br>-->
+                        <!--<br>-->
+                        <!--<label> Номер телефона:-->
+                            <!--<input type="tel" name="tel" placeholder="Номер телефона"> </label>-->
+                        <!--<br>-->
+                        <!--<br>-->
+                        <!--<label> Сайт организации:-->
+                            <!--<input type="url" name="url" placeholder="Сайт"> </label>-->
+                        <!--<br>-->
+                        <!--<br>-->
+                        <!--<label>Email:-->
+                            <!--<input type="email" placeholder="Email"> </label>-->
+                        <!--<br>-->
+                        <!--<br> </fieldset>-->
+                    <!--<br>-->
+                    <!--<br>-->
+                    <!--<label class="news">-->
+                        <!--<input type="checkbox" checked>Подключить рассылку новостей </label>-->
+                    <!--&lt;!&ndash;-->
+                    <!--<label>Выберите тему:-->
+                        <!--<select>-->
+                            <!--<option>Тема1</option>-->
+                            <!--<option>Тема2</option>-->
+                            <!--<option>Тема3</option>-->
+                        <!--</select>-->
+                    <!--</label>-->
+<!--&ndash;&gt;-->
+                    <!--<br>-->
+                    <!--<br>-->
+                    <!--<textarea> Ваши пожелания</textarea>-->
+                    <!--<br>-->
+                    <!--<div class="button">-->
+                        <!--<button type="submit">Отправить&gt;</button>-->
+                        <!--<button type="reset">Очистить</button>-->
+                    <!--</div>-->
+                <!--</form>-->
+            <!--</details>-->
+                <!--<main>-->
+            <!--<br>-->
+            <!--<h2>Наш адрес:</h2>-->
+       <!--<address>-->
+           <!--<p>Контактный телефон: {{contact_details.tel|default_if_none:"tel"}}</p>-->
+           <!--<p>{{contact_details.address|default_if_none:"address" }} </p>-->
+           <!--<p>{{contact_details.email|default_if_none:"email"}}</p>-->
+       <!--</address>-->
+            <!--<p>Мы&nbsp;ждем Вас! Магазин работает ежедневно с&nbsp;{{contact_details.start_time|default_if_none:9}}&nbsp;до&nbsp;{{contact_details.end_time|default_if_none:18}}&nbsp;ч</p>-->
+            <!--<br>-->
+            <!--<br>-->
+            <!--&lt;!&ndash;<div class="map">&ndash;&gt;-->
+                <!--&lt;!&ndash;<script charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Ab597349d9802ccdbab8d83d89b347bb236109bc842b280dce6f09f1096d25bea&amp;lang=ru_RU&amp;scroll=true"></script>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--</main>-->
+<!--</div>-->
+ {% endblock %}              
+                

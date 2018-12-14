@@ -1,5 +1,5 @@
 {% extends 'master.html' %}
-{% load staticfiles %}
+{% load static %}
 
 {% block page_title %}
 Войти в систему
@@ -11,18 +11,54 @@
 
 
 {% block page_content %}
-<form class="form-horizontal" action="{% url 'auth:login' %}" method="post">
+
+<!--<form class="form-horizontal" action="{% url 'auth:login' %}" method="post">-->
+    <!--{% csrf_token %}-->
+    <!--{% if next %}-->
+    <!--<input type= "hidden" name= "next" value= "{{next}}" >-->
+    <!--{% endif %}-->
+
+    <!--{{ login_form.as_p }}-->
+    <!--<br>-->
+    <!--<input class="form-control" type="submit" value="войти">-->
+<!--</form>-->
+
+<!--<form>-->
+<!--<input class="btn btn -round form-control" type="button" value="Зарегистрироваться" onClick='location.href="{% url "auth:register" %}"'>-->
+<!--</form>-->
+
+
+<form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
+
+    {% for err in form.not_field_errors %}
+    <div class="alert alert-danger" role="alert">
+        <span>{{ err}}</span>
+    </div>
+    {% endfor %}
+
     {% if next %}
     <input type= "hidden" name= "next" value= "{{next}}" >
     {% endif %}
 
-    {{ login_form.as_p }}
-    <br>
-    <input class="form-control" type="submit" value="войти">
+    {% for field in form %}
+    <div class="form-group">
+        <label for="{{ field.name }}">
+            {{ field.label }}
+        </label>
+        {{ field }}
+
+        {% for err in field.errors %}
+        <small class="form-text">{{ err }}</small>
+        {% endfor %}
+
+    </div>
+    {% endfor %}
+    <input type="submit" value="Войти">
 </form>
 
-<button class="btn btn -round form-control">
-<a href ="{% url 'auth:register' %}" class=""> Зарегистрироваться </a>
-</button>
+<form>
+<input class="btn btn -round form-control" type="button" value="Зарегистрироваться" onClick='location.href="{% url "auth:register" %}"'>
+</form>
+
 {% endblock %}
