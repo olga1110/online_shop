@@ -1,0 +1,95 @@
+{% extends 'master.html' %}
+
+{% load static %}
+
+{% block page_title %} Категории товара {% endblock %}
+{% block page_styles %}
+   <link rel="stylesheet" href="{% static 'web_shop/style.css' %}">
+{% endblock %}
+
+{% block menu %}
+{% include 'adminapp/includes/inc_menu.html' %}
+{% endblock %}
+
+{% block page_content %}
+{{ block.super }}
+
+<div class = "categories_list">
+    <!--<button class = "new_category">-->
+        <!--<a href = "{% url 'admin_custom:category_create' %}">-->
+            <!--Добавить новую категорию-->
+        <!--</a>-->
+    <!--</button>-->
+
+    <form>
+            <input type="button" class = "new_category" value="Добавить&nbsp;новую&nbsp;категорию"
+                   onClick='location.href="{% url "admin_custom:category_create" %}"'>
+    </form>
+
+
+
+
+    <br>
+    {% for object in objects %}
+        {% if object.is_active %}
+            <div class="category_record">
+                <div class="category_name">
+                {{object.name|title}}
+                </div>
+                <div class="category_actions">
+
+                <form>
+                        <input type="button"  value="Товары&nbsp;категории"
+                   onClick='location.href="{% url "admin_custom:products" object.name %}"'>
+                </form>
+
+                <form>
+                        <input type="button"  value="Редактировать"
+                   onClick='location.href="{% url "admin_custom:category_update" object.name %}"'>
+                </form>
+
+                <form>
+                        <input type="button"  value="Удалить"
+                   onClick='location.href="{% url "admin_custom:category_delete" object.name %}"'>
+                </form>
+
+                </div>
+                <div class="category_desc">
+                    {{object.descr|title}}
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+     <h2>Категории в архиве</h2>
+    {% for object in objects %}
+        {% if not object.is_active %}
+            <div class="category_record">
+                <div class="category_name">
+                {{object.name|title}}
+                </div>
+                <div class="category_actions">
+               <form>
+                        <input type="button"  value="Товары&nbsp;категории"
+                   onClick='location.href="{% url "admin_custom:products" object.name %}"'>
+                </form>
+
+                <form>
+                        <input type="button"  value="Редактировать"
+                   onClick='location.href="{% url "admin_custom:category_update" object.name %}"'>
+                </form>
+
+                <form>
+                        <input type="button"  value="Удалить"
+                   onClick='location.href="{% url "admin_custom:category_delete" object.name %}"'>
+                </form>
+
+                </div>
+                <div class="category_desc">
+                    {{object.descr|title}}
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
+
+{% endblock %}

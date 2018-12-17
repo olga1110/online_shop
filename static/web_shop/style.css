@@ -192,6 +192,9 @@ h1 {
     flex-direction: column;
 }
 
+.active {
+color: red;
+}
 
 /*Окончание стилей страницы "Контакты"*/
 

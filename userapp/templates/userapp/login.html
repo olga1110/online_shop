@@ -6,26 +6,11 @@
 {% endblock %}
 
 {% block page_styles %}
-<link rel="stylesheet" href="{%static 'mainapp/css/style.css' %}">
+<link rel="stylesheet" href="{%static 'web_shop/style.css' %}">
 {% endblock %}
 
 
 {% block page_content %}
-
-<!--<form class="form-horizontal" action="{% url 'auth:login' %}" method="post">-->
-    <!--{% csrf_token %}-->
-    <!--{% if next %}-->
-    <!--<input type= "hidden" name= "next" value= "{{next}}" >-->
-    <!--{% endif %}-->
-
-    <!--{{ login_form.as_p }}-->
-    <!--<br>-->
-    <!--<input class="form-control" type="submit" value="войти">-->
-<!--</form>-->
-
-<!--<form>-->
-<!--<input class="btn btn -round form-control" type="button" value="Зарегистрироваться" onClick='location.href="{% url "auth:register" %}"'>-->
-<!--</form>-->
 
 
 <form method="POST" enctype="multipart/form-data">

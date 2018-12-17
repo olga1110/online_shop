@@ -1,11 +1,11 @@
 {% extends 'master.html' %}
 
-{% load staticfiles %}
+{% load static %}
 
 {% block page_title %} Catalog
 {% endblock %}
 {% block page_styles %}
-<link rel="stylesheet" href="{% static 'mainapp/css/style.css' %}">
+<link rel="stylesheet" href="{%static 'web_shop/style.css' %}">
 {% endblock %}
 
 {% block page_content %}
@@ -18,13 +18,14 @@
         {% for cat in categories %}
         <h2><a href="/catalog/{{cat.name}}/" title={{cat.descr}}>{{cat.short_desc}}</a></h2>
         {% endfor %}
+
+        {% if user.is_authenticated and user.is_active and user.is_superuser %}
         <a href="{% url 'categories:create'%}">Добавить категорию</a>
+        {% endif %}
         <!--<h2><strong>Акция!!!</strong></h2>-->
         <!--<h2><strong>Акция!!! <span class = "new_price"></span> </strong></h2>-->
         <!--<h2><strong>Акция!!!</strong></h2>-->
     </div>
-
-    <h3>Акция только в октябре! Скидки до 20% </h3>
 
     <!--<main class="main">-->
         <!--{% for link in links %}-->

@@ -13,5 +13,10 @@ class ShopUser(AbstractUser):
         null=True
     )
 
-    # def __str__(self):
-    #     return self.username
+    def __str__(self):
+        return 'Логин: {}{}'.format(self.username, ', superuser' if self.is_superuser else '')
+
+    class Meta:
+        ordering = ['-is_superuser', 'username']
+
+

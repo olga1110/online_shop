@@ -33,7 +33,7 @@ def mainapp_Contacts(request):
     # template = get_template('mainapp/Сontacts.html')
     # return HttpResponse(template.render(context))
 
-    return render(request, 'mainapp/Сontacts.html', context)
+    return render(request, 'mainapp/contacts.html', context)
 
 
 def mainapp_index(request):
@@ -103,7 +103,7 @@ class ProductUpdate(FormView):
 def category_product_list(request):
     cat = Category.objects.all()
     prod = Product.objects.all().order_by('price')[:6]
-    return render(request, 'mainapp/catalog.html',{'categories': cat, 'products': prod})
+    return render(request, 'mainapp/catalog.html', {'categories': cat, 'products': prod})
 
 
 class ProductDetail(DetailView):

@@ -13,6 +13,7 @@ from mainapp.models import Category, Product
 from mainapp.forms import CategoryForm, CategoryModelForm
 
 
+
 # class CategoryCreate(View):
 #     success_url = reverse_lazy('products:catalog')
 #

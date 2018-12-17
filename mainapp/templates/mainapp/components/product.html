@@ -1,10 +1,10 @@
 {% extends 'master.html' %}
-{% load staticfiles %}
+{% load static %}
 {% load my_tags %}
 {% block page_title %} {{product.name}}
 {% endblock %}
 {% block page_styles %}
-<link rel="stylesheet" href="{% static 'mainapp/css/style.css' %}">
+<link rel="stylesheet" href="{% static 'web_shop/style.css' %}">
 {% endblock %}
 
 {% block page_content %}
@@ -15,7 +15,7 @@
         <p> Скидка: <span class="new_price">{{product.discount|spec_offer|floatformat}}%</span></p>
         {% offer as discount%}
         {% if discount %}
-        <p>СПЕЦПРЕДЛОЖЕНИЕ ДНЯ!!!</p>>
+        <p>СПЕЦПРЕДЛОЖЕНИЕ ДНЯ!!!</p>
         {% endif %}
     </div>
     <div class="product-item">
@@ -57,11 +57,17 @@
                 </article>
             </details>
         </section>
-        <button type="submit">
-            <a href ="/basket/add/{{product.id}}">
-            В&nbsp;корзину!
-            </a>
-        </button>
+        <!--<button type="submit">-->
+            <!--<a href ="/basket/add/{{product.id}}">-->
+            <!--В&nbsp;корзину!-->
+            <!--</a>-->
+        <!--</button>-->
+
+        <form>
+            <input type="button" value="В&nbsp;корзину!" onClick='location.href="/basket/add/{{product.id}}"'>
+        </form>
+
+
     </div>
 </div>
 {% block modules_of_product %}
@@ -70,8 +76,10 @@
 {% block analogue %}
 {% endblock %}
 <br><br><br><br>
+{% if user.is_authenticated and user.is_active and user.is_superuser %}
 <a href="/update/{{product.name}}/">Редактировать</a>
 <br><br>
 <a href="/delete/{{product.name}}/">Удалить</a>
+{%  endif %}
 {% endblock %}
 

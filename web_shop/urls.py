@@ -7,10 +7,12 @@ import mainapp.urls.products as products
 import mainapp.urls.categories as categories
 import userapp.urls as userapp
 import basketapp.urls as basketapp
+import adminapp.urls as adminapp
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('admin_custom/', include(adminapp)),
     path('', include(products)),
     path('catalog/', include(categories)),
     path('auth/', include(userapp)),

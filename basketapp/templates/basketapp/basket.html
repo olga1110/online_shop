@@ -1,10 +1,10 @@
 {% extends 'master.html' %}
 
-{% load staticfiles %}
+{% load static %}
 
 {% block page_title %} Корзина {% endblock %}
 {% block page_styles %}
-<link rel="stylesheet"href="{%static 'mainapp/css/style.css' %}">
+<link rel="stylesheet" href="{% static 'web_shop/style.css' %}">
 {% endblock %}
 
 
@@ -35,7 +35,7 @@
     {% endfor %}
     {% if basket_items %}
         <div class="basket_summary">
-            В корзине {{basket_items.0.total_quantity}} товаров общей стоимостью
+            В корзине {{basket_items.0.total_quantity}} товара(-ов) общей стоимостью
             {{ basket_items.0.total_cost}} руб
         </div>
     {% endif %}

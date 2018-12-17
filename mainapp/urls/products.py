@@ -16,8 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path
 
-from mainapp.endpoints.products import (product_list,
-                                    )
+from mainapp.endpoints.products import product_list
 
 from mainapp.views.products import (ProductGenericCreate, ProductGenericUpdate, ProductCreate, ProductUpdate,
                                     ProductDetail, mainapp_index, mainapp_Contacts,
@@ -32,18 +31,11 @@ endpointspatterns = [
 
 urlpatterns = [
     path('', mainapp_index, name='start_page'),
-    path('Contacts/', mainapp_Contacts, name='contacts'),
+    path('contacts/', mainapp_Contacts, name='contacts'),
     path('registration/', mainapp_registration, name='registration'),
     path('catalog/', category_product_list, name='catalog'),
-    # path('Catalog/Table/', products.mainapp_table, name='table'),
-    # path('Catalog/Sofa/', products.mainapp_sofa, name='sofa'),
-    # path('Catalog/Kitchen_set/', products.mainapp_kitchen_set, name='set'),
-    # path('Catalog/Area/', products.mainapp_area_comfort, name='area_comfort'),
     path('create/', ProductGenericCreate.as_view(), name='create'),
-    path('catalog/Tables/<slug:slug>/', ProductDetail.as_view(), name='product_detail'),
-    path('catalog/Sofas/<slug:slug>/',ProductDetail.as_view(), name='product_detail'),
-    path('catalog/Sets/<slug:slug>/', ProductDetail.as_view(), name='product_detail'),
-    # re_path(r'^Catalog/(\w+)/<slug:title>$', products.product_detail, name='product_detail'),
+    re_path(r'^catalog/\w+/(?P<slug>\w+)/$', ProductDetail.as_view(), name='product_detail'),
     path('update/<slug:slug>/', ProductGenericUpdate.as_view(), name='update'),
     path('delete/<slug:slug>/', ProductDelete.as_view(), name='delete'),
             ] + endpointspatterns

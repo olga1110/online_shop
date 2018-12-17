@@ -1,10 +1,10 @@
 {% extends 'master.html' %}
 
-{% load staticfiles %}
+{% load static %}
 
 {% block page_title %} Registration {% endblock %}
 {% block page_styles %}
-<link rel="stylesheet" href="{%static 'mainapp/css/style.css' %}">   
+<link rel="stylesheet" href="{% static 'web_shop/style.css' %}">
 {% endblock %}        
            
 {% block page_content %}

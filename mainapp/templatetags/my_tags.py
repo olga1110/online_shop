@@ -1,17 +1,18 @@
 
 from django import template
 from datetime import datetime
+from decimal import Decimal
 
 register = template.Library()
 
 @register.filter
 def discount(value, discount):
     if datetime.today().day == 25 and discount < 25:
-        return float(value) * (1 - 25 / 100)
+        return value * Decimal((1 - 25 / 100))
     elif datetime.today().day == 15 and discount < 15:
-        return float(value) * (1 - 15 / 100)
+        return value * Decimal((1 - 15 / 100))
     else:
-        return float(value) * (1 - discount / 100)
+        return value * Decimal((1 - discount / 100))
 
 
 
@@ -31,5 +32,8 @@ def spec_offer():
         return '25%'
     elif datetime.today().day == 15:
         return '15%'
+
+
+
 
 

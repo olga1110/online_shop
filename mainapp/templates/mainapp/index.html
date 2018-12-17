@@ -1,16 +1,19 @@
 {% extends 'master.html' %}
 
-{% load staticfiles %}
+{% load static %}
 {% load my_tags %}
 
 {% block page_title %} Cozy kitchen {% endblock %}
 {% block page_styles %}
-<link rel="stylesheet" href="{%static 'mainapp/css/style.css' %}">   
+<link rel="stylesheet" href="{%static 'web_shop/style.css' %}">
+
 {% endblock %}
 
 
 {% block page_content %}
-{{ block.super }} 
+
+
+{{ block.super }}
 <div class="main-page">
 <main>
 <h1><strong><em> {{company.title|title}}</em></strong></h1>
@@ -23,6 +26,13 @@ alt="Изумруд"> </main>
         Только сегодня скидка на все товары от {{discount}}!!! </p>
     {% endif %}
 
-</div>  
+</div>
+<script>
+{% if messages %}
+    {% for message in messages %}
+    alert('{{ message }}');
+    {% endfor %}
+{% endif %}
+</script>
 {% endblock %}
 

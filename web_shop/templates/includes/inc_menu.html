@@ -1,4 +1,4 @@
-{% load staticfiles %}
+{% load static %}
 <nav>
     <ul class="menu">
         <li><a href="{% url 'products:start_page'%}">Главная</a></li>
@@ -10,7 +10,7 @@
         {% if user.is_authenticated %}
 
                 <li>
-            <a href="{% url 'auth:edit' %}">
+            <a href="{% url 'auth:edit' user.username %}">
                 {{ user.username|default:'Пользователь'}}
             </a>
         </li>
@@ -20,10 +20,23 @@
             <a href="{% url 'auth:logout' %}">выйти</a>
             {% else %}
             <a href="{% url 'auth:login' %}">войти</a>
+
             {% endif %}
-                 <li>
+
+ <!--<svg aria-hidden="true" class="icon icon-basket">-->
+    <!--<use xlink:href="{}"></use>-->
+  <!--</svg>-->
+        <!--<span class="elem-cart__num ng-binding ng-hide" data-ng-bind="cartData.model.totalBasketQuantity" data-ng-show="cartData.model.totalBasketQuantity > 0">0</span>-->
+         <!--Корзина-->
+    <!--</a>-->
+        {% if user.is_superuser %}
+        <li><a href="{% url 'admin_custom:admin_page' %}">Настройка</a></li>
+        {% endif %}
+        <li>
             <a href="{% url 'basket:basket' %}"><img src="{%static 'mainapp/img/basket.png' %}" alt="Корзина" class="basket" height="80px"></a>
         </li>
+
+    </li>
         </li>
     </ul>
 </nav>
