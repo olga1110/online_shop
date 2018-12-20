@@ -2,19 +2,32 @@
 
 {% load static %}
 
-{% block page_title %} Create View {% endblock %}
+{% block page_title %} {{title}} {% endblock %}
 {% block page_styles %}
     <link rel="stylesheet" href="{% static 'web_shop/style.css' %}">
 {% endblock %}
 
-{% if request.resolver_match.app_name == 'admin_custom' %}
 {% block menu %}
 {% include 'adminapp/includes/inc_menu.html' %}
 {% endblock %}
-{% endif %}
 
 {% block page_content %}
-    {% include 'includes/form.html' %}
+{% include 'includes/form.html' %}
+
+
+{% if request.resolver_match.url_name == 'update' and request.resolver_match.app_name == 'products' %}
+<form>
+    <input type="button"  value="Отмена"
+       onClick='location.href="{% url url_cancel category_product %}"'>
+</form>
+{% else %}
+<form>
+    <input type="button"  value="Отмена"
+       onClick='location.href="{% url url_cancel %}"'>
+</form>
+
+{% endif %}
+
 {% endblock %}
 
 

@@ -3,7 +3,7 @@ import json
 # import simplejson
 from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404
 from django.template.loader import get_template
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.http import HttpResponse
 from django.views import View
 from django.views.generic import (
@@ -12,6 +12,9 @@ from django.views.generic import (
 )
 from mainapp.models import Product, Category
 from mainapp.forms import ProductModelForm
+from django.contrib.auth.decorators import user_passes_test
+from mainapp.mixins import SuperUserMixin
+
 
 
 def update_price_from_file(product):
@@ -48,26 +51,45 @@ def mainapp_registration(request):
     context = {'reg': 'Регистрация'}
     return render(request, 'mainapp/registration.html', context)
 
+# CRUD-методы
 
-class ProductGenericCreate(CreateView):
+
+class ProductGenericCreate(SuperUserMixin, CreateView):
     model = Product
     form_class = ProductModelForm
     template_name = 'create.html'
     success_url = reverse_lazy('products:catalog')
 
+    def get_context_data(self, **kwargs):
+        context = super(ProductGenericCreate, self).get_context_data(**kwargs)
+        context['url_cancel'] = 'products:catalog'
+        context['title'] = 'Добавление товара'
+        context['OK_text'] = 'Добавить'
+        return context
 
-class ProductGenericUpdate(UpdateView):
+
+class ProductGenericUpdate(SuperUserMixin, UpdateView):
     model = Product
     form_class = ProductModelForm
     template_name = 'create.html'
-    success_url = reverse_lazy('products:catalog')
+    # success_url = reverse_lazy('products:catalog')
+    slug_field = 'name'
+
+    def get_context_data(self, **kwargs):
+        context = super(ProductGenericUpdate, self).get_context_data(**kwargs)
+        context['url_cancel'] = 'categories:category'
+        context['category_product'] = self.object.category.name
+        context['OK_text'] = 'Сохранить'
+        return context
+
+    def get_success_url(self):
+        return reverse('categories:category', kwargs={'slug': self.object.category.name})
 
 
-class ProductCreate(View):
+class ProductCreate(SuperUserMixin, View):
     template_name = 'create.html'
     context_object_name = 'form'
     success_url = reverse_lazy('products:catalog')
-
 
     def get(self, request):
         form = ProductModelForm()
@@ -82,7 +104,7 @@ class ProductCreate(View):
         return render(request, self.template_name, {self.context_object_name: form})
 
 
-class ProductUpdate(FormView):
+class ProductUpdate(SuperUserMixin, FormView):
     form_class = ProductModelForm
     success_url = reverse_lazy('products:catalog')
     template_name = 'create.html'
@@ -101,8 +123,8 @@ class ProductUpdate(FormView):
 
 
 def category_product_list(request):
-    cat = Category.objects.all()
-    prod = Product.objects.all().order_by('price')[:6]
+    cat = Category.objects.filter(is_active=1)
+    prod = Product.objects.filter(is_active=1).order_by('category', 'price')[:6]
     return render(request, 'mainapp/catalog.html', {'categories': cat, 'products': prod})
 
 
@@ -112,6 +134,21 @@ class ProductDetail(DetailView):
     context_object_name = 'product'
     slug_field = 'name'
 
+    def get_context_data(self, **kwargs):
+        context = super(ProductDetail, self).get_context_data(**kwargs)
+        queryset = Product.objects.all()
+        product = queryset.get(name=self.kwargs['slug'])
+        category = product.category.name
+        context['url_cancel'] = '/catalog/' + category
+        return context
+
+    # def get_object(self):
+    #     queryset = Product.objects.all()
+    #     product = queryset.get(name=self.kwargs['slug']).category.name
+    #     category = product.category.name
+    #
+    #     return queryset.get(name=self.kwargs['slug'])
+
 # def product_detail(request, slug):
 #     update_price_from_file(slug)
 #     obj = get_object_or_404(Product, name=slug)
@@ -119,11 +156,38 @@ class ProductDetail(DetailView):
 #     return render(request, 'mainapp/components/product.html', {'product': obj})
 
 
-class ProductDelete(DeleteView):
-    model = Product
-    template_name = 'delete.html'
-    success_url = reverse_lazy('products:catalog')
-    slug_field = 'name'
+# class ProductDelete(SuperUserMixin, DeleteView):
+#     model = Product
+#     template_name = 'delete.html'
+#     # success_url = reverse_lazy('products:catalog')
+#     slug_field = 'name'
+#
+#     def get_context_data(self, **kwargs):
+#         context = super(ProductDelete, self).get_context_data(**kwargs)
+#         context['url_cancel'] = 'categories:category'
+#         context['category_product'] = self.object.category.name
+#         return context
+#
+#     def get_success_url(self):
+#         return reverse('categories:category', kwargs={'slug': self.object.category.name})
+
+
+@user_passes_test(lambda u: u.is_superuser)
+def product_delete(request, slug):
+
+    product = get_object_or_404(Product, name=slug)
+    content = {'object_to_delete': product, 'title': 'Удаление продукта', 'subject': 'продукта',
+               'name': product.name, 'part_name': 'Архив', 'url_cancel': request.META.get('HTTP_REFERER', '/')}
+    print(request.META.get('HTTP_REFERER', '/'))
+    if request.method == 'POST':
+        product.is_active = False
+        product.save()
+        # return HttpResponseRedirect(reverse('products:catalog'))
+        return reverse('categories:category', kwargs={'slug': product.category.name})
+    return render(request, 'delete.html', content)
+
+
+
 
 
 # def product_update(request, title):

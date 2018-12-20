@@ -2,18 +2,32 @@
 
 {% load static %}
 
-{% block page_title %} Delete Item {% endblock %}
+{% block page_title %} {{title}} {% endblock %}
 {% block page_styles %}
-<link rel="stylesheet" href="{%static 'mainapp/css/style.css' %}">
+   <link rel="stylesheet" href="{% static 'web_shop/style.css' %}">
 {% endblock %}
 
+{% block menu %}
+{% include 'adminapp/includes/inc_menu.html' %}
+{% endblock %}
 
 {% block page_content %}
 {{ block.super }}
 
-<form method="POST">
+<div class = "object_delete">
+    <br>
+    Подтвердите перемещение {{subject}} {{name}} в раздел {{part_name}}.
+    <p>Запись останется в БД с is_active=0</p>
+<form method="post">
     {% csrf_token %}
-    <input type="submit" value="DELETE">
+    <input class="btn btn-danger" type="submit" value="Переместить">
+
 </form>
+
+<form>
+    <input type="button"  value="Отмена"
+       onClick='location.href="{{ url_cancel }}"'>
+</form>
+
 
 {% endblock %}

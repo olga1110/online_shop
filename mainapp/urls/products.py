@@ -20,7 +20,7 @@ from mainapp.endpoints.products import product_list
 
 from mainapp.views.products import (ProductGenericCreate, ProductGenericUpdate, ProductCreate, ProductUpdate,
                                     ProductDetail, mainapp_index, mainapp_Contacts,
-                                    mainapp_registration, ProductDelete, category_product_list
+                                    mainapp_registration, product_delete, category_product_list
                                     )
 
 app_name = 'products'
@@ -35,9 +35,9 @@ urlpatterns = [
     path('registration/', mainapp_registration, name='registration'),
     path('catalog/', category_product_list, name='catalog'),
     path('create/', ProductGenericCreate.as_view(), name='create'),
-    re_path(r'^catalog/\w+/(?P<slug>\w+)/$', ProductDetail.as_view(), name='product_detail'),
-    path('update/<slug:slug>/', ProductGenericUpdate.as_view(), name='update'),
-    path('delete/<slug:slug>/', ProductDelete.as_view(), name='delete'),
+    re_path(r'^catalog/[^create delete update]\w+/(?P<slug>\w+)/$', ProductDetail.as_view(), name='product_detail'),
+    re_path(r'^update/[^create delete update]\w+/(?P<slug>\w+)/$', ProductGenericUpdate.as_view(), name='update'),
+    re_path(r'^delete/[^create delete update]\w+/(?P<slug>\w+)/$', product_delete, name='delete'),
             ] + endpointspatterns
 
 

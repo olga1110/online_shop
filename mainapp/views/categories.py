@@ -2,8 +2,8 @@ import json
 # import simplejson
 from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404
 from django.template.loader import get_template
-from django.urls import reverse_lazy
-from django.http import HttpResponse
+from django.urls import reverse, reverse_lazy
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views import View
 from django.views.generic import (
     FormView, CreateView, UpdateView,
@@ -11,8 +11,8 @@ from django.views.generic import (
 )
 from mainapp.models import Category, Product
 from mainapp.forms import CategoryForm, CategoryModelForm
-
-
+from django.contrib.auth.decorators import user_passes_test
+from mainapp.mixins import SuperUserMixin
 
 # class CategoryCreate(View):
 #     success_url = reverse_lazy('products:catalog')
@@ -31,22 +31,36 @@ from mainapp.forms import CategoryForm, CategoryModelForm
 #         return render(request, 'create.html', {'form': form})
 
 
-class CategoryGenericCreate(CreateView):
+class CategoryGenericCreate(SuperUserMixin, CreateView):
     model = Category
     form_class = CategoryModelForm
     template_name = 'create.html'
     success_url = reverse_lazy('products:catalog')
 
+    def get_context_data(self, **kwargs):
+        context = super(CategoryGenericCreate, self).get_context_data(**kwargs)
+        context['title'] = 'Создание категории'
+        context['url_cancel'] = 'products:catalog'
+        context['OK_text'] = 'Создать категорию'
+        return context
 
-class CategoryGenericUpdate(UpdateView):
+
+class CategoryGenericUpdate(SuperUserMixin, UpdateView):
     model = Category
     form_class = CategoryModelForm
     template_name = 'create.html'
     success_url = reverse_lazy('products:catalog')
     slug_field = 'name'
 
+    def get_context_data(self, **kwargs):
+        context = super(CategoryGenericUpdate, self).get_context_data(**kwargs)
+        context['title'] = 'Редактирование категории'
+        context['url_cancel'] = 'products:catalog'
+        context['OK_text'] = 'Сохранить'
+        return context
 
-class CategoryDetail(DetailView):
+
+class CategoryDetail(SuperUserMixin, DetailView):
     model = Category
     form_class = CategoryModelForm
     template_name = 'mainapp/components/categories.html'
@@ -59,11 +73,25 @@ class CategoryDetail(DetailView):
         return context
 
 
-class CategoryDelete(DeleteView):
-    model = Category
-    template_name = 'delete.html'
-    success_url = reverse_lazy('products:catalog')
-    slug_field = 'name'
+# class CategoryDelete(DeleteView):
+#     model = Category
+#     template_name = 'delete.html'
+#     success_url = reverse_lazy('products:catalog')
+#     slug_field = 'name'
+
+
+@user_passes_test(lambda u: u.is_superuser)
+def category_delete(request, title):
+    category = get_object_or_404(Category, name=title)
+    content = {'object_to_delete': category, 'title': 'Удаление категории', 'subject': 'категории',
+               'name': category.name, 'part_name': 'Архив', 'url_cancel': request.META.get('HTTP_REFERER',
+                                                                                           'products:catalog')}
+    print(request.META.get('HTTP_REFERER', '/'))
+    if request.method == 'POST':
+        category.is_active = False
+        category.save()
+        return HttpResponseRedirect(reverse('products:catalog'))
+    return render(request, 'delete.html', content)
 
 
 # def category_detail(request, slug):

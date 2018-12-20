@@ -15,82 +15,98 @@
 {{ block.super }}
 
 <div class = "products_list">
-    <button class = "new_product">
-    <a href = "{% url 'admin_custom:product_create' %}">
-        Добавить новый товар
-    </a>
-    </button>
-    {% for object in objects %}
-        {% if object.is_active %}
+    <form>
+        <input type="button"  value="Добавить товар"
+       onClick='location.href="{% url "admin_custom:product_create" %}"'>
+    </form>
+
+    {% for category in active_categories %}
+
+    <!--{% if category.product_set.all %}<h2>Категория {{category.name}}</h2> {% endif %}-->
+    <h2>Категория {{category.name}}</h2>
+    {% for object in products %}
+        {% if object.is_active and object.category.id == category.id %}
+
         <div class="product_record">
             <div class="product_name">
-                <p><strong>{{object.name|title}}</strong></p>
-                <div class="product_desc">
-            {{object.short_desc|title}}
+                <strong>{{object.name|title}}</strong>
         </div>
-            </div>
-            <img src = "/media/{{object.image.value|default:'mainapp/img/default.jpg'}}" height = "300px"
+            <img src = "/media/{{object.image.value|default:'adminapp/img/default.jpg'}}" height = "300px"
             alt="{{object.name}}">
+
         <div class="product_actions">
 
-            <button>
-                <a href="{% url 'admin_custom:product_update' object.name %}">
-                    Редактировать
-                </a>
-            </button>
-            <button>
-                <a href="{% url 'admin_custom:product_delete' object.name %}">
-                    Удалить
-                </a>
-            </button>
+            <form>
+                <input type="button"  value="Редактировать"
+               onClick='location.href="{% url "admin_custom:product_update" object.name %}"'>
+            </form>
+
+            <form>
+                <input type="button"  value="Удалить"
+               onClick='location.href="{% url "admin_custom:product_delete" object.name %}"'>
+            </form>
+
         </div>
         <div class="summary">
-            <p> <b>Цена:</b>
-            {{object.price}} руб</p>
-            <p> <b>Количество:</b>
-            {{object.quantity}}</p>
-            <p> <b>Скидка:</b>
-            {{object.discount}}</p>
+            <p><b>Цена:</b>
+            {{object.price|floatformat}} руб</p>
+            <p><b>Количество:</b>
+            {{object.quantity}} шт.</p>
+            <p><b>Скидка:</b>
+            {{object.discount|floatformat}}%</p>
+        </div>
+        <div class="product_desc">
+            {{object.short_desc|title}}
         </div>
     </div>
+    <br>
     {% endif %}
 {% endfor%}
+    {% endfor%}
     <h2>Товары в архиве</h2>
-    {% for object in objects %}
-        {% if not object.is_active %}
+
+    {% for category in archive_categories %}
+    <h2>Категория {{category.name}}</h2>
+    {% for object in products %}
+        {% if not object.is_active and object.category.id == category.id %}
+
         <div class="product_record">
             <div class="product_name">
-                <p><strong>{{object.name|title}}</strong></p>
-                <div class="product_desc">
-            {{object.short_desc|title}}
+                <strong>{{object.name|title}}</strong>
         </div>
-            </div>
             <img src = "/media/{{object.image.value|default:'mainapp/img/default.jpg'}}" height = "300px"
             alt="{{object.name}}">
-        <div class="product_actions">
 
-            <button>
-                <a href="{% url 'admin_custom:product_update' object.name %}">
-                    Редактировать
-                </a>
-            </button>
-            <button>
-                <a href="{% url 'admin_custom:product_delete' object.name %}">
-                    Удалить
-                </a>
-            </button>
+        <div class="product_actions">
+            <form>
+                <input type="button"  value="Редактировать"
+               onClick='location.href="{% url "admin_custom:product_update" object.name %}"'>
+            </form>
+
+            <form>
+                <input type="button"  value="Удалить"
+               onClick='location.href="{% url "admin_custom:product_delete" object.name %}"'>
+            </form>
+
         </div>
         <div class="summary">
-            <p> <b>Цена:</b>
-            {{object.price}} руб</p>
-            <p> <b>Количество:</b>
-            {{object.quantity}}</p>
-            <p> <b>Скидка:</b>
-            {{object.discount}}</p>
+            <p><b>Цена:</b>
+            {{object.price|floatformat}} руб</p>
+            <p><b>Количество:</b>
+            {{object.quantity}} шт.</p>
+            <p><b>Скидка:</b>
+            {{object.discount|floatformat}}%</p>
+        </div>
+        <div class="product_desc">
+            {{object.short_desc|title}}
         </div>
     </div>
+    <br>
     {% endif %}
 {% endfor%}
+    {% endfor%}
+
 </div>
 
 {% endblock %}
+

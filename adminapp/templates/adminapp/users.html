@@ -37,20 +37,7 @@
                 {% endif %}
                 {% endif %}
                 </p>
-        </div>
-            <img src="/media/{{object.avatar|default:'users_avatars/avatar.png'}}" width=200px height=200px alt="{{object.username}}">
-        <div class="user_role">
-                <form>
-                <input type="button"  value="Редактировать"
-                onClick='location.href="{% url "admin_custom:user_update" object.username %}"'>
-                </form>
 
-                <form>
-                <input type="button"  value="Удалить"
-                onClick='location.href="{% url "admin_custom:user_delete" object.username %}"'>
-                </form>
-
-            <br>
             {% if object.is_superuser %}
             <b> Role: </b> Администратор
             {% else %}
@@ -65,8 +52,22 @@
             <b>Last seen:</b> {{object.last_login}}
             </div>
         </div>
+            <img src="/media/{{object.avatar|default:'users_avatars/avatar.png'}}" width=200px height=200px alt="{{object.username}}">
+        <div class="user_role">
+                <form>
+                <input type="button"  value="Редактировать"
+                onClick='location.href="{% url "admin_custom:user_update" object.username %}"'>
+                </form>
+
+                <form>
+                <input type="button"  value="Удалить"
+                onClick='location.href="{% url "admin_custom:user_delete" object.username %}"'>
+                </form>
+        </div>
         {% endif %}
+     <br><br>
         {% endfor%}
+
     <h2>Заблокированные пользователи</h2>
     {% for object in objects %}
         {% if not object.is_active %}
@@ -81,28 +82,11 @@
                 {% endif %}
                 {% endif %}
                 </p>
-        </div>
-            <img src="/media/{{object.avatar|default:'users_avatars/img/avatar.png'}}" alt="{{object.username}}">
-        <div class="user_role">
 
-onClick='location.href="{% url "admin_custom:user_create" %}"'>
-
-
-                <form>
-                <input type="button"  value="Редактировать"
-                onClick='location.href="{% url "admin_custom:user_update" object.username %}"'>
-                </form>
-
-                <form>
-                <input type="button"  value="Удалить"
-                onClick='location.href="{% url "admin_custom:user_delete" object.username %}"'>
-                </form>
-
-            <br>
             {% if object.is_superuser %}
             <b> Role: </b> Администратор
             {% else %}
-                Role: Пользователь
+            <b> Role: </b> Пользователь
             {% endif %}
             </div>
 
@@ -113,10 +97,25 @@ onClick='location.href="{% url "admin_custom:user_create" %}"'>
             <b>Last seen:</b> {{object.last_login}}
             </div>
         </div>
+
+
+        </div>
+            <img src="/media/{{object.avatar|default:'users_avatars/avatar.png'}}" width=200px height=200px alt="{{object.username}}">
+        <div class="user_role">
+                <form>
+                <input type="button"  value="Редактировать"
+                onClick='location.href="{% url "admin_custom:user_update" object.username %}"'>
+                </form>
+
+                <form>
+                <input type="button"  value="Удалить"
+                onClick='location.href="{% url "admin_custom:user_delete" object.username %}"'>
+                </form>
         {% endif %}
+            <br><br>
+
         {% endfor%}
 
 </div>
-
 
 {% endblock %}

@@ -12,6 +12,7 @@ from userapp.models import ShopUser
 from mainapp.models import Category, Product
 from userapp.forms import ShopUserLoginForm, ShopUserRegisterForm, ShopUserEditForm
 from adminapp.forms import ShopUserAdminEditForm, CategoryEditForm, ProductEditForm
+from mainapp.forms import ProductModelForm
 from django.contrib import messages
 from adminapp.mixins import SuperUserMixin
 
@@ -60,24 +61,28 @@ class UserCreate(LoginRequiredMixin, SuperUserMixin, CreateView):
     template_name = 'create.html'
     success_url = reverse_lazy('admin_custom:users')
     handle_no_permission = '/auth/login/'
-    redirect_url = '/'
+    # url_cancel = 'admin_custom:users'
+
+    def get_context_data(self, **kwargs):
+        context = super(UserCreate, self).get_context_data(**kwargs)
+        context['title'] = 'Создание пользователя'
+        context['url_cancel'] = 'admin_custom:users'
+        context['OK_text'] = 'Создать'
+        return context
 
 
 class UserUpdate(LoginRequiredMixin, SuperUserMixin, UpdateView):
     model = ShopUser
     form_class = ShopUserAdminEditForm
-    template_name = 'adminapp/update.html'
+    template_name = 'create.html'
     success_url = reverse_lazy('admin_custom:users')
     slug_field = 'username'
 
     def get_context_data(self, **kwargs):
         context = super(UserUpdate, self).get_context_data(**kwargs)
-        context['title'] = 'Добавление пользователя'
-        context['return'] = 'К списку пользователей'
-        return_path = self.request.META.get('HTTP_REFERER', '/')
-        context['url_name'] = return_path
-        context['url_form'] = 'admin_custom:users'
-        context['url_arg'] = ''
+        context['title'] = 'Редактирование пользователя'
+        context['OK_text'] = 'Сохранить'
+        context['url_cancel'] = 'admin_custom:users'
         return context
 
 
@@ -86,92 +91,87 @@ def user_delete(request, title):
     user = get_object_or_404(ShopUser, username=title)
     content = {'object_to_delete': user, 'title': 'Удаление пользователя', 'subject': 'пользователя',
                'name': user.username, 'part_name': 'Заблокированные пользователи',
-               'url_cancel': 'admin_custom:users'}
+               'url_cancel': request.META.get('HTTP_REFERER', 'admin_custom:users')}
     print(request.resolver_match.app_name)
     if request.method == 'POST':
         user.is_active = False
         user.save()
         return HttpResponseRedirect("/admin_custom/users/")
-    return render(request, 'adminapp/delete.html', content)
+    return render(request, 'delete.html', content)
 
 
 # CDUD-методы. Категории
+
 class CategoryList(LoginRequiredMixin, ListView):
     model = Category
     template_name = 'adminapp/categories.html'
     context_object_name = 'objects'
 
 
+class CategoryCreate(LoginRequiredMixin, SuperUserMixin, CreateView):
+    model = Category
+    form_class = CategoryEditForm
+    template_name = 'create.html'
+    success_url = reverse_lazy('admin_custom:category')
+
+    def get_context_data(self, **kwargs):
+        context = super(CategoryCreate, self).get_context_data(**kwargs)
+        context['title'] = 'Создание категории'
+        context['url_cancel'] = 'admin_custom:category'
+        context['OK_text'] = 'Создать'
+        return context
+
+
 class CategoryUpdate(LoginRequiredMixin, SuperUserMixin, UpdateView):
     model = Category
     form_class = CategoryEditForm
-    template_name = 'adminapp/update.html'
+    template_name = 'create.html'
     success_url = reverse_lazy('admin_custom:category')
     slug_field = 'name'
 
     def get_context_data(self, **kwargs):
         context = super(CategoryUpdate, self).get_context_data(**kwargs)
         context['title'] = 'Редактирование категории'
-        context['return'] = 'К списку категорий'
-        return_path = self.request.META.get('HTTP_REFERER', '/')
-        context['url_name'] = return_path
-        context['url_form'] = 'admin_custom:products'
-        context['url_arg'] = self.object.name
-
+        context['OK_text'] = 'Сохранить'
+        context['url_cancel'] = 'admin_custom:category'
         return context
-
-
-class CategoryCreate(LoginRequiredMixin, SuperUserMixin, CreateView):
-    model = Category
-    form_class = CategoryEditForm
-    # template_name = 'adminapp/update.html'
-    template_name = 'create.html'
-    success_url = reverse_lazy('admin_custom:catalog')
 
 
 @user_passes_test(lambda u: u.is_superuser)
 def category_delete(request, title):
     category = get_object_or_404(Category, name=title)
     content = {'object_to_delete': category, 'title': 'Удаление категории', 'subject': 'категории',
-               'name': category.name, 'part_name': 'Архив', 'url_cancel': 'admin_custom:category'}
+               'name': category.name, 'part_name': 'Архив', 'url_cancel': request.META.get('HTTP_REFERER',
+                                                                                           'admin_custom:category')}
     if request.method == 'POST':
         category.is_active = False
         category.save()
-        return HttpResponseRedirect("/admin_custom/catalog/")
-    return render(request, 'adminapp/delete.html', content)
-
-
-# class UserDelete(DeleteView):
-#     model = ShopUser
-#     template_name = 'adminapp/user_delete.html'
-#     success_url = reverse_lazy('admin_custom:users')
-#     slug_field = 'name'
-
-
-# class ProductGenericUpdate(UpdateView):
-#     model = Product
-#     form_class = ProductModelForm
-#     template_name = 'create.html'
-#     success_url = reverse_lazy('products:catalog')
-
-# Модель Category. CRUD
-
-
-# def categories (request):
-#     title = 'админка/категории'
-#     categories_list = ProductCategory.objects.all()
-#     content = {
-#     'title' : title,
-#     'objects' : categories_list
-#     }
-#     return render(request, 'adminapp/categories.html' , content)
-
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+    return render(request, 'delete.html', content)
 
 # Модель Product. CRUD
+
+
 class ProductList(ListView):
     model = Product
     template_name = 'adminapp/product_list.html'
-    context_object_name = 'objects'
+    context_object_name = 'products'
+
+    def get_context_data(self, **kwargs):
+        context = super(ProductList, self).get_context_data(**kwargs)
+        # context['categories'] = Category.objects.all().order_by('name')
+        context['active_categories'] = Category.objects.filter(id__in=Product.objects.filter(is_active=1).
+                                                               values('category')).order_by('name')
+        context['archive_categories'] = Category.objects.filter(id__in=Product.objects.filter(is_active=0).
+                                                                values('category')).order_by('name')
+
+        # Category.objects.filter(id__in=Product.objects.filter(is_active=1).values('category')).order_by('name')
+        return context
+
+    def get_queryset(self):
+        queryset = Product.objects.all().order_by('category_id', 'price')
+        return queryset
+
 
 
 def products(request, title):
@@ -181,32 +181,40 @@ def products(request, title):
         'category': category,
         'objects': products_list,
     }
-    return render(request, 'adminapp/products.html', content)
+    return render(request, 'adminapp/product_list.html', content)
 
 
-class ProductCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
+class ProductCreate(LoginRequiredMixin, SuperUserMixin, CreateView):
     model = Product
-    form_class = ProductEditForm
-    template_name = 'adminapp/update.html'
-    success_url = reverse_lazy('admin_custom:products')
+    form_class = ProductModelForm
+    template_name = 'create.html'
+    success_url = reverse_lazy('admin_custom:product_list')
 
+    def get_context_data(self, **kwargs):
+        context = super(ProductCreate, self).get_context_data(**kwargs)
+        context['title'] = 'Создание товара'
+        context['url_cancel'] = 'admin_custom:product_list'
+        context['OK_text'] = 'Добавить товар'
+        return context
+
+    # def get_absolute_url(self):
+    #     # return reverse('admin_custom:products', kwargs={'title': self.model.category.name})
+    #     print(self.model.category.name)
+    #     return reverse('products', kwargs={'title': self.form_class.category.name})
 
 
 class ProductUpdate(LoginRequiredMixin, SuperUserMixin, UpdateView):
     model = Product
     form_class = ProductEditForm
-    template_name = 'adminapp/update.html'
+    template_name = 'create.html'
     success_url = reverse_lazy('admin_custom:product_list')
     slug_field = 'name'
 
     def get_context_data(self, **kwargs):
         context = super(ProductUpdate, self).get_context_data(**kwargs)
         context['title'] = 'Редактирование товара'
-        context['return'] = 'К списку товаров'
-        return_path = self.request.META.get('HTTP_REFERER', '/')
-        context['url_name'] = return_path
-        context['url_form'] = 'admin_custom:products'
-        context['url_arg'] = self.object.category.name
+        context['OK_text'] = 'Сохранить'
+        context['url_cancel'] = 'admin_custom:product_list'
         return context
 
 
@@ -214,12 +222,13 @@ class ProductUpdate(LoginRequiredMixin, SuperUserMixin, UpdateView):
 def product_delete(request, title):
     product = get_object_or_404(Product, name=title)
     content = {'object_to_delete': product, 'title': 'Удаление товара', 'subject': 'товара',
-               'name': product.name, 'part_name': 'Архив', 'url_cancel': 'admin_custom:product_list'}
+               'name': product.name, 'part_name': 'Архив', 'url_cancel': request.META.get('HTTP_REFERER',
+                                                                                          'admin_custom:product_list')}
     if request.method == 'POST':
         product.is_active = False
         product.save()
         # return HttpResponseRedirect(request.META["HTTP_REFERER"])
         return HttpResponseRedirect("/admin_custom/products/category/"+product.category.name)
-    return render(request, 'adminapp/delete.html', content)
+    return render(request, 'delete.html', content)
 
 
