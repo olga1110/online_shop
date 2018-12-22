@@ -5,6 +5,7 @@ from django.template.loader import get_template
 from django.urls import reverse, reverse_lazy
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views import View
+from django.db import models
 from django.views.generic import (
     FormView, CreateView, UpdateView,
     DeleteView, ListView, DetailView,
@@ -63,14 +64,19 @@ class CategoryGenericUpdate(SuperUserMixin, UpdateView):
 class CategoryDetail(SuperUserMixin, DetailView):
     model = Category
     form_class = CategoryModelForm
-    template_name = 'mainapp/components/categories.html'
+    template_name = 'mainapp/categories.html'
     context_object_name = 'category'
     slug_field = 'name'
 
     def get_context_data(self, **kwargs):
         context = super(CategoryDetail, self).get_context_data(**kwargs)
         context['products'] = Product.objects.filter(category=self.object.id)
+        context['min_price'] = context['products'].aggregate(models.Min('price'))['price__min']
+        context['max_price'] = context['products'].aggregate(models.Max('price'))['price__max']
+        print(context['min_price'])
         return context
+
+
 
 
 # class CategoryDelete(DeleteView):
@@ -97,7 +103,7 @@ def category_delete(request, title):
 # def category_detail(request, slug):
 #     cat = Category.objects.get(title=slug)
 #     products = Product.objects.filter(category=cat.id)
-#     return render(request, 'mainapp/components/categories.html',
+#     return render(request, 'mainapp/categories.html',
 #                   {'category': cat})
 
 # def category_create(request):

@@ -130,7 +130,7 @@ def category_product_list(request):
 
 class ProductDetail(DetailView):
     model = Product
-    template_name = 'mainapp/components/product.html'
+    template_name = 'mainapp/product.html'
     context_object_name = 'product'
     slug_field = 'name'
 
@@ -153,7 +153,7 @@ class ProductDetail(DetailView):
 #     update_price_from_file(slug)
 #     obj = get_object_or_404(Product, name=slug)
 #     # context = {'product': obj, 'new_price': obj.price * (1 - obj.discount / 100)}
-#     return render(request, 'mainapp/components/product.html', {'product': obj})
+#     return render(request, 'mainapp/product.html', {'product': obj})
 
 
 # class ProductDelete(SuperUserMixin, DeleteView):
@@ -231,7 +231,7 @@ def product_delete(request, slug):
 #     table = Product.objects.get(name='Стол')
 #     context = {'product': table, 'new_price': table.price * (1 - table.discount / 100)}
 #
-#     return render(request, 'mainapp/components/product.html', context)
+#     return render(request, 'mainapp/product.html', context)
 
 # class ProductList(ListView):
 #     model = Product

@@ -10,30 +10,41 @@
 
 {% block page_content %}
 
+{% if not basket_items %}
+<p>Сейчас ваша корзина пуста.
+    <br>
+    Закажите товар по телефону 8(342)229-78-28 или перейдите к <a href="{% url 'products:catalog'%}">каталогу</a>
+</p>
+
+{% else %}
     
     {% for item in basket_items %}
-        <div class="product-page Description">
-        
-             <div class="product-item">
-                <img src ="/media/{{item.product.image.value}}" alt ="{{item.product.short_desc}}">
+        <div>
+        <!--<div class="product-page Description">-->
+
+             <div>
+             <!--<div class="product-item">-->
+                <img src ="/media/{{item.product.image.value}}" height="300" alt ="{{item.product.short_desc}}">
              </div>
             <div class="desc_item">
             <span class = "category_name">{{item.product.short_desc}}</span>
             <br><br>
             <span class = "product_price">Цена: {{item.product.price|floatformat}}&nbsp;руб</span >
                 <br>
-                <label>Количество: <input type = "number"name ="{{item.pk}}" min ="0" value ="{{item.quantity}}"></label>
+                <label>Количество: <input type = "number" name ="{{item.pk}}" min ="0" value ="{{item.quantity}}"></label>
                 <br>
             <!--<span class = "product_cost">{{item.cost}}&nbsp;руб</span>-->
 
-            <button class = "basket-delete">
-            <a href ="{% url 'basket:basket_remove' item.pk %}" class=""> Удалить</a>
-            </button>
+
+               <form>
+                <input type="button"  value="Удалить"
+                onClick='location.href="{% url "basket:basket_remove" item.pk %}"'>
+                </form>
             </div>
         </div>
         
     {% endfor %}
-    {% if basket_items %}
+
         <div class="basket_summary">
             В корзине {{basket_items.0.total_quantity}} товара(-ов) общей стоимостью
             {{ basket_items.0.total_cost}} руб
@@ -41,9 +52,23 @@
     {% endif %}
 <br>
 <br>
-    <button class="btn btn-round">
-        <a href="{% url 'products:start_page' %}"> На главную </a>
-    </button>
+
+   <form>
+    <input type="button"  value="Оформить заказ"
+    onClick='location.href="{% url "basket:order_send" %}"'>
+    </form>
+
+   <form>
+    <input type="button"  value="Очистить корзину"
+    onClick='location.href="{% url "basket:basket_remove_all" %}"'>
+    </form>
+
+    <form>
+    <input type="button"  value="На главную"
+    onClick='location.href="{% url "products:start_page" %}"'>
+    </form>
+
+
 
 
 {% endblock %}

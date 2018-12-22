@@ -1,0 +1,48 @@
+ <!-- Заказ   -->
+                <form action="#" class="order">
+                    <h2>Форма заказа:</h2>
+                    <br>
+                    <fieldset>
+                        <label>
+                            Покупатель:
+                        <input type="radio" name="customer_type" value="individual" checked>Физическое лицо
+
+                        <input type="radio" name="customer_type" value="entity">Юридическое лицо
+                            </label>
+                        <br><br>
+                        <label>
+                            Контактное лицо:
+                            <input type="text" name="customer_name" placeholder="{{user.first_name}}">
+                        </label>
+                        <br><br>
+                         <label>
+                             Телефон:
+                            <input type="tel" name="customer_name" placeholder="{{user.phone}}">
+                        </label>
+                        <br><br>
+                         <label>
+                             Эл/почта:
+                            <input type="email" name="customer_name" placeholder="{{user.email}}">
+                        </label>
+                        <br><br>
+                        <label>Укажите дату доставки:
+                            <input type="date" name="date"> </label>
+                        <br><br>
+
+                        <label>Выберите время доставки:
+                            <input type="time" name="time"> </label>
+                        <br>
+                        <br>
+                        <label>
+                            Способ доставки:
+                        <input type="radio" name="delivery" value="curier" checked>Доставка курьером
+                        <input type="radio" name="delivery" value="itself">Самовывоз
+                        </label>
+                        <br>
+                        <br>
+                        <div class="button">
+                            <button type="submit">Отправить</button>
+                            <button type="reset">Очистить</button>
+                        </div>
+                        <br> </fieldset>
+                </form>

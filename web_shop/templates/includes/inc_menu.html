@@ -1,4 +1,5 @@
 {% load static %}
+{% load cart %}
 <nav>
     <ul class="menu">
         <li><a href="{% url 'products:start_page'%}">Главная</a></li>
@@ -33,8 +34,13 @@
         <li><a href="{% url 'admin_custom:admin_page' %}">Настройка</a></li>
         {% endif %}
         <li>
-            <a href="{% url 'basket:basket' %}"><img src="{%static 'mainapp/img/basket.png' %}" alt="Корзина" class="basket" height="80px"></a>
+            <a href="{% url 'basket:basket' %}"><img src="{%static 'basketapp/img/basket.png' %}" alt="Корзина" class="basket" height="80px"></a>
         </li>
+        {% if user.is_authenticated %}
+        <li>
+            {{user.id|total_quantity}}
+        </li>
+        {% endif %}
 
     </li>
         </li>

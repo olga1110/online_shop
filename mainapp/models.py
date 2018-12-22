@@ -17,6 +17,7 @@ class Category(models.Model):
 
     class Meta:
         ordering = ['name', 'is_active']
+        verbose_name_plural = 'Categories'
 
 
 class Product(models.Model):
@@ -41,6 +42,18 @@ class Product(models.Model):
     modified = models.DateTimeField(auto_now=True)
 
     created = models.DateTimeField(auto_now_add=True)
+
+    def _get_min_price(self):
+        result = Product.objects.aggregate(models.Min('price'))
+        return result['price__min']
+
+    min_price = property(_get_min_price)
+
+    def _get_max_price(self):
+        result = Product.objects.aggregate(models.Max('price'))
+        return result['price__max']
+
+    max_price = property(_get_max_price)
 
     def __str__(self):
         return "{} ({}р., {}шт.)".format(self.name, self.price, self.quantity)

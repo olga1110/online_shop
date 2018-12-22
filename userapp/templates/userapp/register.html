@@ -2,11 +2,11 @@
 {% load static %}
 
 {% block page_title %}
-Регистрация
+{{title}}
 {% endblock %}
 
 {% block page_styles %}
-<!--<link rel="stylesheet" href="{%static 'mainapp/css/style.css' %}">-->
+<link rel="stylesheet" href="{%static 'web_shop/style.css' %}">
 {% endblock %}
 
 
@@ -20,6 +20,11 @@
 <!--</form>-->
 
 {% include 'includes/form.html' %}
+
+<form>
+    <input type="button"  value="Отмена"
+       onClick='location.href="{{url_cancel}}"'>
+</form>
 
 <!--<button class="btn btn -round form-control">-->
 <!--<a href ="{% url 'auth:register' %}" class=""> Зарегистрироваться </a>-->

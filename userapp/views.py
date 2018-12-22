@@ -76,6 +76,13 @@ class UserRegister(CreateView):
     template_name = 'userapp/register.html'
     success_url = reverse_lazy('auth:login')
 
+    def get_context_data(self, **kwargs):
+        context = super(UserRegister, self).get_context_data(**kwargs)
+        context['title'] = 'Регистрация'
+        context['url_cancel'] = self.request.META.get('HTTP_REFERER', '/')
+        context['OK_text'] = 'Зарегистрироваться!'
+        return context
+
 
 # def register(request):
 #     if request.method == 'POST':
@@ -95,6 +102,13 @@ class UserEdit(UpdateView):
     template_name = 'userapp/register.html'
     success_url = reverse_lazy('auth:login')
     slug_field = 'username'
+
+    def get_context_data(self, **kwargs):
+        context = super(UserEdit, self).get_context_data(**kwargs)
+        context['title'] = 'Личный кабинет'
+        context['url_cancel'] = self.request.META.get('HTTP_REFERER', '/')
+        context['OK_text'] = 'Сохранить'
+        return context
 
 # def edit(request):
 #     if request.method == 'POST':
