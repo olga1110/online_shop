@@ -6,7 +6,7 @@ from images.models import Image
 
 class CategoryForm(forms.Form):
     name = forms.CharField(
-        label = 'name',
+        label='name',
         widget=forms.widgets.TextInput(attrs={'class': 'form-control'}
         )
     )
@@ -65,9 +65,24 @@ class ProductForm(forms.Form):
 
 
 class ProductModelForm(forms.ModelForm):
+
     class Meta:
         model = Product
         fields = ['name', 'category', 'image', 'short_desc', 'desc', 'price', 'discount', 'quantity']
+        labels = {
+            'category': 'Категория:',
+            'image': 'Изображение'
+        }
+        help_texts = {
+            'category': 'Выберите из списка:',
+        }
+        widgets = {'desc': forms.Textarea(attrs={'rows': 10, 'cols': 40})}
+
+
+    # def __init__(self, *args, **kwargs):
+    #     super(ProductModelForm, self).__init__(*args, **kwargs)
+        # self.fields['name'].error_messages = {'required': 'Укажите название товара',
+        #                                       'max_length': 'Название поле не должно превышать 150 символов'}
 
 
 class CategoryModelForm(forms.ModelForm):

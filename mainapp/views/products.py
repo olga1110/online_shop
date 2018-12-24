@@ -10,6 +10,8 @@ from django.views.generic import (
     FormView, CreateView, UpdateView,
     DeleteView, ListView, DetailView,
 )
+from django.contrib.messages.views import SuccessMessageMixin
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from mainapp.models import Product, Category
 from mainapp.forms import ProductModelForm
 from django.contrib.auth.decorators import user_passes_test
@@ -54,11 +56,12 @@ def mainapp_registration(request):
 # CRUD-методы
 
 
-class ProductGenericCreate(SuperUserMixin, CreateView):
+class ProductGenericCreate(SuccessMessageMixin, SuperUserMixin, CreateView):
     model = Product
     form_class = ProductModelForm
     template_name = 'create.html'
     success_url = reverse_lazy('products:catalog')
+    success_message = 'Товар успешно добавлен в список'
 
     def get_context_data(self, **kwargs):
         context = super(ProductGenericCreate, self).get_context_data(**kwargs)
@@ -122,10 +125,18 @@ class ProductUpdate(SuperUserMixin, FormView):
         return render(request, self.template_name, {'form': form})
 
 
-def category_product_list(request):
+def category_product_list(request, page=1):
     cat = Category.objects.filter(is_active=1)
-    prod = Product.objects.filter(is_active=1).order_by('category', 'price')[:6]
-    return render(request, 'mainapp/catalog.html', {'categories': cat, 'products': prod})
+    prod = Product.objects.filter(is_active=1, category__is_active=1).order_by('category', 'price')
+
+    paginator = Paginator(prod, 2)
+    try:
+        products_paginator = paginator.page(page)
+    except PageNotAnInteger:
+        products_paginator = paginator.page(1)
+    except EmptyPage:
+        products_paginator = paginator.page(paginator.num_pages)
+    return render(request, 'mainapp/catalog.html', {'categories': cat, 'products': products_paginator})
 
 
 class ProductDetail(DetailView):

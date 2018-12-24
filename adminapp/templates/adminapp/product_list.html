@@ -14,11 +14,15 @@
 {% block page_content %}
 {{ block.super }}
 
+
 <div class = "products_list">
     <form>
         <input type="button"  value="Добавить товар"
        onClick='location.href="{% url "admin_custom:product_create" %}"'>
     </form>
+    {% if active_categories %}
+    <h2>Действующий каталог</h2>
+    {% endif%}
 
     {% for category in active_categories %}
 
@@ -29,8 +33,20 @@
 
         <div class="product_record">
             <div class="product_name">
-                <strong>{{object.name|title}}</strong>
+                <strong>{{object.name|capfirst}}</strong>
+            </div>
+            <div class="summary">
+            <p><b>Цена:</b>
+            {{object.price|floatformat}} руб</p>
+            <p><b>Количество:</b>
+            {{object.quantity}} шт.</p>
+            <p><b>Скидка:</b>
+            {{object.discount|floatformat}}%</p>
         </div>
+        <div class="product_desc">
+            {{object.short_desc|capfirst}}
+        </div>
+
             <img src = "/media/{{object.image.value|default:'adminapp/img/default.jpg'}}" height = "300px"
             alt="{{object.name}}">
 
@@ -45,25 +61,17 @@
                 <input type="button"  value="Удалить"
                onClick='location.href="{% url "admin_custom:product_delete" object.name %}"'>
             </form>
+        </div>
 
-        </div>
-        <div class="summary">
-            <p><b>Цена:</b>
-            {{object.price|floatformat}} руб</p>
-            <p><b>Количество:</b>
-            {{object.quantity}} шт.</p>
-            <p><b>Скидка:</b>
-            {{object.discount|floatformat}}%</p>
-        </div>
-        <div class="product_desc">
-            {{object.short_desc|title}}
-        </div>
     </div>
     <br>
     {% endif %}
 {% endfor%}
     {% endfor%}
-    <h2>Товары в архиве</h2>
+
+    {% if archive_categories %}
+    <h2>Архивный каталог</h2>
+    {% endif%}
 
     {% for category in archive_categories %}
     <h2>Категория {{category.name}}</h2>
@@ -72,8 +80,20 @@
 
         <div class="product_record">
             <div class="product_name">
-                <strong>{{object.name|title}}</strong>
+                <strong>{{object.name|capfirst}}</strong>
         </div>
+         <div class="summary">
+            <p><b>Цена:</b>
+            {{object.price|floatformat}} руб</p>
+            <p><b>Количество:</b>
+            {{object.quantity}} шт.</p>
+            <p><b>Скидка:</b>
+            {{object.discount|floatformat}}%</p>
+        </div>
+        <div class="product_desc">
+            {{object.short_desc|capfirst}}
+        </div>
+
             <img src = "/media/{{object.image.value|default:'mainapp/img/default.jpg'}}" height = "300px"
             alt="{{object.name}}">
 
@@ -89,17 +109,7 @@
             </form>
 
         </div>
-        <div class="summary">
-            <p><b>Цена:</b>
-            {{object.price|floatformat}} руб</p>
-            <p><b>Количество:</b>
-            {{object.quantity}} шт.</p>
-            <p><b>Скидка:</b>
-            {{object.discount|floatformat}}%</p>
-        </div>
-        <div class="product_desc">
-            {{object.short_desc|title}}
-        </div>
+
     </div>
     <br>
     {% endif %}

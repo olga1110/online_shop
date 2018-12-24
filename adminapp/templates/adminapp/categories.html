@@ -14,20 +14,45 @@
 {% block page_content %}
 {{ block.super }}
 
+<!--Постраничный переход -->
+{% if is_paginated %}
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="{% url 'admin_custom:category'%}?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+                <span class="page-current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="{% url 'admin_custom:category'%}?page={{ page_obj.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
+<!--Перемещение по номерам страниц-->
+        <div class="num_pages">
+            {% for pn in page_obj.paginator.page_range %}
+            {% if not forloop.first %}
+                &nbsp;&nbsp;|&nbsp;&nbsp;
+            {% endif %}
+
+            {% if page_obj.number != pn %}
+            <a href="{% url 'admin_custom:category' %}?page={{pn}}">
+            {% endif %}
+            {{pn}}
+            {% if page_obj.number != pn %}
+            </a>
+            {% endif %}
+            {% endfor %}
+        </div>
+
 <div class = "categories_list">
-    <!--<button class = "new_category">-->
-        <!--<a href = "{% url 'admin_custom:category_create' %}">-->
-            <!--Добавить новую категорию-->
-        <!--</a>-->
-    <!--</button>-->
 
     <form>
             <input type="button" class = "new_category" value="Добавить&nbsp;новую&nbsp;категорию"
                    onClick='location.href="{% url "admin_custom:category_create" %}"'>
     </form>
-
-
-
 
     <br>
     {% for object in objects %}
@@ -37,10 +62,9 @@
                 {{object.name|title}}
                 </div>
                 <div class="category_actions">
-
                 <form>
                         <input type="button"  value="Товары&nbsp;категории"
-                   onClick='location.href="{% url "admin_custom:products" object.name %}"'>
+                   onClick='location.href="{% url "admin_custom:category_products" object.name %}"'>
                 </form>
 
                 <form>
@@ -60,9 +84,11 @@
             </div>
         {% endif %}
     {% endfor %}
-     <h2>Категории в архиве</h2>
     {% for object in objects %}
         {% if not object.is_active %}
+        {% if forloop.first %}
+            <h2>Категории в архиве</h2>
+        {% endif %}
             <div class="category_record">
                 <div class="category_name">
                 {{object.name|title}}
@@ -70,7 +96,7 @@
                 <div class="category_actions">
                <form>
                         <input type="button"  value="Товары&nbsp;категории"
-                   onClick='location.href="{% url "admin_custom:products" object.name %}"'>
+                   onClick='location.href="{% url "admin_custom:category_products" object.name %}"'>
                 </form>
 
                 <form>

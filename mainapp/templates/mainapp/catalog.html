@@ -21,11 +21,48 @@
 
         {% if user.is_authenticated and user.is_active and user.is_superuser %}
         <a href="{% url 'categories:create'%}">Добавить категорию</a>
+        <a href="{% url 'categories:formsets'%}">Перейти к набору форм</a>
         {% endif %}
         <!--<h2><strong>Акция!!!</strong></h2>-->
         <!--<h2><strong>Акция!!! <span class = "new_price"></span> </strong></h2>-->
         <!--<h2><strong>Акция!!!</strong></h2>-->
     </div>
+
+    {% if products.paginator.num_pages > 1 %}
+    <div class ="paginator">
+        {% if products.has_previous %}
+        <a href ="{% url 'products:catalog' products.previous_page_number %}">
+        previous
+        </a>
+        {% endif %}
+        <span class="current">
+        страница {{products.number}} из
+        {{products.paginator.num_pages}}
+        </span>
+        {% if products.has_next %}
+        <a href="{% url 'products:catalog' products.next_page_number %}">
+        next
+        </a>
+        {% endif %}
+        <!--Перемещение по номерам страниц-->
+        <div class="num_pages">
+            {% for pn in products.paginator.page_range %}
+            {% if not forloop.first %}
+                &nbsp;&nbsp;|&nbsp;&nbsp;
+            {% endif %}
+
+            {% if products.number != pn %}
+            <a href="{% url 'products:catalog' pn %}">
+            {% endif %}
+            {{pn}}
+            {% if products.number != pn %}
+            </a>
+            {% endif %}
+            {% endfor %}
+        </div>
+
+    </div>
+    {% endif %}
 
     <!--<main class="main">-->
         <!--{% for link in links %}-->

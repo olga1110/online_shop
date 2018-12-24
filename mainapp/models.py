@@ -1,7 +1,12 @@
 from django.db import models
-
+from django.core.exceptions import ValidationError
 
 # Create your models here.
+
+def validate_positive(value):
+    if value < 0:
+        raise ValidationError('Цена должна быть задана положительным числом!', code='invalid')
+
 
 class Category(models.Model):
     name = models.CharField(verbose_name='Наименование категории', max_length=200, unique=True)
@@ -21,7 +26,8 @@ class Category(models.Model):
 
 
 class Product(models.Model):
-    name = models.CharField(verbose_name='Наименование продукта', max_length=150, unique=True)
+    name = models.CharField(verbose_name='Наименование продукта', max_length=150, unique=True,
+                            error_messages={'required': 'Укажите название товара'})
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     # image = models.ImageField(upload_to='products_images', blank=True)
     image = models.ForeignKey(
@@ -32,7 +38,7 @@ class Product(models.Model):
                                   blank=True)
     desc = models.TextField(verbose_name='Подробное описание', blank=True)
     price = models.DecimalField(verbose_name='Цена', max_digits=8,
-                                decimal_places=2, default=0)
+                                decimal_places=2, validators=[validate_positive], default=0)
     discount = models.DecimalField(verbose_name='Скидка', max_digits=4,
                                 decimal_places=2, default=0)
     is_active = models.BooleanField(verbose_name='Запись активна', default=True)

@@ -1,0 +1,81 @@
+{% extends 'master.html' %}
+
+{% load static %}
+
+{% block page_title %} Товары {% endblock %}
+{% block page_styles %}
+    <link rel="stylesheet" href="{% static 'web_shop/style.css' %}">
+{% endblock %}
+
+{% block menu %}
+{% include 'adminapp/includes/inc_menu.html' %}
+{% endblock %}
+
+{% block page_content %}
+{{ block.super }}
+
+<!--Постраничный переход -->
+{% if is_paginated %}
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="{% url 'admin_custom:category_products'  products.0.category.name %}?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+                <span class="page-current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="{% url 'admin_custom:category_products' products.0.category.name %}?page={{ page_obj.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
+
+<div class = "products_list">
+    <form>
+        <input type="button"  value="Добавить товар"
+       onClick='location.href="{% url "admin_custom:product_create" %}"'>
+    </form>
+
+    <h2>Категория {{products.0.category.name}}</h2>
+
+
+    {% for object in products %}
+        <div class="product_record">
+            <div class="product_name">
+                <strong>{{object.name|title}}</strong>
+        </div>
+            <img src = "/media/{{object.image.value|default:'adminapp/img/default.jpg'}}" height = "300px"
+            alt="{{object.name}}">
+
+        <div class="product_actions">
+
+            <form>
+                <input type="button"  value="Редактировать"
+               onClick='location.href="{% url "admin_custom:product_update" object.name %}"'>
+            </form>
+
+            <form>
+                <input type="button"  value="Удалить"
+               onClick='location.href="{% url "admin_custom:product_delete" object.name %}"'>
+            </form>
+
+        </div>
+        <div class="summary">
+            <p><b>Цена:</b>
+            {{object.price|floatformat}} руб</p>
+            <p><b>Количество:</b>
+            {{object.quantity}} шт.</p>
+            <p><b>Скидка:</b>
+            {{object.discount|floatformat}}%</p>
+        </div>
+        <div class="product_desc">
+            {{object.short_desc|title}}
+        </div>
+    </div>
+    <br>
+    {% endfor%}
+
+
+{% endblock %}
+

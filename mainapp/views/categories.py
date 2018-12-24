@@ -7,9 +7,13 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.views import View
 from django.db import models
 from django.views.generic import (
+    TemplateView,
     FormView, CreateView, UpdateView,
     DeleteView, ListView, DetailView,
 )
+from django.views.generic.list import MultipleObjectMixin
+from django.forms.models import modelformset_factory
+
 from mainapp.models import Category, Product
 from mainapp.forms import CategoryForm, CategoryModelForm
 from django.contrib.auth.decorators import user_passes_test
@@ -44,6 +48,34 @@ class CategoryGenericCreate(SuperUserMixin, CreateView):
         context['url_cancel'] = 'products:catalog'
         context['OK_text'] = 'Создать категорию'
         return context
+
+
+CategoryFormset = modelformset_factory(Category, form=CategoryModelForm,
+                                       max_num=10, validate_max=True,
+                                       help_texts={'name': 'Название категории должно быть уникальным'}, can_order=True,
+                                       can_delete=True)
+
+
+class CategoryFormSet(TemplateView):
+    template_name = 'category_formset.html'
+    formset = None
+
+    def get(self, request, *args, **kwargs):
+        self.formset = CategoryFormset()
+        return super(CategoryFormSet, self).get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(CategoryFormSet, self).get_context_data(**kwargs)
+        context['formset'] = self.formset
+        context['title'] = 'Набор форм Катягория'
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.formset = CategoryFormset(request.POST)
+        if self.formset.is_valid():
+            self.formset.save()
+            return redirect('products:catalog')
+        return super(CategoryFormSet, self).post(request, *args, **kwargs)
 
 
 class CategoryGenericUpdate(SuperUserMixin, UpdateView):

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, re_path
 from mainapp.views.categories import (CategoryGenericCreate, CategoryGenericUpdate,
-                                      CategoryDetail, category_delete)
+                                      CategoryDetail, category_delete, CategoryFormSet)
 
 
 app_name = 'categories'
@@ -11,5 +11,6 @@ urlpatterns = [
     path('update/<slug:slug>/', CategoryGenericUpdate.as_view(), name='update'),
     path('<slug:slug>/', CategoryDetail.as_view(), name='category'),
     path('delete/<slug:title>/', category_delete, name='delete'),
+    path('edit/formsets/', CategoryFormSet.as_view(), name='formsets'),
 ]
 

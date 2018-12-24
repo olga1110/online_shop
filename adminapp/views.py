@@ -35,12 +35,15 @@ class UserList(LoginRequiredMixin, ListView):
     model = ShopUser
     template_name = 'adminapp/users.html'
     context_object_name = 'objects'
+    paginate_by = 2
 
-    def get_context_data(self, **kwargs):
-        context = super(UserList, self).get_context_data(**kwargs)
-        context['objects'] = ShopUser.objects.all().order_by('-is_active',
-                                                             '-is_superuser', '-is_staff', 'username')
-        return context
+    def get_queryset(self):
+        queryset = ShopUser.objects.all().order_by('-is_active',
+                                                   '-is_superuser', '-is_staff', 'username')
+        return queryset
+
+
+
 
 # def user_create(request):
 #
@@ -106,6 +109,7 @@ class CategoryList(LoginRequiredMixin, ListView):
     model = Category
     template_name = 'adminapp/categories.html'
     context_object_name = 'objects'
+    paginate_by = 2
 
 
 class CategoryCreate(LoginRequiredMixin, SuperUserMixin, CreateView):
@@ -157,6 +161,7 @@ class ProductList(ListView):
     template_name = 'adminapp/product_list.html'
     context_object_name = 'products'
 
+
     def get_context_data(self, **kwargs):
         context = super(ProductList, self).get_context_data(**kwargs)
         # context['categories'] = Category.objects.all().order_by('name')
@@ -172,6 +177,17 @@ class ProductList(ListView):
         queryset = Product.objects.all().order_by('category_id', 'price')
         return queryset
 
+
+class ProductCategory(ListView):
+    model = Product
+    template_name = 'adminapp/products_category.html'
+    context_object_name = 'products'
+    slug_field = 'name'
+    paginate_by = 2
+
+    def get_queryset(self):
+        queryset = Product.objects.filter(category__name=self.kwargs['slug']).order_by('price', 'name')
+        return queryset
 
 
 def products(request, title):
