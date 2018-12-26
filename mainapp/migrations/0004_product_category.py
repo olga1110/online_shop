@@ -8,6 +8,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('mainapp', '0003_auto_20180928_1300'),
+        ('images', '0005_auto_20181225_1824')
     ]
 
     operations = [

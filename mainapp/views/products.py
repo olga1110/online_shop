@@ -18,10 +18,8 @@ from django.contrib.auth.decorators import user_passes_test
 from mainapp.mixins import SuperUserMixin
 
 
-
 def update_price_from_file(product):
     obj = Product.objects.get(name=product)
-
     path = 'mainapp/static/mainapp/files/description.json'
     with open(path) as json_data:
         data = json.load(json_data)
@@ -128,7 +126,6 @@ class ProductUpdate(SuperUserMixin, FormView):
 def category_product_list(request, page=1):
     cat = Category.objects.filter(is_active=1)
     prod = Product.objects.filter(is_active=1, category__is_active=1).order_by('category', 'price')
-
     paginator = Paginator(prod, 2)
     try:
         products_paginator = paginator.page(page)

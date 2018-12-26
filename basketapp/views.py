@@ -22,10 +22,6 @@ class BasketList(LoginRequiredMixin, ListView):
     template_name = 'basketapp/basket.html'
     context_object_name = 'basket_items'
 
-    def get_context_data(self, **kwargs):
-        context = super(BasketList, self).get_context_data(**kwargs)
-        return context
-
     def get_queryset(self):
         queryset = self.model.objects.filter(user=self.request.user).order_by('product__category')
         return queryset
@@ -48,7 +44,6 @@ def basket_add(request, pk):
         new_basket_item.save()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     # return HttpResponseRedirect('basketapp/basket.html')
-
 
 
 @login_required

@@ -32,7 +32,7 @@ class Product(models.Model):
     # image = models.ImageField(upload_to='products_images', blank=True)
     image = models.ForeignKey(
         'images.Image',
-        on_delete=models.PROTECT
+        on_delete=models.SET_DEFAULT, default=10
     )
     short_desc = models.CharField(verbose_name='Краткое описание', max_length=60,
                                   blank=True)
