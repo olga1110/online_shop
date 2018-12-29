@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.core.exceptions import ValidationError
 
 # Create your models here.
@@ -16,6 +17,9 @@ class Category(models.Model):
     is_active = models.BooleanField(verbose_name='Запись активна', default=True)
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
+
+    def get_absolute_url(self):
+        return '%s' % self.name
 
     def __str__(self):
         return self.name
@@ -48,6 +52,9 @@ class Product(models.Model):
     modified = models.DateTimeField(auto_now=True)
 
     created = models.DateTimeField(auto_now_add=True)
+
+    def get_absolute_url(self):
+        return f'{self.name}'
 
     def _get_min_price(self):
         result = Product.objects.aggregate(models.Min('price'))

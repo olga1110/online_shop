@@ -16,7 +16,7 @@
     <br>
     <div class="sale">
         {% for cat in categories %}
-        <h2><a href="/catalog/{{cat.name}}/" title={{cat.descr}}>{{cat.short_desc}}</a></h2>
+        <h2><a href="/catalog/{{cat.get_absolute_url}}/" title={{cat.descr}}>{{cat.short_desc}}</a></h2>
         {% endfor %}
 
         {% if user.is_authenticated and user.is_active and user.is_superuser %}

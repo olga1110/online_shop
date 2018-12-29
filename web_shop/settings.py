@@ -34,10 +34,13 @@ INSTALLED_APPS = [
     'mainapp',
     'images',
     'basketapp',
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.sites',
+    'django.contrib.flatpages',
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
@@ -50,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware'
 ]
 
 ROOT_URLCONF = 'web_shop.urls'
@@ -126,3 +130,6 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 AUTH_USER_MODEL = 'userapp.ShopUser'
 LOGIN_URL = '/auth/login/'
+
+SIDE_ID = 1
+COMMENT_MAX_LENGTH = 1024

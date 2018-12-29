@@ -19,6 +19,9 @@ from mainapp.forms import CategoryForm, CategoryModelForm
 from django.contrib.auth.decorators import user_passes_test
 from mainapp.mixins import SuperUserMixin
 
+from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.decorators import permission_required
+
 # class CategoryCreate(View):
 #     success_url = reverse_lazy('products:catalog')
 #

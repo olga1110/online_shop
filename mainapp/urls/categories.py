@@ -4,6 +4,7 @@ from mainapp.views.categories import (CategoryGenericCreate, CategoryGenericUpda
                                       CategoryDetail, category_delete, CategoryFormSet)
 
 
+
 app_name = 'categories'
 
 urlpatterns = [

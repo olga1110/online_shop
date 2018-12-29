@@ -13,6 +13,9 @@ class ShopUser(AbstractUser):
         null=True
     )
 
+    def get_absolute_url(self):
+        return f'edit/{self.username}'
+
     def __str__(self):
         return 'Логин: {}{}'.format(self.username, ', superuser' if self.is_superuser else '')
 
