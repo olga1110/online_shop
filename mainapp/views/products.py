@@ -1,21 +1,19 @@
-import os
 import json
-# import simplejson
-from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404
-from django.template.loader import get_template
+
+from django.contrib.auth.decorators import user_passes_test
+from django.contrib.messages.views import SuccessMessageMixin
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.urls import reverse_lazy, reverse
-from django.http import HttpResponse
 from django.views import View
 from django.views.generic import (
     FormView, CreateView, UpdateView,
-    DeleteView, ListView, DetailView,
+    DetailView,
 )
-from django.contrib.messages.views import SuccessMessageMixin
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from mainapp.models import Product, Category
+
 from mainapp.forms import ProductModelForm
-from django.contrib.auth.decorators import user_passes_test
 from mainapp.mixins import SuperUserMixin
+from mainapp.models import Product, Category
 
 
 def update_price_from_file(product):

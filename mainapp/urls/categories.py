@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path, re_path
 from mainapp.views.categories import (CategoryGenericCreate, CategoryGenericUpdate,
                                       CategoryDetail, category_delete, CategoryFormSet)
+from mainapp.endpoints.category import category_list, category_detail
 
 
 
@@ -13,5 +14,7 @@ urlpatterns = [
     path('<slug:slug>/', CategoryDetail.as_view(), name='category'),
     path('delete/<slug:title>/', category_delete, name='delete'),
     path('edit/formsets/', CategoryFormSet.as_view(), name='formsets'),
+    path('api/categories', category_list, name='category_list'),
+    path('api/detail/<slug:title>/', category_detail, name='category_detail')
 ]
 
