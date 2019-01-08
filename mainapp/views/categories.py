@@ -1,6 +1,6 @@
 import json
 # import simplejson
-from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404
+from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404, render_to_response
 from django.template.loader import get_template
 from django.urls import reverse, reverse_lazy
 from django.http import HttpResponse, HttpResponseRedirect
@@ -157,3 +157,13 @@ def category_delete(request, title):
 #         )
 #
 #     return render(request, 'create.html', {'form': form})
+
+def search_products(request):
+    if request.method == 'POST':
+        search_text = request.POST['search_text']
+    else:
+        search_text = ''
+    if search_text != '':
+        products = Product.objects.filter(short_desc__contains=search_text)
+    return render_to_response('mainapp/components/ajax_search.html', {'objects': products,
+                                                                      'search_url': 'categories:search_products'})

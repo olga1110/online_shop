@@ -8,10 +8,46 @@
 <link rel="stylesheet" href="{% static 'web_shop/style.css' %}">
 {% endblock %}
 
+{% block script %}
+<script src="{% static 'mainapp/js/ajax.js' %}"></script>
+
+<script>
+    $(function() {
+    $('#search').keyup(function () {
+    $.ajax({
+            type: 'POST',
+            url: '/catalog/products/search/',
+            data: {
+                'search_text': $('#search').val(),
+                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+            },
+            success: searchSuccess,
+            datatype: 'html'
+    });
+ });
+
+ });
+</script>
+{% endblock %}
+
 {% block page_content %}
 {{ block.super }}
+
+<div class="catalog-page">
+    <br>
+    <div class="search_block">
+    <h3>Поиск товара</h3>
+    {% csrf_token %}
+    <br>
+    <input type="text" id="search" name="search" />
+    <br><br>
+    <ul id="search_results">
+    </ul>
+</div>
+
+
 <div class="customers-form">
-<h1><strong><em> {{category.short_desc}}</em></strong></h1>
+<h1><strong><em> {{category.short_desc|capfirst}}</em></strong></h1>
 {% if user.is_authenticated and user.is_active and user.is_superuser %}
 <a href="{% url 'products:create'%}">Добавить товар</a>
 {% endif %}
@@ -24,12 +60,12 @@
             {% for product in products%}
             <figure class="item">
                 <!--<a href="/catalog/{{category.name}}/{{product.name}}/"> <img src="/media/{{product.image.value}}"-->
-                <a href="{{product.get_absolute_url}}"> <img src="/media/{{product.image.value}}"
-                                                   alt={{product.short_desc}}
-                                                   title={{product.short_desc}}
+                <a href="/{{product.get_absolute_url}}/"> <img src="/media/{{product.image.value}}"
+                                                   alt={{product.short_desc|capfirst}}
+                                                   title={{product.short_desc|capfirst}}
                                                    height=300>
                 <br>
-                <p>{{product.short_desc}}</p>
+                <p>{{product.short_desc|capfirst}}</p>
     </a>
     </figure>
 

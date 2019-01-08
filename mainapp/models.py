@@ -19,7 +19,7 @@ class Category(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     def get_absolute_url(self):
-        return '%s' % self.name
+        return 'catalog/%s' % self.name
 
     def __str__(self):
         return self.name
@@ -54,7 +54,7 @@ class Product(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     def get_absolute_url(self):
-        return f'{self.name}'
+        return f'catalog/{self.category.name}/{self.name}'
 
     def _get_min_price(self):
         result = Product.objects.aggregate(models.Min('price'))

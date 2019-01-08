@@ -708,6 +708,15 @@ input:not([type="checkbox"]):focus {
     cursor: pointer;
 }
 
+.search, .messages {
+    list-style-type: none;
+   };
+
+.messages {
+color:red;
+font-weight:bold;
+}
+
 .feetback label {
     margin-left: 20px;
 }

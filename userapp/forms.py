@@ -39,4 +39,3 @@ class ShopUserEditForm(UserChangeForm):
             if field_name == 'password':
                 field.widget = forms.HiddenInput()
 
-

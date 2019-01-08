@@ -38,5 +38,5 @@ urlpatterns = [
     # path('pages/', include('django.contrib.flatpages.urls'),
     # url(r'^catalog/', include(('mainapp.urls', 'catalog'), namespace='catalog')),
     # url(r'^admin/', admin.site.urls),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) \
+              + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

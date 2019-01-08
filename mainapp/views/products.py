@@ -3,7 +3,7 @@ import json
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
+from django.shortcuts import render, render_to_response, redirect, get_object_or_404, get_list_or_404
 from django.urls import reverse_lazy, reverse
 from django.views import View
 from django.views.generic import (
@@ -12,6 +12,7 @@ from django.views.generic import (
 )
 
 from mainapp.forms import ProductModelForm
+from basketapp.forms import CartForm
 from mainapp.mixins import SuperUserMixin
 from mainapp.models import Product, Category
 
@@ -141,12 +142,15 @@ class ProductDetail(DetailView):
     context_object_name = 'product'
     slug_field = 'name'
 
+
     def get_context_data(self, **kwargs):
         context = super(ProductDetail, self).get_context_data(**kwargs)
+        form = CartForm(self.request.POST)
         queryset = Product.objects.all()
         product = queryset.get(name=self.kwargs['slug'])
         category = product.category.name
         context['url_cancel'] = '/catalog/' + category
+        context['form'] = form
         return context
 
     # def get_object(self):
@@ -192,9 +196,6 @@ def product_delete(request, slug):
         # return HttpResponseRedirect(reverse('products:catalog'))
         return reverse('categories:category', kwargs={'slug': product.category.name})
     return render(request, 'delete.html', content)
-
-
-
 
 
 # def product_update(request, title):
@@ -287,3 +288,12 @@ def product_delete(request, slug):
 #              )
 #
 #     return render(request, 'create.html', {'form': form})
+
+def search_categories(request):
+    if request.method == 'POST':
+        search_text = request.POST['search_text']
+        categories = Category.objects.filter(short_desc__contains=search_text)
+    else:
+        search_text = ''
+        categories = {}
+    return render_to_response('mainapp/components/ajax_search.html', {'objects': categories})

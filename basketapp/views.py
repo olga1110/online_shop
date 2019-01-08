@@ -3,12 +3,16 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, HttpResponseRedirect, get_object_or_404, get_list_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
-from basketapp.models import Basket
-from mainapp.models import Product
 from django.views.generic import (
     FormView, CreateView, UpdateView,
     DeleteView, ListView, DetailView,
     )
+from django.contrib import messages
+
+from . import forms
+from basketapp.models import Basket
+from mainapp.models import Product
+
 
 
 # @login_required
@@ -29,21 +33,32 @@ class BasketList(LoginRequiredMixin, ListView):
 
 @login_required
 def basket_add(request, pk):
-    product_name = get_object_or_404(Product, id=pk)
+    product = get_object_or_404(Product, id=pk)
+    form = forms.CartForm(request.POST)
 
-    if 'login' in request.META.get('HTTP_REFERER'):
-        return HttpResponseRedirect(reverse('products:product_detail', args=[product_name.name]))
-    product = get_object_or_404(Product, pk=pk)
-    old_basket_item = Basket.objects.filter(user=request.user, product=product)
-    if old_basket_item:
-        old_basket_item[0].quantity += 1
-        old_basket_item[0].save()
-    else:
-        new_basket_item = Basket(user=request.user, product=product)
-        new_basket_item.quantity += 1
-        new_basket_item.save()
+    if form.is_valid():
+        quantity = int(form.cleaned_data.get('quantity'))
+        if product.quantity == 0:
+            messages.add_message(request, messages.INFO, f'К сожалению на данный момент товар отсутствует на складе')
+        elif quantity > product.quantity:
+            messages.add_message(request, messages.INFO, f'На данный момент возможен заказ только {product.quantity}'
+            f' единиц(-ы) товара!')
+            quantity = product.quantity
+
+        if 'login' in request.META.get('HTTP_REFERER'):
+            return HttpResponseRedirect(reverse('products:product_detail', args=[product.name]))
+
+        old_basket_item = Basket.objects.filter(user=request.user, product=product)
+        if old_basket_item:
+            old_basket_item[0].quantity += int(quantity)
+            old_basket_item[0].save()
+        else:
+            new_basket_item = Basket(user=request.user, product=product)
+            new_basket_item.quantity += int(quantity)
+            new_basket_item.save()
+        product.quantity = product.quantity - quantity
+        product.save()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-    # return HttpResponseRedirect('basketapp/basket.html')
 
 
 @login_required
