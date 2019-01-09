@@ -35,18 +35,18 @@ class BasketList(LoginRequiredMixin, ListView):
 def basket_add(request, pk):
     product = get_object_or_404(Product, id=pk)
     form = forms.CartForm(request.POST)
+    if 'login' in request.META.get('HTTP_REFERER'):
+        return HttpResponseRedirect(reverse('products:product_detail', args=[product.name]))
 
     if form.is_valid():
         quantity = int(form.cleaned_data.get('quantity'))
         if product.quantity == 0:
             messages.add_message(request, messages.INFO, f'К сожалению на данный момент товар отсутствует на складе')
-        elif quantity > product.quantity:
-            messages.add_message(request, messages.INFO, f'На данный момент возможен заказ только {product.quantity}'
-            f' единиц(-ы) товара!')
-            quantity = product.quantity
         else:
-            if 'login' in request.META.get('HTTP_REFERER'):
-                return HttpResponseRedirect(reverse('products:product_detail', args=[product.name]))
+            if quantity > product.quantity:
+                messages.add_message(request, messages.INFO, f'На данный момент возможен заказ только {product.quantity}'
+                f' единиц(-ы) товара!')
+                quantity = product.quantity
 
             old_basket_item = Basket.objects.filter(user=request.user, product=product)
             if old_basket_item:

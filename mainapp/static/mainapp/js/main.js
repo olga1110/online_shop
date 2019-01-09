@@ -1,4 +1,3 @@
-(function ($) {
   $(function () {
     var sum = 0;
     $(function () {
@@ -49,4 +48,3 @@
       }
     })
   })
-})(jQuery)

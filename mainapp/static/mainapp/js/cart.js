@@ -31,3 +31,4 @@ $(function() {
 //      $('#total_quantity').change(function(){
 //    $('#bg_popup').css('display', 'block')};
 
+});
