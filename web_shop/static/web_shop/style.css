@@ -726,6 +726,11 @@ input:not([type="checkbox"]):focus {
 	color:red;
 }
 
+.basket {
+    height: 80px;
+    width: auto;
+}
+
 .basket_summary{
     margin-top:250px;
 }

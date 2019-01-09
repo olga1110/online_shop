@@ -25,8 +25,9 @@ $(function() {
     });
 
     $("#to_cart").on('click', function(){
-//        $('#cart').val('Товар&nbsp;в&nbsp;корзине');
-        $('#cart').prop('value', 'Товар в корзине');
+        $('#cart').val('Товар&nbsp;в&nbsp;корзине');
     });
 
-});
+//      $('#total_quantity').change(function(){
+//    $('#bg_popup').css('display', 'block')};
+

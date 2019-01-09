@@ -38,7 +38,7 @@
             <a href="{% url 'basket:basket' %}"><img src="{%static 'web_shop/img/basket.png' %}" alt="Корзина" class="basket"></a>
         </li>
         {% if user.is_authenticated %}
-        <li>
+        <li id="total_quantity">
             {{user.id|total_quantity}}
         </li>
         {% endif %}

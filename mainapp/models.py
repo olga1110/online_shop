@@ -15,6 +15,8 @@ class Category(models.Model):
                                   blank=True)
     desc = models.TextField(verbose_name='Подробное описание', blank=True)
     is_active = models.BooleanField(verbose_name='Запись активна', default=True)
+    spec_discount = models.DecimalField(verbose_name='Специальная скидка', max_digits=4,
+                                        decimal_places=2, default=0)
     modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 

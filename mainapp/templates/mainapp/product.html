@@ -5,6 +5,7 @@
 {% endblock %}
 {% block page_styles %}
 <link rel="stylesheet" href="{% static 'web_shop/style.css' %}">
+<link rel="stylesheet" href="{% static 'mainapp/css/info_window.css' %}">
 {% endblock %}
 
 {% block script %}
@@ -77,11 +78,6 @@
 
 <!--Диалоговое окно-->
 <div id="dialog">
-    <!--кол-во-->
-    <!--цвет-->
-    <!--отредактирована запись по кол-ву в корзине-->
-    <!--если ok выдано оповещение, что добавлено всплывашка-->
-    <!--изменено название кнопки-->
     <form method="POST" enctype="multipart/form-data" action="/basket/add/{{product.id}}">
      {% csrf_token %}
         {{ form.as_p }}
@@ -89,6 +85,7 @@
 
     </form>
 </div>
+
 <div class="messages">
 {% if messages %}
     {% for message in messages %}

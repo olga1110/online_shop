@@ -708,14 +708,9 @@ input:not([type="checkbox"]):focus {
     cursor: pointer;
 }
 
-.search, .messages {
+.search {
     list-style-type: none;
    };
-
-.messages {
-color:red;
-font-weight:bold;
-}
 
 .feetback label {
     margin-left: 20px;
@@ -732,8 +727,8 @@ font-weight:bold;
 }
 
 .basket {
-    height:80px;
-    width:auto;
+    height: 80px;
+    width: auto;
 }
 
 .basket_summary{
@@ -743,7 +738,6 @@ font-weight:bold;
 .basket-delete{
 height:50px;
 }
-
 footer {
     background-color: whitesmoke;
     height: 70px;

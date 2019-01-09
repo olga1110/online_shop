@@ -7,6 +7,9 @@
 {% block page_styles %}
 <link rel="stylesheet" href="{%static 'web_shop/style.css' %}">
 <link rel="stylesheet" href="{%static 'mainapp/css/jcarousel.css' %}">
+<link rel="stylesheet" href="{%static 'mainapp/css/font-awesome.min.css' %}">
+<link rel="stylesheet" href="{%static 'mainapp/css/popup_window.css' %}">
+
 {% endblock %}
 
 {% block script %}
@@ -14,8 +17,11 @@
 
     <script src="{%static 'mainapp/js/jquery.jcarousel.js' %}"></script>
     <script src="{%static 'mainapp/js/jcarousel.basic.js' %}"></script>
-    <script src= "{%static 'mainapp/js/main.js' %}"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+    <script src="{%static 'mainapp/js/jquery.cookie.js' %}"></script>
+    <script src= "{%static 'mainapp/js/main.js' %}"></script>
+    <script src= "{%static 'mainapp/js/popup_window.js' %}"></script>
+
 
 {% endblock %}
 
@@ -26,10 +32,7 @@
 <main>
 <h1><strong><em> {{company.title|title}}</em></strong></h1>
 <sector><em>{{company.advertisement}}</em></sector>
-    <!--<img src="{%static 'mainapp/img/main-photo.jpg' %}"
-alt="Изумруд">-->
 
-<!--*************************************************************************-->
 <div class="shopBlock">
             <div class="wrapper">
                 <div class="jcarousel-wrapper">
@@ -64,7 +67,6 @@ alt="Изумруд">-->
                 <p><b>Общая сумма:</b> <span>0</span> руб. </p>
             </div>
 </div>
-<!--*************************************************************************-->
 
 </main>
 
@@ -82,5 +84,34 @@ alt="Изумруд">-->
     {% endfor %}
 {% endif %}
 </script>
+
+<!--Всплывающее окно при первой загрузке сайта-->
+{% if not user.is_authenticated %}
+<div id="pp">
+	    <div class="pp-header">
+	        <h3>Приветствуем Вас на сайте Cozy kitchen!!!</h3>
+	    </div>
+	    <div class="pp-content">
+	        <div class="pp-content-main">
+	            <h4>*Товар дня*</h4>
+                Только сегодня
+                {% for cat in categories %}
+                {% if cat.spec_discount %}
+                скидки на все {{cat.short_desc|upper}} до {{cat.spec_discount|floatformat}}%
+                {% endif %}
+                {% endfor %}
+	        </div>
+
+	    </div>
+	    <div class="pp-footer">
+	        <p><a href="{% url 'auth:register' %}">Зарегистрируйтесь </a> и получите индивидуальную скидку на весь модельный ряд!!!</p>
+	    </div>
+        <div class="btn btn-blob">&times;</div>
+	</div>
+
+	<div id="pp-bg"></div>
+
+{% endif %}
+
 {% endblock %}
 
