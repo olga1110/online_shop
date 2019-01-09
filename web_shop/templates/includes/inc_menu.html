@@ -35,7 +35,7 @@
         <li><a href="{% url 'admin_custom:admin_page' %}">Настройка</a></li>
         {% endif %}
         <li>
-            <a href="{% url 'basket:basket' %}"><img src="{%static 'basketapp/img/basket.png' %}" alt="Корзина" class="basket" height="80px"></a>
+            <a href="{% url 'basket:basket' %}"><img src="{%static 'web_shop/img/basket.png' %}" alt="Корзина" class="basket"></a>
         </li>
         {% if user.is_authenticated %}
         <li>

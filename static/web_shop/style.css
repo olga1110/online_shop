@@ -731,6 +731,11 @@ font-weight:bold;
 	color:red;
 }
 
+.basket {
+    height:80px;
+    width:auto;
+}
+
 .basket_summary{
     margin-top:250px;
 }
@@ -738,6 +743,7 @@ font-weight:bold;
 .basket-delete{
 height:50px;
 }
+
 footer {
     background-color: whitesmoke;
     height: 70px;

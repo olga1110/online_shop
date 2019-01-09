@@ -6,20 +6,68 @@
 {% block page_title %} Cozy kitchen {% endblock %}
 {% block page_styles %}
 <link rel="stylesheet" href="{%static 'web_shop/style.css' %}">
+<link rel="stylesheet" href="{%static 'mainapp/css/jcarousel.css' %}">
+{% endblock %}
+
+{% block script %}
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+
+    <script src="{%static 'mainapp/js/jquery.jcarousel.js' %}"></script>
+    <script src="{%static 'mainapp/js/jcarousel.basic.js' %}"></script>
+    <script src= "{%static 'mainapp/js/main.js' %}"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
 {% endblock %}
 
-
 {% block page_content %}
-
 
 {{ block.super }}
 <div class="main-page">
 <main>
 <h1><strong><em> {{company.title|title}}</em></strong></h1>
 <sector><em>{{company.advertisement}}</em></sector>
-<p><em><bold>С нами уютно:)</bold></em></p> <img src="{%static 'mainapp/img/main-photo.jpg' %}"
-alt="Изумруд"> </main>
+    <!--<img src="{%static 'mainapp/img/main-photo.jpg' %}"
+alt="Изумруд">-->
+
+<!--*************************************************************************-->
+<div class="shopBlock">
+            <div class="wrapper">
+                <div class="jcarousel-wrapper">
+                    <div class="jcarousel">
+                        <ul>
+                            {% for product in products %}
+                            <li>
+                                <div class="carousel__item">
+                                    <h3 class="productName">{{product.short_desc|capfirst}}</h3>
+                                    <a href="/{{product.get_absolute_url}}/">
+                                        <img class="img" src="/media/{{product.image.value}}"
+                                               alt={{product.short_desc|capfirst}}
+                                               title={{product.short_desc|capfirst}}>
+                                    </a>
+                                    <h3 class="productPrice">{{product.price}} руб.</h3>
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+
+                    </div>
+                    <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
+                    <a href="#" class="jcarousel-control-next">&rsaquo;</a>
+                </div>
+            </div>
+            <div class="cartBlock" id="cartBlock">
+                <div class="cartImg">
+                    <img src="{%static 'web_shop/img/basket.png' %}" alt="Cart">
+                </div>
+                <h1 class="cartTitle">Корзина</h1>
+                <ul class="cartList" id="cartList"></ul>
+                <p><b>Общая сумма:</b> <span>0</span> руб. </p>
+            </div>
+</div>
+<!--*************************************************************************-->
+
+</main>
+
     {% offer as discount%}
     {% if discount %}
     <p>Специальное предложение!!! <br>

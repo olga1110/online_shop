@@ -39,9 +39,11 @@ def mainapp_Contacts(request):
 
 
 def mainapp_index(request):
+    products = Product.objects.all()
     context = {'company':
                    {'title': 'cozy kitchen',
-                    'advertisement': 'Самая лучшая мебель для кухни здесь!!!'}
+                    'advertisement': 'Самая лучшая мебель для кухни здесь!!!'},
+               'products': products
                }
     return render(request, 'mainapp/index.html', context)
 
