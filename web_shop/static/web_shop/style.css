@@ -738,6 +738,11 @@ input:not([type="checkbox"]):focus {
 .basket-delete{
 height:50px;
 }
+
+.hide_button{
+display:none;
+}
+
 footer {
     background-color: whitesmoke;
     height: 70px;

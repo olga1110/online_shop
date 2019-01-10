@@ -19,8 +19,65 @@
     <script src="{%static 'mainapp/js/jcarousel.basic.js' %}"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
     <script src="{%static 'mainapp/js/jquery.cookie.js' %}"></script>
-    <script src= "{%static 'mainapp/js/main.js' %}"></script>
+    <!--<script src= "{%static 'mainapp/js/main.js' %}"></script>-->
     <script src= "{%static 'mainapp/js/popup_window.js' %}"></script>
+
+<script>
+
+     $(function () {
+    var sum = 0;
+    $(function () {
+        $('.jcarousel').jcarousel({
+            animation: {
+                duration: 900,
+                easing: 'linear',
+                complete: function () {}
+            },
+            wrap: 'circular'
+        })
+    });
+
+    $('.jcarousel').jcarouselAutoscroll({
+        interval: 3000,
+        target: '+=1',
+        autostart: true
+    });
+
+        $('.carousel__item').draggable({ opacity: 0.7,
+     cursor: 'move',
+     //helper : function (event){return $("<div>Перетащите товар в корзину</div>" )}
+        helper: 'clone'
+ });
+    $('#cartBlock').droppable({
+        drop: function (event, ui) {
+            $(this).addClass('ui-state-highlight')
+            var item = ($('<li/>', {
+                class: 'cartList__item'
+            }));
+            item.append($('<div/>', {
+                text: ui['draggable'].find('.productName').eq(0).text(),
+                class: 'productName'
+            }));
+            item.append($('<div/>', {
+                    text: ui['draggable'].find('.productPrice').eq(0).text(),
+                    class: 'productPrice'
+                })
+            )
+            sum += parseInt(ui['draggable'].find('.productPrice').eq(0).text().split(' ')[0]);
+            $('#cartList').append(item);
+            $('#cartBlock span').text(sum);
+
+//        Переход по ссылке с методом
+            var product_id = parseInt(ui['draggable'].find('.productId').eq(0).text());
+            var url = '/basket/add/' + product_id;
+            $('#hide_button').on('click', location.replace(url));
+            $('#hide_button').click();
+        }
+    });
+});
+
+</script>
+
 
 
 {% endblock %}
@@ -42,6 +99,7 @@
                             <li>
                                 <div class="carousel__item">
                                     <h3 class="productName">{{product.short_desc|capfirst}}</h3>
+                                    <h3 class="productId" style="display: none">{{product.id}}</h3>
                                     <a href="/{{product.get_absolute_url}}/">
                                         <img class="img" src="/media/{{product.image.value}}"
                                                alt={{product.short_desc|capfirst}}
@@ -112,6 +170,8 @@
 	<div id="pp-bg"></div>
 
 {% endif %}
+
+<button class="hide_button"></button>
 
 {% endblock %}
 

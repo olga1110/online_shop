@@ -14,12 +14,10 @@ from basketapp.models import Basket
 from mainapp.models import Product
 
 
-
 # @login_required
 # def basket(request):
 #     basket_items = Basket.objects.filter(user=request.user).order_by('product__category')
 #     return render(request, 'basketapp/basket.html', {'basket_items': basket_items})
-
 
 class BasketList(LoginRequiredMixin, ListView):
     model = Basket
@@ -39,7 +37,11 @@ def basket_add(request, pk):
         return HttpResponseRedirect(reverse('products:product_detail', args=[product.name]))
 
     if form.is_valid():
-        quantity = int(form.cleaned_data.get('quantity'))
+        if form.cleaned_data.get('quantity'):
+            quantity = int(form.cleaned_data.get('quantity'))
+        else:
+            quantity = 1
+        # Проверка остатков на складе
         if product.quantity == 0:
             messages.add_message(request, messages.INFO, f'К сожалению на данный момент товар отсутствует на складе')
         else:
