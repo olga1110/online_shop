@@ -45,17 +45,13 @@
     </ul>
 </div>
 
-
-<div class="customers-form">
-<h1><strong><em> {{category.short_desc|capfirst}}</em></strong></h1>
-{% if user.is_authenticated and user.is_active and user.is_superuser %}
-<a href="{% url 'products:create'%}">Добавить товар</a>
-{% endif %}
+<div class="category-head">
+    <h1>{{category.short_desc|capfirst}}</h1>
+    <p>Цены в диапозоне: {{min_price|floatformat}} - {{max_price|floatformat}} руб.</p>
 </div>
-<div class="catalog-page">
-<p>Цены в диапозоне: {{min_price|floatformat}} - {{max_price|floatformat}}</p>
-    <br>
-    <br>
+
+
+
         <main class="main">
             {% for product in products%}
             <figure class="item">
@@ -71,11 +67,12 @@
 
     {% endfor %}
     </main>
-
+<div class="category-edit">
 {% if user.is_authenticated and user.is_active and user.is_superuser %}
 <a href="/catalog/update/{{category.name}}/">Редактировать</a>
-<br><br>
 <a href="/catalog/delete/{{category.name}}/">Удалить</a>
+<a href="{% url 'products:create'%}">Добавить товар</a>
 {% endif %}
 </div>
+    </div>
 {% endblock %}

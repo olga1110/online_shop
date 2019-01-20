@@ -19,12 +19,20 @@
     <script src="{%static 'mainapp/js/jcarousel.basic.js' %}"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
     <script src="{%static 'mainapp/js/jquery.cookie.js' %}"></script>
-    <!--<script src= "{%static 'mainapp/js/main.js' %}"></script>-->
+    <script src= "{%static 'mainapp/js/main.js' %}"></script>
     <script src= "{%static 'mainapp/js/popup_window.js' %}"></script>
 
 <script>
 
      $(function () {
+
+     //При перезагрузке
+if (localStorage.getItem('cartList')) {
+    $('#cartList').append(JSON.parse(localStorage.getItem('cartList')));
+    //$('#cartBlock span').empty();
+    //$('#cartBlock span').append(JSON.parse(localStorage.getItem('cartList')));
+}
+
     var sum = 0;
     $(function () {
         $('.jcarousel').jcarousel({
@@ -54,7 +62,7 @@
             var item = ($('<li/>', {
                 class: 'cartList__item'
             }));
-            item.append($('<div/>', {
+            var new_product = item.append($('<div/>', {
                 text: ui['draggable'].find('.productName').eq(0).text(),
                 class: 'productName'
             }));
@@ -66,6 +74,24 @@
             sum += parseInt(ui['draggable'].find('.productPrice').eq(0).text().split(' ')[0]);
             $('#cartList').append(item);
             $('#cartBlock span').text(sum);
+            <!--localStorage.setItem('cartList', JSON.stringify($('#cartList').text()));-->
+            <!--localStorage.setItem('cartBlock', JSON.stringify($('#cartBlock span').text()));-->
+            alert(new_product.text());
+            <!--localStorage.setItem('cartList', JSON.stringify(new_product.text()));-->
+
+            if (localStorage.getItem('cartList')) {
+                var old_context = JSON.parse(localStorage.getItem('cartList'));
+                localStorage.setItem('cartList', JSON.stringify(new_product.text()+JSON.parse(localStorage.getItem('cartBlock')+ old_context)));
+                    }
+            else {
+            localStorage.setItem('cartList', JSON.stringify(new_product.text()));
+            }
+
+
+
+
+
+
 
 //        Переход по ссылке с методом
             var product_id = parseInt(ui['draggable'].find('.productId').eq(0).text());

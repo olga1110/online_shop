@@ -75,6 +75,14 @@
     </div>
 </div>
 
+<div class="product-edit">
+{% if user.is_authenticated and user.is_active and user.is_superuser %}
+<a href="/update/{{product.category.name}}/{{product.name}}/">Редактировать</a>
+<!--<br><br>-->
+<a href="/delete/{{product.category.name}}/{{product.name}}/">Удалить</a>
+{%  endif %}
+</div>
+
 <!--Диалоговое окно-->
 <div id="dialog">
     <form method="POST" enctype="multipart/form-data" action="/basket/add/{{product.id}}">
@@ -98,11 +106,6 @@
 
 {% block analogue %}
 {% endblock %}
-<br><br><br><br>
-{% if user.is_authenticated and user.is_active and user.is_superuser %}
-<a href="/update/{{product.category.name}}/{{product.name}}/">Редактировать</a>
-<br><br>
-<a href="/delete/{{product.category.name}}/{{product.name}}/">Удалить</a>
-{%  endif %}
+
 {% endblock %}
 
