@@ -26,9 +26,10 @@ header {
     display: flex;
     justify-content: space-between;
     align-content: center;
-    min-height: 150px;
+    height: 150px;
     background-color: #e6e67282;
     margin-bottom: 20px;
+    box-sizing: border-box;
 }
 .logo {
     padding: 20px 13px;
@@ -52,9 +53,10 @@ header {
     text-align: right;
     text-decoration: none;
 }
-.menu li {
+.menu li:not(.basket) {
     height: 30px;
     line-height: 30px;
+    padding-top: 20px;
 }
 .menu a:hover {
     color: black;
@@ -366,7 +368,7 @@ td {
 }
 #cart {
     width: 200px;
-    height: 115px;
+    height: 105px;
     font-size: 20px;
     font-weight: 700;
     color: brown;
@@ -381,6 +383,44 @@ td {
     color: black;
     background-color: sandybrown;
 }
+
+#dialog input[type="number"]{
+width: 150px;
+padding-right: 0px;
+margin-bottom: 10px;
+}
+
+#dialog input[type="submit"], #dialog button {
+ width: 100px;
+ margin-right: 30px;
+}
+
+.ui-dialog .ui-dialog-buttonpane button {
+    height: 50px;
+}
+
+.messages li {
+    list-style-type: none;
+}
+
+.messages .info {
+    color: indigo;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.messages .warning {
+    color: maroon;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.messages .error {
+    color: darkred;
+    font-size: 22px;
+    font-weight: 900;
+}
+
 .Contacts button:active {
     text-decoration: underline;
     font-weight: 900;
@@ -418,7 +458,7 @@ button:hover {
     justify-content: center;
     align-content: center;
 }
-button {
+button, input[type="submit"] {
     display: inline-block;
     width: 250px;
     border-radius: 12.5px;
@@ -634,8 +674,8 @@ input:not([type="checkbox"]) {
     font-style: italic;
 }
 .feedback input:not([type="checkbox"]), .order input {
-    width: 200px;
-    height: 20px;
+    width: 300px;
+    height: 30px;
     font-size: 14px;
 }
 input:not([type="checkbox"]):focus {
@@ -653,8 +693,8 @@ input:not([type="checkbox"]):focus {
 }
 .search {
     list-style-type: none;
-}
-;
+};
+
 .feedback label {
     margin-left: 30px;
 }
@@ -662,9 +702,31 @@ input:not([type="checkbox"]):focus {
     /*margin-left: 20px;*/
     /*font-weight: 700;*/
 /*}*/
-.userapp {
-    color: red;
+.menu.user a {
+    color: darkblue;
 }
+
+.menu.user{
+    display:flex;
+    justify-content: flex-end;
+
+}
+
+.menu.entrance{
+    margin-top: 20px;
+}
+
+#total_quantity{
+    font-size: 25px;
+    font-weight: 800;
+    margin-top: 10px;
+}
+
+#total_quantity span{
+    padding-right: 10px;
+}
+
+
 .basket {
     height: 80px;
     width: auto;

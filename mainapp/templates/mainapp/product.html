@@ -33,7 +33,6 @@
                                                                             height=300> </a>
         <div class="product-hover">
             <section class="feature">
-
                 <br>
                 {% block product_table %}
                 {% endblock %}
@@ -46,7 +45,6 @@
                 <p class="old_price">{{product.price|floatformat}}р</p>
                 <!--<p class="new_price">{{new_price|floatformat}}p</p>-->
                 <p class="new_price">{{product.price|discount:product.discount|floatformat}}p</p>
-
             </div>
             <br>
             <br>
@@ -72,8 +70,15 @@
             <input type="button" id="cart" value="В&nbsp;корзину!">
         </form>
 
+        <div class="messages">
+        {% if messages %}
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        {% endif %}
+        </div>
+
     </div>
-</div>
 
 <div class="product-edit">
 {% if user.is_authenticated and user.is_active and user.is_superuser %}
@@ -89,23 +94,15 @@
      {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" id="to_cart" value="OK" />
-
     </form>
 </div>
 
-<div class="messages">
-{% if messages %}
-    {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-{% endif %}
-</div>
 
 {% block modules_of_product %}
 {% endblock %}
 
 {% block analogue %}
 {% endblock %}
-
+</div>
 {% endblock %}
 

@@ -43,7 +43,7 @@ def basket_add(request, pk):
             quantity = 1
         # Проверка остатков на складе
         if product.quantity == 0:
-            messages.add_message(request, messages.INFO, f'К сожалению на данный момент товар отсутствует на складе')
+            messages.add_message(request, messages.INFO, f'К сожалению, на данный момент товар отсутствует на складе')
         else:
             if quantity > product.quantity:
                 messages.add_message(request, messages.INFO, f'На данный момент возможен заказ только {product.quantity}'

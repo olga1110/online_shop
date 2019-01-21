@@ -130,7 +130,7 @@ header {
 .registration {
     width: 502px;
 }
-/* .button a {
+/* .feedback a {
      display: inline-block;
      border-radius: 22.5px;
      color: #212121;
@@ -366,24 +366,64 @@ td {
 }
 #cart {
     width: 200px;
-    height: 100px;
+    height: 105px;
     font-size: 20px;
     font-weight: 700;
     color: brown;
     background-color: #e6e67282;
+    border-radius: 20px;
     margin-top: 10px;
 }
+
 #cart:hover {
     font-size: 22px;
     font-weight: 900;
     color: black;
-    background-color: #de653e;
+    background-color: sandybrown;
 }
+
+#dialog input[type="number"]{
+width: 150px;
+padding-right: 0px;
+margin-bottom: 10px;
+}
+
+#dialog input[type="submit"], #dialog button {
+ width: 100px;
+ margin-right: 30px;
+}
+
+.ui-dialog .ui-dialog-buttonpane button {
+    height: 50px;
+}
+
+.messages li {
+    list-style-type: none;
+}
+
+.messages .info {
+    color: indigo;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.messages .warning {
+    color: maroon;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.messages .error {
+    color: darkred;
+    font-size: 22px;
+    font-weight: 900;
+}
+
 .Contacts button:active {
     text-decoration: underline;
     font-weight: 900;
 }
-.feetback, .registration {
+.feedback, .registration {
     padding-left: 20px;
 }
 .registration input {
@@ -416,7 +456,7 @@ button:hover {
     justify-content: center;
     align-content: center;
 }
-button {
+button, input[type="submit"] {
     display: inline-block;
     width: 250px;
     border-radius: 12.5px;
@@ -430,7 +470,7 @@ button {
     background-color: #e2d8b0;
     box-shadow: 0px 2px 4.85px 0.15px rgba(33, 33, 33, 0.35);
 }
-.feetback button, .registration button {
+.manage-feedback button, .registration button {
     margin-top: 20px;
     margin-bottom: 20px;
 }
@@ -449,12 +489,13 @@ summary {
     font-size: 21px;
 }
 
-.button {
+.manage-feedback {
     display: flex;
     justify-content: center;
 }
-.button button {
+.manage-feedback button {
     margin-right: 30px;
+    width: 200px;
 }
 .main-photo {
     width: 700px;
@@ -508,7 +549,7 @@ summary {
 .Contacts address {
     box-shadow: 2px 3px 4px #ccc;
 }
-.order, .feetback, .registration {
+.order, .feedback, .registration {
     padding: 20px;
     margin: 20px;
     /*width: 200px;
@@ -517,6 +558,11 @@ summary {
     */
     box-shadow: 0px 0px 20px #813a06;
 }
+
+.customers-form summary {
+    margin-top: 20px;
+}
+
 .sale {
     display: flex;
     justify-content: space-around;
@@ -538,7 +584,7 @@ summary {
     width: 404px;
     height: 100px;
 }
-.order:hover, .feetback:hover, .registration:hover {
+.order:hover, .feedback:hover, .registration:hover {
     box-shadow: 0 0 0 2px #D2973D inset, 0 0 0 4px white inset;
 }
 .category-head summary:hover, .category-head legend:hover, .registration:hover {
@@ -550,15 +596,21 @@ summary {
 .registration input:hover {
     background-color: #e2d8b0;
 }
-.feetback h2 {
+.feedback h2 {
     text-shadow: 4px 3px 0px #fff, 9px 8px 0px rgba(0, 0, 0, 0.15);
 }
-.feetback {
-    width: 600px;
+
+.feedback {
+    width: 500px;
 }
-.feetback legend {
+.feedback legend {
     font-weight: 700;
 }
+
+.feedback textarea {
+    width: 500px;
+}
+
 .main-page h1, .price {
     text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0, 0, 0, .1), 0 0 5px rgba(0, 0, 0, .1), 0 1px 3px rgba(0, 0, 0, .3), 0 3px 5px rgba(0, 0, 0, .2), 0 5px 10px rgba(0, 0, 0, .25), 0 10px 10px rgba(0, 0, 0, .2), 0 20px 20px rgba(0, 0, 0, .15);
 }
@@ -566,7 +618,7 @@ summary {
 .order {
     background: url('Img/order.png') no-repeat 350px 20px, url('Img/order1.png') no-repeat 350px 300px;
 }
-.feetback label, .order label, .registration label, legend:not(.short_desc) {
+.feedback label, .order label, .registration label, legend:not(.short_desc) {
     color: darkblue;
     font-size: 16px;
 }
@@ -619,9 +671,9 @@ input:not([type="checkbox"]) {
     color: #483D8B;
     font-style: italic;
 }
-.feetback input:not([type="checkbox"]), .order input {
-    width: 200px;
-    height: 20px;
+.feedback input:not([type="checkbox"]), .order input {
+    width: 300px;
+    height: 30px;
     font-size: 14px;
 }
 input:not([type="checkbox"]):focus {
@@ -641,15 +693,22 @@ input:not([type="checkbox"]):focus {
     list-style-type: none;
 }
 ;
-.feetback label {
-    margin-left: 20px;
+.feedback label {
+    margin-left: 30px;
 }
-.feetback label:hover, .registration label:hover {
-    margin-left: 20px;
-    font-weight: 700;
+/*.feedback label:hover, .registration label:hover {*/
+    /*margin-left: 20px;*/
+    /*font-weight: 700;*/
+/*}*/
+.menu.user a {
+    color: darkblue;
 }
-.userapp {
-    color: red;
+
+.menu.user{
+    display:flex;
+    justify-content: flex-start;
+    margin-top: 65px;
+    margin-left: -400px;
 }
 .basket {
     height: 80px;
