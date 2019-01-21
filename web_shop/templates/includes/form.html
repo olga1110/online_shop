@@ -6,18 +6,28 @@
     </div>
     {% endfor %}
 
-    {% for field in form %}
     <div class="form-group">
+    {% for field in form %}
+
+        <div class="form-field">
         <label for="{{field.name}}">
-            {{field.label}}
+            {{field.label}}:
         </label>
         {{field}}
+        </div>
+     {% endfor %}
+    </div>
+
+<div class="form-buttons">
+    <input type="submit" value="{{OK_text}}">
+    <input type="button"  value="Отмена"
+   onClick='location.href="{{url_cancel}}"'>
+    </div>
+    {% for field in form %}
         {% if field.errors|length > 0 %}
         {% for err in field.errors %}
         <small class="form-text">{{err}}</small>
         {% endfor %}
         {% endif %}
-    </div>
     {% endfor %}
-    <button type="submit">{{OK_text}}</button>
 </form>

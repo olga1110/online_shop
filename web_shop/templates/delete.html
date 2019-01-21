@@ -15,19 +15,18 @@
 {{ block.super }}
 
 <div class = "object_delete">
-    <br>
-    Подтвердите перемещение {{subject}} {{name}} в раздел {{part_name}}.
+    <p>Подтвердите перемещение {{subject}} {{name}} в раздел {{part_name}}.</p>
     <p>Запись останется в БД с is_active=0</p>
 <form method="post">
     {% csrf_token %}
-    <input class="btn btn-danger" type="submit" value="Переместить">
+    <input class="replace-button" type="submit" value="Переместить">
 
 </form>
 
-<form>
-    <input type="button"  value="Отмена"
-       onClick='location.href="{{ url_cancel }}"'>
-</form>
+<!--<form>-->
+    <!--<input type="button"  value="Отмена"-->
+       <!--onClick='location.href="{{ url_cancel }}"'>-->
+<!--</form>-->
 
 
 {% endblock %}

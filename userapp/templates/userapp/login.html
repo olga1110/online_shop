@@ -27,9 +27,9 @@
     {% endif %}
 
     {% for field in form %}
-    <div class="form-group">
+    <div class="form-auth">
         <label for="{{ field.name }}">
-            {{ field.label }}
+            {{ field.label }}:
         </label>
         {{ field }}
 
@@ -39,11 +39,12 @@
 
     </div>
     {% endfor %}
-    <input type="submit" value="Войти">
+    <div class="auth-button">
+    <input type="submit" value="Вход" class="form-entrance">
+    <input type="button" value="Регистрация" onClick='location.href="{% url "auth:register" %}"'>
+    </div>
 </form>
 
-<form>
-<input class="btn btn -round form-control" type="button" value="Зарегистрироваться" onClick='location.href="{% url "auth:register" %}"'>
-</form>
+
 
 {% endblock %}

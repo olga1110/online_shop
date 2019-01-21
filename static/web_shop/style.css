@@ -26,9 +26,10 @@ header {
     display: flex;
     justify-content: space-between;
     align-content: center;
-    min-height: 150px;
+    height: 150px;
     background-color: #e6e67282;
     margin-bottom: 20px;
+    box-sizing: border-box;
 }
 .logo {
     padding: 20px 13px;
@@ -52,9 +53,10 @@ header {
     text-align: right;
     text-decoration: none;
 }
-.menu li {
+.menu li:not(.basket) {
     height: 30px;
     line-height: 30px;
+    padding-top: 20px;
 }
 .menu a:hover {
     color: black;
@@ -285,6 +287,8 @@ header {
 
 .product-edit a, .catalog-edit a, .category-edit a {
     display:block;
+    font-size: 18px;
+    font-weight: 700;
 }
 
 .catalog-edit a, .category-edit a {
@@ -456,19 +460,29 @@ button:hover {
     justify-content: center;
     align-content: center;
 }
-button, input[type="submit"] {
+button, input[type="submit"], input[type="button"]{
     display: inline-block;
-    width: 250px;
+    width: 150px;
+    height: 70px;
     border-radius: 12.5px;
-    color: #8c8c8c;
+    color: darkblue;
     font-weight: 900;
     line-height: 24px;
     text-align: center;
     text-decoration: none;
     text-transform: uppercase;
-    padding: 10px 31px;
-    background-color: #e2d8b0;
+    /*padding: 10px 31px;*/
+    background-color: #e6e67282;
     box-shadow: 0px 2px 4.85px 0.15px rgba(33, 33, 33, 0.35);
+}
+
+button, input[type="submit"]:hover, input[type="button"]:hover{
+    background-color: sandybrown;
+}
+.auth-button {
+    width:330px;
+    display: flex;
+    justify-content: space-between;
 }
 .manage-feedback button, .registration button {
     margin-top: 20px;
@@ -596,6 +610,56 @@ summary {
 .registration input:hover {
     background-color: #e2d8b0;
 }
+
+.form-auth input {
+    margin-bottom: 20px;
+ }
+
+.form-auth input[type="password"] {
+    margin-left: 7px;
+}
+
+.form-auth label {
+    color: maroon;
+    font-weight: 700;
+}
+
+.form-entrance {
+    width: 100px;
+}
+
+.form-field {
+    clear:both;
+    text-align:right;
+    line-height:25px;
+    margin-bottom: 10px;
+}
+
+.form-field label {
+    float:left;
+    padding-right:10px;
+    color: darkblue;
+    font-weight: 500;
+}
+
+select {
+    border-radius: 5px;
+    border-color: antiquewhite;
+    background-color: whitesmoke;
+    width: 238px;
+    height: 30px;
+}
+
+
+.form-group {
+    float: left;
+}
+
+textarea {
+    width: 238.44px;
+}
+
+
 .feedback h2 {
     text-shadow: 4px 3px 0px #fff, 9px 8px 0px rgba(0, 0, 0, 0.15);
 }
@@ -665,7 +729,7 @@ label:focus {
     color: brown;
 }
 
-input:not([type="checkbox"]) {
+input:not([type="checkbox"]):not([type="submit"]){
     border-radius: 8px;
     padding: 10px 50px 10px 10px;
     color: #483D8B;
@@ -691,8 +755,8 @@ input:not([type="checkbox"]):focus {
 }
 .search {
     list-style-type: none;
-}
-;
+};
+
 .feedback label {
     margin-left: 30px;
 }
@@ -706,10 +770,26 @@ input:not([type="checkbox"]):focus {
 
 .menu.user{
     display:flex;
-    justify-content: flex-start;
-    margin-top: 65px;
-    margin-left: -400px;
+    justify-content: flex-end;
+
 }
+
+.menu.entrance{
+    margin-top: 20px;
+    margin-right: 10px;
+}
+
+#total_quantity{
+    font-size: 25px;
+    font-weight: 800;
+    margin-top: 10px;
+}
+
+#total_quantity span{
+    padding-right: 10px;
+}
+
+
 .basket {
     height: 80px;
     width: auto;

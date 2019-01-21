@@ -19,7 +19,7 @@
     {% for form in formset %}
         {% for field in form %}
     {% if field.label != 'Порядок' and field.label != 'Удалить' %}
-    <div class="form-group">
+    <div>
         <label for="{{field.name}}">
             {{field.label}}
         </label>

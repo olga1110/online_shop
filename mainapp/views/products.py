@@ -50,9 +50,9 @@ def mainapp_index(request):
     return render(request, 'mainapp/index.html', context)
 
 
-def mainapp_registration(request):
-    context = {'reg': 'Регистрация'}
-    return render(request, 'mainapp/registration.html', context)
+# def mainapp_registration(request):
+#     context = {'reg': 'Регистрация'}
+#     return render(request, 'mainapp/registration.html', context)
 
 # CRUD-методы
 

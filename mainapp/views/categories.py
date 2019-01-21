@@ -49,7 +49,7 @@ class CategoryGenericCreate(SuperUserMixin, CreateView):
         context = super(CategoryGenericCreate, self).get_context_data(**kwargs)
         context['title'] = 'Создание категории'
         context['url_cancel'] = 'products:catalog'
-        context['OK_text'] = 'Создать категорию'
+        context['OK_text'] = 'Добавить'
         return context
 
 
@@ -70,7 +70,7 @@ class CategoryFormSet(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(CategoryFormSet, self).get_context_data(**kwargs)
         context['formset'] = self.formset
-        context['title'] = 'Набор форм Катягория'
+        context['title'] = 'Набор форм для Категории товара'
         return context
 
     def post(self, request, *args, **kwargs):
