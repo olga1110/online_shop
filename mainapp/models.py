@@ -27,7 +27,7 @@ class Category(models.Model):
         return self.name
 
     class Meta:
-        ordering = ['name', 'is_active']
+        ordering = ['-is_active', 'name']
         verbose_name_plural = 'Categories'
 
 
@@ -74,7 +74,7 @@ class Product(models.Model):
         return "{} ({}р., {}шт.)".format(self.name, self.price, self.quantity)
 
     class Meta:
-        ordering = ['name', 'is_active', 'price']
+        ordering = ['-is_active', 'name', 'price']
 
 
 

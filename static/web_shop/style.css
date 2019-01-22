@@ -295,11 +295,11 @@ header {
    padding-right: 20px;
 }
 
-.product-edit a, .catalog-edit a, .category-edit a:hover {
+.product-edit a:hover, .catalog-edit a:hover, .category-edit a:hover {
     color: midnightblue;
 }
 
-.product-edit a, .catalog-edit a, .category-edit a:visited {
+.product-edit a:visited, .catalog-edit a:visited, .category-edit a:visited {
     color: darkviolet;
 }
 
@@ -631,7 +631,6 @@ summary {
 .form-field {
     clear:both;
     text-align:right;
-    line-height:25px;
     margin-bottom: 10px;
 }
 
@@ -659,6 +658,26 @@ textarea {
     width: 238.44px;
 }
 
+.form-buttons {
+    clear:both;
+    display:flex;
+    justify-content: center;
+    width:465.16px;
+}
+
+.form-buttons input[type="submit"]{
+    margin-right: 30px;
+}
+
+.replace-button {
+    margin-top: 30px;
+}
+.object_delete {
+    margin-top: 100px;
+    color: darkblue;
+    font-size: 20px;
+    font-weight: 500;
+}
 
 .feedback h2 {
     text-shadow: 4px 3px 0px #fff, 9px 8px 0px rgba(0, 0, 0, 0.15);
@@ -729,12 +748,13 @@ label:focus {
     color: brown;
 }
 
-input:not([type="checkbox"]):not([type="submit"]){
+input:not([type="checkbox"]):not([type="submit"]):not([type="button"]){
     border-radius: 8px;
     padding: 10px 50px 10px 10px;
     color: #483D8B;
     font-style: italic;
 }
+
 .feedback input:not([type="checkbox"]), .order input {
     width: 300px;
     height: 30px;
@@ -746,10 +766,8 @@ input:not([type="checkbox"]):focus {
     box-shadow: 5px 5px 0 5px #D2973D;
     font-weight: 700;
 }
-.input[type="checkbox"] {
-    /* margin-right:-100px;
-    */
-    transform: scale(3);
+input[type="checkbox"] {
+    transform: scale(2);
     opacity: 0.9;
     cursor: pointer;
 }
@@ -803,6 +821,10 @@ input:not([type="checkbox"]):focus {
 .hide_button {
     display: none;
 }
+
+
+
+
 footer {
     background-color: whitesmoke;
     height: 70px;

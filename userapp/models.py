@@ -20,6 +20,6 @@ class ShopUser(AbstractUser):
         return 'Логин: {}{}'.format(self.username, ', superuser' if self.is_superuser else '')
 
     class Meta:
-        ordering = ['-is_superuser', 'username']
+        ordering = ['-is_active', '-is_superuser', 'username']
 
 
