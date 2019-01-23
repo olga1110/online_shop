@@ -34,20 +34,16 @@ $(function() {
 {{ block.super }}
 
 <div class="catalog-page">
-    <br>
+
     <div class="search_block">
     <h3>Поиск по категории</h3>
     {% csrf_token %}
-    <br>
+
     <input type="text" id="search" name="search" />
-    <br>
-    <ul id="search_results">
+</div>
+        <ul id="search_results">
     </ul>
 
-</div>
-
-    <br>
-    <br>
     <div class="sale">
         {% for cat in categories %}
         <h2><a href="/{{cat.get_absolute_url}}/" title={{cat.descr}}>{{cat.short_desc}}</a></h2>

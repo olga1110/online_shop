@@ -129,7 +129,6 @@ header {
     margin-bottom: 20px;
     text-transform: uppercase;
     letter-spacing: 3px;
-    text-align: center;
 }
 
 .main_page sector {
@@ -601,6 +600,7 @@ summary {
 .sale {
     display: flex;
     justify-content: space-around;
+    margin-top: 30px;
 }
 .registration {
     display: flex;

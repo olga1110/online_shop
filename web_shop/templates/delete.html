@@ -17,16 +17,15 @@
 <div class = "object_delete">
     <p>Подтвердите перемещение {{subject}} {{name}} в раздел {{part_name}}.</p>
     <p>Запись останется в БД с is_active=0</p>
-<form method="post">
+
+    <form method="post">
     {% csrf_token %}
+
     <input class="replace-button" type="submit" value="Переместить">
 
 </form>
-
-<!--<form>-->
-    <!--<input type="button"  value="Отмена"-->
-       <!--onClick='location.href="{{ url_cancel }}"'>-->
-<!--</form>-->
-
-
+    <div class="delete_cancel_button">
+    <input type="button"  value="Отмена"
+       onClick='location.href="{{ url_cancel }}"'>
+</div>
 {% endblock %}

@@ -129,7 +129,7 @@ class ProductUpdate(SuperUserMixin, FormView):
 def category_product_list(request, page=1):
     cat = Category.objects.filter(is_active=1)
     prod = Product.objects.filter(is_active=1, category__is_active=1).order_by('category', 'price')
-    paginator = Paginator(prod, 2)
+    paginator = Paginator(prod, 4)
 
     try:
         products_paginator = paginator.page(page)

@@ -34,16 +34,16 @@
 {{ block.super }}
 
 <div class="catalog-page">
-    <br>
+
     <div class="search_block">
     <h3>Поиск товара</h3>
     {% csrf_token %}
-    <br>
+
     <input type="text" id="search" name="search" />
-    <br><br>
+    </div>
     <ul id="search_results">
     </ul>
-</div>
+
 
 <div class="category-head">
     <h1>{{category.short_desc|capfirst}}</h1>

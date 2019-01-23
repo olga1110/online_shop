@@ -326,6 +326,16 @@ header {
     font-weight: 500;
 }
 
+#search_results {
+    text-align: right;
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+#search_results a{
+    font-size: 20px;
+}
+
 .Contacts textarea {
     min-height: 100px;
     width: 600px;
@@ -600,6 +610,7 @@ summary {
 .sale {
     display: flex;
     justify-content: space-around;
+    margin-top: 30px;
 }
 .registration {
     display: flex;
@@ -678,16 +689,28 @@ textarea {
     width: 238.44px;
 }
 
-.form-buttons {
+.OK_button, .cancel_button {
     clear:both;
-    display:flex;
-    justify-content: center;
-    width:465.16px;
+    /*display:flex;*/
+    /*justify-content: center;*/
+    /*width:465.16px;*/
 }
 
-.form-buttons input[type="submit"]{
-    margin-right: 30px;
+.cancel_button {
+    position: relative;
+    right: -320px;
+    top: -70px;
 }
+
+.delete_cancel_button {
+    position: relative;
+    right: -530px;
+    top: -70px;
+}
+
+/*.form-buttons input[type="submit"]{*/
+    /*margin-right: 30px;*/
+/*}*/
 
 .replace-button {
     margin-top: 30px;

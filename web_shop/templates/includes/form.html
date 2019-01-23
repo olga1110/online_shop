@@ -17,11 +17,10 @@
         </div>
      {% endfor %}
     </div>
-
-<div class="form-buttons">
+    <div class="OK_button">
     <input type="submit" value="{{OK_text}}">
-    <input type="button"  value="Отмена"
-   onClick='location.href="{{url_cancel}}"'>
+    <!--<input type="button"  value="Отмена"-->
+   <!--onClick='location.href="{{url_cancel}}"'>-->
     </div>
     {% for field in form %}
         {% if field.errors|length > 0 %}
