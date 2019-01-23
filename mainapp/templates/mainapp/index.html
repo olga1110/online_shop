@@ -26,14 +26,49 @@
 
      $(function () {
 
-     //При перезагрузке
-if (localStorage.getItem('cartList')) {
-    $('#cartList').append(JSON.parse(localStorage.getItem('cartList')));
-    //$('#cartBlock span').empty();
-    //$('#cartBlock span').append(JSON.parse(localStorage.getItem('cartList')));
-}
+<!--Заполнение корзины при перезагрузке страницы-->
 
-    var sum = 0;
+ //localStorage.clear();
+
+      if (localStorage.getItem('count')) {
+        var count = localStorage.getItem('count');
+        var product_key = 0;
+        var price_key = 0;
+        for (var i = 0; i <= count; i++) {
+          product_key = 'product_name_' + i;
+          price_key = 'product_price_' + i;
+
+          var NameValue = localStorage.getItem(product_key);
+
+          var PriceValue = localStorage.getItem(price_key);
+
+          var item = ($('<li/>', {
+            class: 'cartList__item'
+          }));
+          item.append($('<div/>', {
+            text: NameValue,
+            class: 'productName'
+          }));
+          item.append($('<div/>', {
+                text: PriceValue,
+                class: 'productPrice'
+              })
+          );
+
+          $('.cartList').append(item);
+        }
+        // Выводим общую сумму
+        $('#general_sum').text(localStorage.getItem('sum'));
+      };
+
+
+    if (localStorage.getItem('sum')) {
+      var sum = parseInt(localStorage.getItem('sum'));
+    }
+    else
+      var sum = 0;
+
+
     $(function () {
         $('.jcarousel').jcarousel({
             animation: {
@@ -53,43 +88,41 @@ if (localStorage.getItem('cartList')) {
 
         $('.carousel__item').draggable({ opacity: 0.7,
      cursor: 'move',
-     //helper : function (event){return $("<div>Перетащите товар в корзину</div>" )}
         helper: 'clone'
  });
-    $('#cartBlock').droppable({
-        drop: function (event, ui) {
-            $(this).addClass('ui-state-highlight')
-            var item = ($('<li/>', {
-                class: 'cartList__item'
-            }));
-            var new_product = item.append($('<div/>', {
-                text: ui['draggable'].find('.productName').eq(0).text(),
-                class: 'productName'
-            }));
-            item.append($('<div/>', {
-                    text: ui['draggable'].find('.productPrice').eq(0).text(),
-                    class: 'productPrice'
-                })
-            )
-            sum += parseInt(ui['draggable'].find('.productPrice').eq(0).text().split(' ')[0]);
-            $('#cartList').append(item);
-            $('#cartBlock span').text(sum);
-            <!--localStorage.setItem('cartList', JSON.stringify($('#cartList').text()));-->
-            <!--localStorage.setItem('cartBlock', JSON.stringify($('#cartBlock span').text()));-->
-            alert(new_product.text());
-            <!--localStorage.setItem('cartList', JSON.stringify(new_product.text()));-->
 
-            if (localStorage.getItem('cartList')) {
-                var old_context = JSON.parse(localStorage.getItem('cartList'));
-                localStorage.setItem('cartList', JSON.stringify(new_product.text()+JSON.parse(localStorage.getItem('cartBlock')+ old_context)));
-                    }
-            else {
-            localStorage.setItem('cartList', JSON.stringify(new_product.text()));
-            }
+           $('#cartBlock').droppable({
+      drop: function (event, ui) {
+        $(this).addClass('ui-state-highlight')
+        var item = ($('<li/>', {
+          class: 'cartList__item'
+        }));
+        item.append($('<div/>', {
+          text: ui['draggable'].find('.productName').eq(0).text(),
+          class: 'productName'
+        }));
+        item.append($('<div/>', {
+          <!--text: ui['draggable'].find('.productPrice').eq(0).text().split('.')[0] + ' руб.',-->
+          text: ui['draggable'].find('.productPrice').eq(0).text(),
+          class: 'productPrice'
+        })
+        );
+          sum += parseInt(ui['draggable'].find('.productPrice').eq(0).text().split(' ')[0]);
+        $('#cartList').append(item);
+        $('#general_sum').text(sum);
+        if (localStorage.getItem('count')) {
+          var count = parseInt(localStorage.getItem('count'));
+        }
+        else
+          var count = 0;
+        var product_key = 'product_name_' + count;
+        var price_key = 'product_price_' + count;
 
-
-
-
+        localStorage.setItem(product_key, ui['draggable'].find('.productName').eq(0).text());
+        localStorage.setItem(price_key, ui['draggable'].find('.productPrice').eq(0).text());
+        count += 1;
+        localStorage.setItem('count', String(count));
+        localStorage.setItem('sum', String(sum));
 
 
 
@@ -104,8 +137,6 @@ if (localStorage.getItem('cartList')) {
 
 </script>
 
-
-
 {% endblock %}
 
 {% block page_content %}
@@ -113,8 +144,10 @@ if (localStorage.getItem('cartList')) {
 {{ block.super }}
 <div class="main-page">
 <main>
-<h1><strong><em> {{company.title|title}}</em></strong></h1>
+    <div class="about_company">
+<h1>{{company.title|title}}</h1>
 <sector><em>{{company.advertisement}}</em></sector>
+</div>
 
 <div class="shopBlock">
             <div class="wrapper">
@@ -131,7 +164,7 @@ if (localStorage.getItem('cartList')) {
                                                alt={{product.short_desc|capfirst}}
                                                title={{product.short_desc|capfirst}}>
                                     </a>
-                                    <h3 class="productPrice">{{product.price}} руб.</h3>
+                                    <h3 class="productPrice">{{product.price|floatformat}} руб.</h3>
                                 </div>
                             </li>
                             {% endfor %}
@@ -142,18 +175,17 @@ if (localStorage.getItem('cartList')) {
                     <a href="#" class="jcarousel-control-next">&rsaquo;</a>
                 </div>
             </div>
-            <div class="cartBlock" id="cartBlock">
-                <div class="cartImg">
-                    <img src="{%static 'web_shop/img/basket.png' %}" alt="Cart">
-                </div>
-                <h1 class="cartTitle">Корзина</h1>
-                <ul class="cartList" id="cartList"></ul>
-                <p><b>Общая сумма:</b> <span>0</span> руб. </p>
-            </div>
+    <div class="cartBlock" id="cartBlock">
+        <div class="cartImg">
+            <img src="{%static 'web_shop/img/basket.png' %}" alt="Cart">
+        </div>
+        <h1 class="cartTitle">Корзина</h1>
+        <ul class="cartList" id="cartList"></ul>
+        <p><b>Общая сумма:</b> <span id="general_sum">0</span> руб. </p>
+    </div>
 </div>
 
 </main>
-
     {% offer as discount%}
     {% if discount %}
     <p>Специальное предложение!!! <br>
@@ -173,17 +205,19 @@ if (localStorage.getItem('cartList')) {
 {% if not user.is_authenticated %}
 <div id="pp">
 	    <div class="pp-header">
-	        <h3>Приветствуем Вас на сайте Cozy kitchen!!!</h3>
+	        <h3>Приветствуем Вас на сайте Cozy Kitchen!!!</h3>
 	    </div>
 	    <div class="pp-content">
 	        <div class="pp-content-main">
+
 	            <h4>*Товар дня*</h4>
-                Только сегодня
+                <p> Только сегодня
                 {% for cat in categories %}
                 {% if cat.spec_discount %}
-                скидки на все {{cat.short_desc|upper}} до {{cat.spec_discount|floatformat}}%
+                    скидка на все <span>{{cat.short_desc|upper}}</span> до <span>{{cat.spec_discount|floatformat}}%</span>
                 {% endif %}
                 {% endfor %}
+                </p>
 	        </div>
 
 	    </div>

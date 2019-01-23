@@ -11,64 +11,49 @@
 {% block page_content %}
 
 {% if not basket_items %}
+
 <p>Сейчас ваша корзина пуста.
-    <br>
+    
     Закажите товар по телефону 8(342)229-78-28 или перейдите к <a href="{% url 'products:catalog'%}">каталогу</a>
 </p>
 
 {% else %}
-    
-    {% for item in basket_items %}
-        <div>
-        <!--<div class="product-page Description">-->
-
-             <div>
-             <!--<div class="product-item">-->
-                <img src ="/media/{{item.product.image.value}}" height="300" alt ="{{item.product.short_desc}}">
-             </div>
-            <div class="desc_item">
-            <span class = "category_name">{{item.product.short_desc}}</span>
-            <br><br>
-            <span class = "product_price">Цена: {{item.product.price|floatformat}}&nbsp;руб</span >
-                <br>
-                <label>Количество: <input type = "number" name ="{{item.pk}}" min ="0" value ="{{item.quantity}}"></label>
-                <br>
-            <!--<span class = "product_cost">{{item.cost}}&nbsp;руб</span>-->
-
-
-               <form>
-                <input type="button"  value="Удалить"
-                onClick='location.href="{% url "basket:basket_remove" item.pk %}"'>
-                </form>
-            </div>
-        </div>
-        
-    {% endfor %}
+    <div class="basket-page">
 
         <div class="basket_summary">
-            В корзине {{basket_items.0.total_quantity}} товара(-ов) общей стоимостью
-            {{ basket_items.0.total_cost}} руб
+            В корзине <span>{{basket_items.0.total_quantity}}</span> единиц товара(-ов) общей стоимостью
+            <span>{{ basket_items.0.total_cost}}</span> руб.
         </div>
+     <input type="button" id="send_order" value="Оформить заказ"
+    onClick='alert("Функционал в разработке!!!")'>
+    <!--onClick='location.href="{% url "basket:order_send" %}"'>-->
+
+        {% for item in basket_items %}
+        <div class="basket_item">
+            <div class="product_image">
+            <p class = "category_name">{{item.product.short_desc|capfirst}}</p>
+                <img src ="/media/{{item.product.image.value}}" id = "product_image" alt ="{{item.product.short_desc}}">
+             </div>
+            <div class="product_item">
+            <p><span>Цена: </span>{{item.product.price|floatformat}}&nbsp;руб.</p>
+            <p><span>Количество: </span>{{item.quantity}}&nbsp;шт.</p>
+            <!--<label>Количество: <input type = "number" name ="{{item.pk}}" min ="0" value ="{{item.quantity}}"></label>-->
+            <input type="button" class="cart_del" value="Удалить"
+                onClick='location.href="{% url "basket:basket_remove" item.pk %}"'>
+            </div>
+        </div>
+
+    {% endfor %}
+
     {% endif %}
-<br>
-<br>
 
-   <form>
-    <input type="button"  value="Оформить заказ"
-    onClick='location.href="{% url "basket:order_send" %}"'>
-    </form>
-
-   <form>
-    <input type="button"  value="Очистить корзину"
-    onClick='location.href="{% url "basket:basket_remove_all" %}"'>
-    </form>
-
-    <form>
+<div class="basket-buttons">
     <input type="button"  value="На главную"
     onClick='location.href="{% url "products:start_page" %}"'>
-    </form>
 
+    <input type="button"  value="Очистить корзину"
+    onClick='location.href="{% url "basket:basket_remove_all" %}"'>
 
-
-
+ </div>
+</div>
 {% endblock %}

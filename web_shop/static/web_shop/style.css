@@ -106,10 +106,11 @@ header {
 .menu li:hover ul {
     display: block;
 }
-.main-page sector, h1 {
+.main-page sector, .category_name, h1, #pp .pp-content-main {
     text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0, 0, 0, .1), 0 0 5px rgba(0, 0, 0, .1), 0 1px 3px rgba(0, 0, 0, .3), 0 3px 5px rgba(0, 0, 0, .2), 0 5px 10px rgba(0, 0, 0, .25), 0 10px 10px rgba(0, 0, 0, .2), 0 20px 20px rgba(0, 0, 0, .15);
 }
-.main-page main p, .main-page main sector {
+.main-page main p, .main-page main sector,
+.category_name, #pp .pp-content-main {
     /* width:500px;
     */
     font-style: italic;
@@ -121,14 +122,23 @@ header {
 }
 .main-page h1 {
     font-size: 35px;
-    font-weight: 700;
+    font-weight: 900;
+    font-style: italic;
     color: #CD853F;
     margin-top: 20px;
     margin-bottom: 20px;
     text-transform: uppercase;
     letter-spacing: 3px;
 }
-/*Начало стилей страницы "Контакты"*/
+
+.main_page sector {
+    font-style: italic;
+}
+
+.about_company {
+    text-align: center;
+}
+
 .registration {
     width: 502px;
 }
@@ -257,6 +267,7 @@ header {
      display: block;
 }
  */
+
 .full_desc p {
     text-align: justify;
 }
@@ -392,13 +403,21 @@ padding-right: 0px;
 margin-bottom: 10px;
 }
 
-#dialog input[type="submit"], #dialog button {
- width: 100px;
- margin-right: 30px;
+#to_cart, .ui-dialog .ui-button.ui-corner-all.ui-widget {
+    width: 100px;
+    height: 50px;
 }
 
-.ui-dialog .ui-dialog-buttonpane button {
-    height: 50px;
+.ui-dialog .ui-button.ui-corner-all.ui-widget {
+    margin-top: -111px;
+}
+
+.ui-button.ui-corner-all.ui-widget.ui-button-icon-only.ui-dialog-titlebar-close {
+    display: none;
+}
+
+#to_cart{
+    margin-top: 10px;
 }
 
 .messages li {
@@ -460,7 +479,7 @@ button:hover {
     justify-content: center;
     align-content: center;
 }
-button, input[type="submit"], input[type="button"]{
+button, input[type="submit"], input[type="button"], .ui-dialog .ui-dialog-buttonpane button{
     display: inline-block;
     width: 150px;
     height: 70px;
@@ -476,7 +495,7 @@ button, input[type="submit"], input[type="button"]{
     box-shadow: 0px 2px 4.85px 0.15px rgba(33, 33, 33, 0.35);
 }
 
-button, input[type="submit"]:hover, input[type="button"]:hover{
+button, input[type="submit"]:hover, input[type="button"]:hover, .ui-dialog .ui-dialog-buttonpane button:hover{
     background-color: sandybrown;
 }
 .auth-button {
@@ -526,7 +545,8 @@ summary {
     font-weight: 500;
     color: #8B4513;
 }
-.main-page main h1, .registr_form h1, .sale a, .category-head h1 {
+.main-page main h1, .registr_form h1, .sale a,
+.category-head h1, #pp h4 {
     font-size: 30px;
     font-weight: 700;
     color: #CD853F;
@@ -694,7 +714,7 @@ textarea {
     width: 500px;
 }
 
-.main-page h1, .price {
+.main-page h1, .price, #pp h4 {
     text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0, 0, 0, .1), 0 0 5px rgba(0, 0, 0, .1), 0 1px 3px rgba(0, 0, 0, .3), 0 3px 5px rgba(0, 0, 0, .2), 0 5px 10px rgba(0, 0, 0, .25), 0 10px 10px rgba(0, 0, 0, .2), 0 20px 20px rgba(0, 0, 0, .15);
 }
 
@@ -773,7 +793,8 @@ input[type="checkbox"] {
 }
 .search {
     list-style-type: none;
-};
+}
+
 
 .feedback label {
     margin-left: 30px;
@@ -812,18 +833,72 @@ input[type="checkbox"] {
     height: 80px;
     width: auto;
 }
+
 .basket_summary {
-    margin-top: 250px;
+    margin-top: 70px;
+    font-size: 20px;
+    color: maroon;
 }
+
 .basket-delete {
     height: 50px;
 }
+
 .hide_button {
     display: none;
 }
+.basket-page{
+    margin-left: 200px;
+}
+.basket_item {
+    display:flex;
+    justify-content: flex-start;
+    margin-bottom: 150px;
+}
 
+basket_items {
+    margin: 0 auto;
+}
 
+.basket-buttons {
+    display: flex;
+    width: 600px;
+    justify-content: space-between;
+    margin-top: 50px;
+}
 
+#send_order {
+    margin-top: 30px;
+    width: 500px;
+    height: 100px;
+}
+
+.product_item {
+margin-top: 150px;
+margin-left: 50px;
+}
+
+#product_image {
+    width:400px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.product_image{
+    height: 280px;
+}
+
+.cart_del{
+    margin-top: 20px;
+}
+
+.basket_item p {
+    font-size: 18px;
+}
+
+.basket_item span, .basket_summary span {
+    font-weight: 700;
+}
 
 footer {
     background-color: whitesmoke;

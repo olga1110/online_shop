@@ -1,9 +1,21 @@
- <!-- Заказ   -->
+
+{% extends 'master.html' %}
+
+{% load static %}
+
+{% block page_title %} Корзина {% endblock %}
+{% block page_styles %}
+<link rel="stylesheet" href="{% static 'web_shop/style.css' %}">
+{% endblock %}
+
+{% block page_content %}
+
                 <form action="#" class="order">
                     <h2>Форма заказа:</h2>
                     <br>
                     <fieldset>
-                        <label>
+                        <div class="form-group">
+                        <label class="form-field">
                             Покупатель:
                         <input type="radio" name="customer_type" value="individual" checked>Физическое лицо
 
@@ -11,6 +23,7 @@
                             </label>
                         <br><br>
                         <label>
+
                             Контактное лицо:
                             <input type="text" name="customer_name" placeholder="{{user.first_name}}">
                         </label>
@@ -38,6 +51,7 @@
                         <input type="radio" name="delivery" value="curier" checked>Доставка курьером
                         <input type="radio" name="delivery" value="itself">Самовывоз
                         </label>
+                            <div class="form-group">
                         <br>
                         <br>
                         <div class="button">
@@ -46,3 +60,7 @@
                         </div>
                         <br> </fieldset>
                 </form>
+
+
+
+{% endblock %}
