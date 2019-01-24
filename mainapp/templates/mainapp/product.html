@@ -20,7 +20,7 @@
         <p> Скидка: <span class="new_price">{{product.discount|spec_offer|floatformat}}%</span></p>
         {% offer as discount%}
         {% if discount %}
-        <p>СПЕЦПРЕДЛОЖЕНИЕ ДНЯ!!!</p>
+        <p id="spec_discount">СПЕЦПРЕДЛОЖЕНИЕ ДНЯ!!!</p>
         {% endif %}
     </div>
     <div class="product-item">

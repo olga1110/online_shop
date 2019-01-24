@@ -7,7 +7,16 @@
 <link rel="stylesheet" href="{% static 'web_shop/style.css' %}">
 {% endblock %}
 
+{% block script %}
+<script>
+    (function($) {
+            $(function() {
+                $('#bot_name').effect('pulsate', 20000);
+            });
+    })(jQuery);
+</script>
 
+{% endblock %}
 {% block page_content %}
 
 {% if not basket_items %}
@@ -21,8 +30,13 @@
     <div class="basket-page">
 
         <div class="basket_summary">
-            В корзине <span>{{basket_items.0.total_quantity}}</span> единиц товара(-ов) общей стоимостью
-            <span>{{ basket_items.0.total_cost}}</span> руб.
+            В корзине <span>{{basket_items.0.total_quantity}}</span> товара(-ов) общей стоимостью
+            <span>{{ basket_items.0.total_cost|floatformat}}</span> руб.
+        </div>
+        <p id="bot_name">@CothyKitchenBot</p>
+        <div class="bot_hover">
+            <p>Заходите в наш чат-бот в Telegram и определите ближайший к Вам магазин прямо сейчас!</p>
+            <p>Выберите удобный способ доставки и оплаты товара!</p>
         </div>
      <input type="button" id="send_order" value="Оформить заказ"
     onClick='alert("Функционал в разработке!!!")'>

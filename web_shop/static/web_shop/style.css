@@ -110,7 +110,7 @@ header {
     text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0, 0, 0, .1), 0 0 5px rgba(0, 0, 0, .1), 0 1px 3px rgba(0, 0, 0, .3), 0 3px 5px rgba(0, 0, 0, .2), 0 5px 10px rgba(0, 0, 0, .25), 0 10px 10px rgba(0, 0, 0, .2), 0 20px 20px rgba(0, 0, 0, .15);
 }
 .main-page main p, .main-page main sector,
-.category_name, #pp .pp-content-main {
+.category_name, #pp .pp-content-main:not(.spec_discount p) {
     /* width:500px;
     */
     font-style: italic;
@@ -137,6 +137,25 @@ header {
 
 .about_company {
     text-align: center;
+}
+
+.spec_discount p {
+    text-align: center;
+    font-size: 26px;
+    color: #c30808;
+    font-weight: bold;
+}
+
+.spec_discount {
+    margin: 30px auto;
+    width: 1024px;
+    background-color: bisque;
+}
+
+#spec_discount {
+    font-size: 26px;
+    color: #c30808;
+    font-weight: bold;
 }
 
 .registration {
@@ -317,7 +336,8 @@ header {
 .search_block {
     display: flex;
     justify-content: flex-end;
-    margin-top: -20px;
+    margin-top: 40px;
+    margin-bottom: 40px;
 }
 
 .search_block h3 {
@@ -549,7 +569,7 @@ summary {
     margin-bottom: 30px;
     margin-top: 30px;
 }
-.main-page main p {
+.main-page main p:not(.spec_discount p) {
     font-style: italic;
     font-size: 16px;
     font-weight: 500;
@@ -602,7 +622,9 @@ summary {
     */
     box-shadow: 0px 0px 20px #813a06;
 }
-
+.news {
+    font-size: 14px;
+}
 .customers-form summary {
     margin-top: 20px;
 }
@@ -801,6 +823,7 @@ input:not([type="checkbox"]):not([type="submit"]):not([type="button"]){
 .feedback input:not([type="checkbox"]), .order input {
     width: 300px;
     height: 30px;
+    margin-left: 68px;
     font-size: 14px;
 }
 input:not([type="checkbox"]):focus {
@@ -813,6 +836,7 @@ input[type="checkbox"] {
     transform: scale(2);
     opacity: 0.9;
     cursor: pointer;
+    margin-right: 10px;
 }
 .search {
     list-style-type: none;
@@ -890,8 +914,30 @@ basket_items {
     margin-top: 50px;
 }
 
-#send_order {
+.bot_hover {
+    display: none;
+    color: darkblue;
+}
+
+/*.telegram_bot {*/
+    /*background-color: blue;*/
+/*}*/
+
+#bot_name:hover + .bot_hover {
+    display: block;
+}
+
+#bot_name {
+    color: indigo;
+    font-weight: bold;
+    font-size: 19px;
     margin-top: 30px;
+    width:500px;
+    text-align: center;
+}
+
+#send_order {
+    margin: 20px 0 50px 0px;
     width: 500px;
     height: 100px;
 }

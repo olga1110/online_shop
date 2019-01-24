@@ -149,6 +149,13 @@
 <sector><em>{{company.advertisement}}</em></sector>
 </div>
 
+<div class="spec_discount">
+{% offer as discount%}
+{% if discount %}
+<p>Специальное предложение!!!</p>
+<p>Только сегодня скидка на все товары от {{discount}}!!! </p>
+{% endif %}
+</div>
 <div class="shopBlock">
             <div class="wrapper">
                 <div class="jcarousel-wrapper">
@@ -186,11 +193,6 @@
 </div>
 
 </main>
-    {% offer as discount%}
-    {% if discount %}
-    <p>Специальное предложение!!! <br>
-        Только сегодня скидка на все товары от {{discount}}!!! </p>
-    {% endif %}
 
 </div>
 <script>
