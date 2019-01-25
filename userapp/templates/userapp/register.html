@@ -2,33 +2,32 @@
 {% load static %}
 
 {% block page_title %}
-{{title}}
+    {{ title }}
 {% endblock %}
 
 {% block page_styles %}
-<link rel="stylesheet" href="{%static 'web_shop/style.css' %}">
+    <link rel="stylesheet" href="{% static 'web_shop/style.css' %}">
 {% endblock %}
 
-
 {% block page_content %}
-<!--<form class ="form-horizontal" action = "{% url 'auth:register' %}"-->
-<!--method="post" enctype="multipart/form-data">-->
-<!--{% csrf_token %}-->
-<!--{{ register_form.as_p }}-->
-<!--<br>-->
-<!--<input class="form-control" type="submit" value="Зарегистрироваться">-->
-<!--</form>-->
+    <!--<form class ="form-horizontal" action = "{% url 'auth:register' %}"-->
+    <!--method="post" enctype="multipart/form-data">-->
+    <!--{% csrf_token %}-->
+    <!--{{ register_form.as_p }}-->
+    <!--<br>-->
+    <!--<input class="form-control" type="submit" value="Зарегистрироваться">-->
+    <!--</form>-->
 
-{% include 'includes/form.html' %}
+    {% include 'includes/form.html' %}
 
-<!--<form>-->
+    <!--<form>-->
     <!--<input type="button"  value="Отмена"-->
-       <!--onClick='location.href="{{url_cancel}}"'>-->
-<!--</form>-->
+    <!--onClick='location.href="{{url_cancel}}"'>-->
+    <!--</form>-->
 
-<!--<button class="btn btn -round form-control">-->
-<!--<a href ="{% url 'auth:register' %}" class=""> Зарегистрироваться </a>-->
-<!--</button>-->
+    <!--<button class="btn btn -round form-control">-->
+    <!--<a href ="{% url 'auth:register' %}" class=""> Зарегистрироваться </a>-->
+    <!--</button>-->
 {% endblock %}
 
 

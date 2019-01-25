@@ -1,4 +1,4 @@
-$(function() {
+$(function () {
 
     $('#dialog').dialog({
         autoOpen: false,
@@ -9,7 +9,9 @@ $(function() {
                 <!--},-->
                 <!--{-->
                 text: "ОТМЕНА",
-                click: function() {$(this).dialog("close"); }
+                click: function () {
+                    $(this).dialog("close");
+                }
             },
         ],
         draggable: true,
@@ -20,11 +22,11 @@ $(function() {
         title: 'Добавить в корзину'
     });
 
-    $('#cart').button().click(function() {
+    $('#cart').button().click(function () {
         $('#dialog').dialog("open");
     });
 
-    $("#to_cart").on('click', function(){
+    $("#to_cart").on('click', function () {
         $('#cart').val('Товар&nbsp;в&nbsp;корзине');
     });
 

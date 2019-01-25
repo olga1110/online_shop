@@ -4,117 +4,104 @@
 
 {% block page_title %} Категории товара {% endblock %}
 {% block page_styles %}
-<link rel="stylesheet" href="{% static 'web_shop/style.css' %}">
-<link rel="stylesheet" href="{% static 'adminapp/css/admin.css'%}">
+    <link rel="stylesheet" href="{% static 'web_shop/style.css' %}">
+    <link rel="stylesheet" href="{% static 'adminapp/css/admin.css' %}">
 {% endblock %}
 
 {% block menu %}
-{% include 'adminapp/includes/inc_menu.html' %}
+    {% include 'adminapp/includes/inc_menu.html' %}
 {% endblock %}
 
 {% block page_content %}
-{{ block.super }}
+    {{ block.super }}
 
-<div class = "categories_list">
+    <div class="categories_list">
 
-            <input type="button" id="add_object" value="Добавить&nbsp;категорию"
-                   onClick='location.href="{% url "admin_custom:category_create" %}"'>
+        <input type="button" id="add_object" value="Добавить&nbsp;категорию"
+               onClick='location.href="{% url "admin_custom:category_create" %}"'>
 
+        {% for object in objects %}
+            {% if object.is_active %}
+                <div class="category_record">
+                    <section class="object_name">
+                        {{ object.name|title }}
+                    </section>
+                    <section class="object_desc">
+                        {{ object.desc }}
+                    </section>
+                    <div class="category_actions">
 
-    {% for object in objects %}
-        {% if object.is_active %}
-            <div class="category_record">
-                <section class="object_name">
-                {{object.name|title}}
-                </section>
-                <section class="object_desc">
-                    {{object.desc}}
-                </section>
-                <div class="category_actions">
-
-                        <input type="button"  value="Товары"
-                   onClick='location.href="{% url "admin_custom:category_products" object.name %}"'>
-
+                        <input type="button" value="Товары"
+                               onClick='location.href="{% url "admin_custom:category_products" object.name %}"'>
 
 
-                        <input type="button"  value="Редактировать"
-                   onClick='location.href="{% url "admin_custom:category_update" object.name %}"'>
+                        <input type="button" value="Редактировать"
+                               onClick='location.href="{% url "admin_custom:category_update" object.name %}"'>
 
 
-
-                        <input type="button"  value="Удалить"
-                   onClick='location.href="{% url "admin_custom:category_delete" object.name %}"'>
-
-
+                        <input type="button" value="Удалить"
+                               onClick='location.href="{% url "admin_custom:category_delete" object.name %}"'>
+                    </div>
                 </div>
-            </div>
-        {% endif %}
-    {% endfor %}
-    {% for object in objects %}
-        {% if not object.is_active %}
-        {% if forloop.first %}
-            <h2>Категории в архиве</h2>
-        {% endif %}
-            <div class="category_record">
-                <section class="object_name">
-                {{object.name|title}}
-                </section>
-                <section class="object_desc">
-                    {{object.desc}}
-                </section>
-                <div class="category_actions">
+            {% endif %}
+        {% endfor %}
+        {% for object in objects %}
+            {% if not object.is_active %}
+                {% if forloop.first %}
+                    <h2>Категории в архиве</h2>
+                {% endif %}
+                <div class="category_record">
+                    <section class="object_name">
+                        {{ object.name|title }}
+                    </section>
+                    <section class="object_desc">
+                        {{ object.desc }}
+                    </section>
+                    <div class="category_actions">
 
-                        <input type="button"  value="Товары"
-                   onClick='location.href="{% url "admin_custom:category_products" object.name %}"'>
+                        <input type="button" value="Товары"
+                               onClick='location.href="{% url "admin_custom:category_products" object.name %}"'>
 
+                        <input type="button" value="Редактировать"
+                               onClick='location.href="{% url "admin_custom:category_update" object.name %}"'>
 
-
-                        <input type="button"  value="Редактировать"
-                   onClick='location.href="{% url "admin_custom:category_update" object.name %}"'>
-
-
-
-                        <input type="button"  value="Удалить"
-                   onClick='location.href="{% url "admin_custom:category_delete" object.name %}"'>
-
-
+                        <input type="button" value="Удалить"
+                               onClick='location.href="{% url "admin_custom:category_delete" object.name %}"'>
+                    </div>
                 </div>
-            </div>
-        {% endif %}
-    {% endfor %}
-    <!--Постраничный переход -->
-{% if is_paginated %}
-        <div class="pagination">
+            {% endif %}
+        {% endfor %}
+        <!--Постраничный переход -->
+        {% if is_paginated %}
+            <div class="pagination">
             <span class="page-links">
                 {% if page_obj.has_previous %}
-                    <a href="{% url 'admin_custom:category'%}?page={{ page_obj.previous_page_number }}">previous</a>
+                    <a href="{% url 'admin_custom:category' %}?page={{ page_obj.previous_page_number }}">previous</a>
                 {% endif %}
                 <span class="page-current">
                     Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
                 </span>
                 {% if page_obj.has_next %}
-                    <a href="{% url 'admin_custom:category'%}?page={{ page_obj.next_page_number }}">next</a>
+                    <a href="{% url 'admin_custom:category' %}?page={{ page_obj.next_page_number }}">next</a>
                 {% endif %}
             </span>
-
-<!--Перемещение по номерам страниц-->
-        <div class="num_pages">
-            {% for pn in page_obj.paginator.page_range %}
-            {% if not forloop.first %}
-                &nbsp;&nbsp;|&nbsp;&nbsp;
-            {% endif %}
-
-            {% if page_obj.number != pn %}
-            <a href="{% url 'admin_custom:category' %}?page={{pn}}">
-            {% endif %}
-            {{pn}}
-            {% if page_obj.number != pn %}
-            </a>
-            {% endif %}
-            {% endfor %}
-        </div>
+                <!--Перемещение по номерам страниц-->
+                <div class="num_pages">
+                    {% for pn in page_obj.paginator.page_range %}
+                        {% if not forloop.first %}
+                            &nbsp;&nbsp;|&nbsp;&nbsp;
+                        {% endif %}
+                        {% if page_obj.number != pn %}
+                            <a href="{% url 'admin_custom:category' %}?page={{ pn }}">
+                        {% endif %}
+                    {{ pn }}
+                    {% if page_obj.number != pn %}
+                        </a>
+                    {% endif %}
+                    {% endfor %}
+                </div>
             </div>
-    {% endif %}
-</div>
+        {% endif %}
+    </div>
 
 {% endblock %}

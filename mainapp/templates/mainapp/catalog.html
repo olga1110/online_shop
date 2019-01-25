@@ -5,124 +5,102 @@
 {% block page_title %} Catalog
 {% endblock %}
 {% block page_styles %}
-<link rel="stylesheet" href="{%static 'web_shop/style.css' %}">
+    <link rel="stylesheet" href="{% static 'web_shop/style.css' %}">
 {% endblock %}
 
 {% block script %}
-<script src="{% static 'mainapp/js/ajax.js' %}"></script>
-<script>
-$(function() {
-    $('#search').keyup(function () {
-    $.ajax({
-            type: 'POST',
-            url: '/categories/search/',
-            data: {
-                'search_text': $('#search').val(),
-                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
-            },
-            success: searchSuccess,
-            datatype: 'html'
-    });
- });
-
- });
-
-</script>
+    <script src="{% static 'mainapp/js/ajax.js' %}"></script>
+    <script>
+        $(function () {
+            $('#search').keyup(function () {
+                $.ajax({
+                    type: 'POST',
+                    url: '/categories/search/',
+                    data: {
+                        'search_text': $('#search').val(),
+                        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+                    },
+                    success: searchSuccess,
+                    datatype: 'html'
+                });
+            });
+        });
+    </script>
 {% endblock %}
 
 {% block page_content %}
-{{ block.super }}
+    {{ block.super }}
 
-<div class="catalog-page">
+    <div class="catalog-page">
 
-    <div class="search_block">
-    <h3>Поиск по категории</h3>
-    {% csrf_token %}
+        <div class="search_block">
+            <h3>Поиск по категории</h3>
+            {% csrf_token %}
 
-    <input type="text" id="search" name="search" />
-</div>
+            <input type="text" id="search" name="search"/>
+        </div>
         <ul id="search_results">
-    </ul>
+        </ul>
 
-    <div class="sale">
-        {% for cat in categories %}
-        <h2><a href="/{{cat.get_absolute_url}}/" title={{cat.descr}}>{{cat.short_desc}}</a></h2>
-        {% endfor %}
-
-
-        <!--<h2><strong>Акция!!!</strong></h2>-->
-        <!--<h2><strong>Акция!!! <span class = "new_price"></span> </strong></h2>-->
-        <!--<h2><strong>Акция!!!</strong></h2>-->
-    </div>
-
-
-
-    <!--<main class="main">-->
-        <!--{% for link in links %}-->
-        <!--<figure class="item">-->
-            <!--<a href={{link.href}}><img src={{link.src}} title={{link.name}}>-->
-                <!--<br>-->
-                <!--<p>{{link.name}}</p>-->
-            <!--</a>-->
-        <!--</figure>-->
-
-        <!--{% endfor %}-->
-    <!--</main>-->
-         <main class="main">
-            {% for product in products%}
-            <figure class="item">
-                <a href="/{{product.get_absolute_url}}/"> <img src="/media/{{product.image.value}}"
-                                                   alt={{product.short_desc|capfirst}}
-                                                   title={{product.short_desc|capfirst}}
-                                                   height=300>
-                <br>
-                <p>{{product.short_desc|capfirst}}</p>
-    </a>
-    </figure>
-
-    {% endfor %}
-    </main>
-{% if products.paginator.num_pages > 1 %}
-    <div class ="paginator">
-        {% if products.has_previous %}
-        <a href ="{% url 'products:catalog' products.previous_page_number %}">
-        previous
-        </a>
-        {% endif %}
-        <span class="current">
-        страница {{products.number}} из
-        {{products.paginator.num_pages}}
-        </span>
-        {% if products.has_next %}
-        <a href="{% url 'products:catalog' products.next_page_number %}">
-        next
-        </a>
-        {% endif %}
-        <!--Перемещение по номерам страниц-->
-        <div class="num_pages">
-            {% for pn in products.paginator.page_range %}
-            {% if not forloop.first %}
-                &nbsp;&nbsp;|&nbsp;&nbsp;
-            {% endif %}
-
-            {% if products.number != pn %}
-            <a href="{% url 'products:catalog' pn %}">
-            {% endif %}
-            {{pn}}
-            {% if products.number != pn %}
-            </a>
-            {% endif %}
+        <div class="sale">
+            {% for cat in categories %}
+                <h2><a href="/{{ cat.get_absolute_url }}/" title={{ cat.descr }}>{{ cat.short_desc }}</a></h2>
             {% endfor %}
         </div>
-        <div class="catalog-edit">
-        {% if user.is_authenticated and user.is_active and user.is_superuser %}
-        <a href="{% url 'categories:create'%}">Добавить категорию</a>
-        <a href="{% url 'categories:formsets'%}">Перейти к набору форм</a>
-        {% endif %}
-        </div>
-    </div>
-    {% endif %}
+        <main class="main">
+            {% for product in products %}
+                <figure class="item">
+                    <a href="/{{ product.get_absolute_url }}/"> <img src="/media/{{ product.image.value }}"
+                                                                     alt={{ product.short_desc|capfirst }}
+                                                                             title={{ product.short_desc|capfirst }}
+                                                                     height=300>
+                        <br>
+                        <p>{{ product.short_desc|capfirst }}</p>
+                    </a>
+                </figure>
+            {% endfor %}
+        </main>
+        {% if products.paginator.num_pages > 1 %}
+            <div class="paginator">
+                {% if products.has_previous %}
+                    <a href="{% url 'products:catalog' products.previous_page_number %}">
+                        previous
+                    </a>
+                {% endif %}
+                <span class="current">
+        страница {{ products.number }} из
+        {{ products.paginator.num_pages }}
+        </span>
+                {% if products.has_next %}
+                    <a href="{% url 'products:catalog' products.next_page_number %}">
+                        next
+                    </a>
+                {% endif %}
+                <!--Перемещение по номерам страниц-->
+                <div class="num_pages">
+                    {% for pn in products.paginator.page_range %}
+                        {% if not forloop.first %}
+                            &nbsp;&nbsp;|&nbsp;&nbsp;
+                        {% endif %}
 
-</div>
+                        {% if products.number != pn %}
+                            <a href="{% url 'products:catalog' pn %}">
+                        {% endif %}
+                    {{ pn }}
+                    {% if products.number != pn %}
+                        </a>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="catalog-edit">
+                    {% if user.is_authenticated and user.is_active and user.is_superuser %}
+                        <a href="{% url 'categories:create' %}">Добавить категорию</a>
+                        <a href="{% url 'categories:formsets' %}">Перейти к набору форм</a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
 {% endblock %}
         

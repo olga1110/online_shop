@@ -5,7 +5,6 @@ from mainapp.views.categories import (CategoryGenericCreate, CategoryGenericUpda
                                       search_products)
 from mainapp.endpoints.category import category_list, category_detail
 
-
 app_name = 'categories'
 
 urlpatterns = [
@@ -18,4 +17,3 @@ urlpatterns = [
     path('api/detail/<slug:title>/', category_detail, name='category_detail'),
     path('products/search/', search_products, name='search_products'),
 ]
-

@@ -1,106 +1,104 @@
 {% extends 'master.html' %}
 {% load static %}
 {% load my_tags %}
-{% block page_title %} {{product.name}}
+{% block page_title %} {{ product.name }}
 {% endblock %}
 {% block page_styles %}
-<link rel="stylesheet" href="{% static 'web_shop/style.css' %}">
-<link rel="stylesheet" href="{% static 'mainapp/css/info_window.css' %}">
+    <link rel="stylesheet" href="{% static 'web_shop/style.css' %}">
+    <link rel="stylesheet" href="{% static 'mainapp/css/info_window.css' %}">
 {% endblock %}
 
 {% block script %}
-<script src="{% static 'mainapp/js/cart.js' %}"></script>
+    <script src="{% static 'mainapp/js/cart.js' %}"></script>
 {% endblock %}
 
 {% block page_content %}
-{{ block.super }}
-<div class="product-page Description">
-    <div class="title">
-        <h1>{{product.short_desc|capfirst}}</h1>
-        <p> Скидка: <span class="new_price">{{product.discount|spec_offer|floatformat}}%</span></p>
-        {% offer as discount%}
-        {% if discount %}
-        <p id="spec_discount">СПЕЦПРЕДЛОЖЕНИЕ ДНЯ!!!</p>
-        {% endif %}
-    </div>
-    <div class="product-item">
-        <!--{% block product_image %}-->
-        <!--{% endblock %}-->
-
-        <a href="/media/{{product.image.value}}" target="_blank"> <img src="/media/{{product.image.value}}"
-                                                                            alt={{product.short_desc}}
-                                                                            title={{product.short_desc}}
-                                                                            height=300> </a>
-        <div class="product-hover">
-            <section class="feature">
-                <br>
-                {% block product_table %}
-                {% endblock %}
-            </section>
+    {{ block.super }}
+    <div class="product-page Description">
+        <div class="title">
+            <h1>{{ product.short_desc|capfirst }}</h1>
+            <p> Скидка: <span class="new_price">{{ product.discount|spec_offer|floatformat }}%</span></p>
+            {% offer as discount %}
+            {% if discount %}
+                <p id="spec_discount">СПЕЦПРЕДЛОЖЕНИЕ ДНЯ!!!</p>
+            {% endif %}
         </div>
-    </div>
-    <div class="desc_item">
-        <section class="short_desc">
-            <div class="price">
-                <p class="old_price">{{product.price|floatformat}}р</p>
-                <!--<p class="new_price">{{new_price|floatformat}}p</p>-->
-                <p class="new_price">{{product.price|discount:product.discount|floatformat}}p</p>
+        <div class="product-item">
+            <!--{% block product_image %}-->
+                <!--{% endblock %}-->
+
+            <a href="/media/{{ product.image.value }}" target="_blank"> <img src="/media/{{ product.image.value }}"
+                                                                             alt={{ product.short_desc }}
+                                                                                     title={{ product.short_desc }}
+                                                                             height=300> </a>
+            <div class="product-hover">
+                <section class="feature">
+                    <br>
+                    {% block product_table %}
+                    {% endblock %}
+                </section>
             </div>
-            <br>
-            <br>
-            <br>
-            <p class="in_stock">В наличии: {{product.quantity}} шт</p>
-            <br>
-            <br></section>
-        <section class="full_desc">
-            <details class="customers-form">
-                <summary>Подробнее...</summary>
-                <article>
-                    <p>{{product.desc}}</p>
-                </article>
-            </details>
-        </section>
-        <!--<button type="submit">-->
+        </div>
+        <div class="desc_item">
+            <section class="short_desc">
+                <div class="price">
+                    <p class="old_price">{{ product.price|floatformat }}р</p>
+                    <!--<p class="new_price">{{new_price|floatformat}}p</p>-->
+                    <p class="new_price">{{ product.price|discount:product.discount|floatformat }}p</p>
+                </div>
+                <br><br><br>
+                <p class="in_stock">В наличии: {{ product.quantity }} шт</p>
+                <br><br>
+            </section>
+            <section class="full_desc">
+                <details class="customers-form">
+                    <summary>Подробнее...</summary>
+                    <article>
+                        <p>{{ product.desc }}</p>
+                    </article>
+                </details>
+            </section>
+            <!--<button type="submit">-->
             <!--<a href ="/basket/add/{{product.id}}">-->
             <!--В&nbsp;корзину!-->
             <!--</a>-->
-        <!--</button>-->
+            <!--</button>-->
 
-        <form>
-            <input type="button" id="cart" value="В&nbsp;корзину!">
-        </form>
+            <form>
+                <input type="button" id="cart" value="В&nbsp;корзину!">
+            </form>
 
-        <div class="messages">
-        {% if messages %}
-            {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
+            <div class="messages">
+                {% if messages %}
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+        </div>
+        {% if user.is_authenticated and user.is_active and user.is_superuser %}
+            <div class="product-edit">
+                <a href="/update/{{ product.category.name }}/{{ product.name }}/">Редактировать</a>
+                <a href="/delete/{{ product.category.name }}/{{ product.name }}/">Удалить</a>
+            </div>
         {% endif %}
+
+        <!--Диалоговое окно-->
+        <div id="dialog">
+            <form method="POST" enctype="multipart/form-data" action="/basket/add/{{ product.id }}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" id="to_cart" value="OK"/>
+            </form>
         </div>
 
+        {% block modules_of_product %}
+        {% endblock %}
+
+        {% block analogue %}
+        {% endblock %}
     </div>
-{% if user.is_authenticated and user.is_active and user.is_superuser %}
-<div class="product-edit">
-<a href="/update/{{product.category.name}}/{{product.name}}/">Редактировать</a>
-<a href="/delete/{{product.category.name}}/{{product.name}}/">Удалить</a>
-</div>
-{%  endif %}
 
-<!--Диалоговое окно-->
-<div id="dialog">
-    <form method="POST" enctype="multipart/form-data" action="/basket/add/{{product.id}}">
-     {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" id="to_cart" value="OK" />
-    </form>
-</div>
-
-
-{% block modules_of_product %}
-{% endblock %}
-
-{% block analogue %}
-{% endblock %}
-</div>
 {% endblock %}
 

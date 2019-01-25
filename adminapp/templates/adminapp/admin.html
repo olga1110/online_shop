@@ -5,7 +5,7 @@
 {% block page_title %} Панель управления {% endblock %}
 
 {% block menu %}
-{% include 'adminapp/includes/inc_menu.html' %}
+    {% include 'adminapp/includes/inc_menu.html' %}
 {% endblock %}
 
 {% block page_styles %}
@@ -14,15 +14,15 @@
 {% endblock %}
 
 {% block page_content %}
-{{ block.super }}
-<div class="admin">
-<h1>Управление интернет-магазином</h1>
-    <!--<h2>Выберите раздел:</h2>-->
-    <ul>
-        <li><a href="{% url 'admin_custom:users'%}"> --> Пользователи</a></li>
-        <li><a href="{% url 'admin_custom:category'%}"> --> Категории</a></li>
-        <li><a href="{% url 'admin_custom:product_list'%}"> --> Товары</a></li>
-    </ul>
-    
-</div>
+    {{ block.super }}
+    <div class="admin">
+        <h1>Управление интернет-магазином</h1>
+        <!--<h2>Выберите раздел:</h2>-->
+        <ul>
+            <li><a href="{% url 'admin_custom:users' %}"> --> Пользователи</a></li>
+            <li><a href="{% url 'admin_custom:category' %}"> --> Категории</a></li>
+            <li><a href="{% url 'admin_custom:product_list' %}"> --> Товары</a></li>
+        </ul>
+
+    </div>
 {% endblock %}

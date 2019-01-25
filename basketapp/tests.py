@@ -33,9 +33,6 @@ class BasketModelTest(TestCase):
 class AccessTest(TestCase):
     client = Client()
 
-    # def setUp(self):
-    #     self.client.force_login(ShopUser.objects.get_or_create(username='testuser')[0])
-
     def test_basket_authorized(self):
         self.client.force_login(ShopUser.objects.get_or_create(username='testuser')[0])
         response = self.client.get('/basket/')
@@ -44,5 +41,3 @@ class AccessTest(TestCase):
     def test_basket_unauthorized(self):
         response = self.client.get('/basket/', follow=True)
         self.assertEqual(response.redirect_chain, [('/auth/login/?next=/basket/', 302)])
-
-

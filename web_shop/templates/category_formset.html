@@ -2,49 +2,49 @@
 
 {% load static %}
 
-{% block page_title %} {{title}} {% endblock %}
+{% block page_title %} {{ title }} {% endblock %}
 {% block page_styles %}
     <link rel="stylesheet" href="{% static 'web_shop/style.css' %}">
 {% endblock %}
 
 {% block menu %}
-{% include 'adminapp/includes/inc_menu.html' %}
+    {% include 'adminapp/includes/inc_menu.html' %}
 {% endblock %}
 
 {% block page_content %}
-<form method="POST" enctype="multipart/form-data">
-    {%csrf_token%}
-{{formset.management_form}}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ formset.management_form }}
 
-    {% for form in formset %}
-        {% for field in form %}
-    {% if field.label != 'Порядок' and field.label != 'Удалить' %}
-    <div>
-        <label for="{{field.name}}">
-            {{field.label}}
-        </label>
-        {{field}}
-        {% if field.errors|length > 0 %}
-        {% for err in field.errors %}
-        <small class="form-text">{{err}}</small>
+        {% for form in formset %}
+            {% for field in form %}
+                {% if field.label != 'Порядок' and field.label != 'Удалить' %}
+                    <div>
+                        <label for="{{ field.name }}">
+                            {{ field.label }}
+                        </label>
+                        {{ field }}
+                        {% if field.errors|length > 0 %}
+                            {% for err in field.errors %}
+                                <small class="form-text">{{ err }}</small>
+                            {% endfor %}
+                        {% endif %}
+                        {% if field.help_text %}
+                            <div class="help">{{ field.help_text }}</div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+            {% if formset.can_order %}
+                <div>Порядок: {{ form.ORDER }}</div>
+            {% endif %}
+            {% if formset.can_delete %}
+                <div>{{ form.DELETE }} Удалить</div>
+            {% endif %}
         {% endfor %}
-        {% endif %}
-        {% if field.help_text %}
-        <div class="help">{{field.help_text}}</div>
-        {% endif %}
-    </div>
-    {% endif %}
-    {% endfor %}
-    {% if formset.can_order %}
-        <div>Порядок: {{form.ORDER}}</div>
-    {% endif %}
-        {% if formset.can_delete %}
-        <div>{{form.DELETE}} Удалить</div>
-    {% endif %}
-    {% endfor %}
 
-    <input type="submit" value="Сохранить">
-</form>
+        <input type="submit" value="Сохранить">
+    </form>
 
 {% endblock %}
 

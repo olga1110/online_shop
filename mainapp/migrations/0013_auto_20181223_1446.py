@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('mainapp', '0012_auto_20181222_1310'),
     ]
@@ -13,6 +12,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='product',
             name='name',
-            field=models.CharField(error_messages={'max_length': 'Название поле не должно превышать 150 символов', 'required': 'Укажите название товара'}, max_length=5, unique=True, verbose_name='Наименование продукта'),
+            field=models.CharField(error_messages={'max_length': 'Название поле не должно превышать 150 символов',
+                                                   'required': 'Укажите название товара'}, max_length=5, unique=True,
+                                   verbose_name='Наименование продукта'),
         ),
     ]

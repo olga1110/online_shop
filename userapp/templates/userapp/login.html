@@ -2,49 +2,44 @@
 {% load static %}
 
 {% block page_title %}
-Войти в систему
+    Войти в систему
 {% endblock %}
 
 {% block page_styles %}
-<link rel="stylesheet" href="{%static 'web_shop/style.css' %}">
+    <link rel="stylesheet" href="{% static 'web_shop/style.css' %}">
 {% endblock %}
-
 
 {% block page_content %}
 
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
 
-<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-
-    {% for err in form.not_field_errors %}
-    <div class="alert alert-danger" role="alert">
-        <span>{{ err}}</span>
-    </div>
-    {% endfor %}
-
-    {% if next %}
-    <input type= "hidden" name= "next" value= "{{next}}" >
-    {% endif %}
-
-    {% for field in form %}
-    <div class="form-auth">
-        <label for="{{ field.name }}">
-            {{ field.label }}:
-        </label>
-        {{ field }}
-
-        {% for err in field.errors %}
-        <small class="form-text">{{ err }}</small>
+        {% for err in form.not_field_errors %}
+            <div class="alert alert-danger" role="alert">
+                <span>{{ err }}</span>
+            </div>
         {% endfor %}
 
-    </div>
-    {% endfor %}
-    <div class="auth-button">
-    <input type="submit" value="Вход" class="form-entrance">
-    <input type="button" value="Регистрация" onClick='location.href="{% url "auth:register" %}"'>
-    </div>
-</form>
+        {% if next %}
+            <input type="hidden" name="next" value="{{ next }}">
+        {% endif %}
 
+        {% for field in form %}
+            <div class="form-auth">
+                <label for="{{ field.name }}">
+                    {{ field.label }}:
+                </label>
+                {{ field }}
 
+                {% for err in field.errors %}
+                    <small class="form-text">{{ err }}</small>
+                {% endfor %}
+            </div>
+        {% endfor %}
+        <div class="auth-button">
+            <input type="submit" value="Вход" class="form-entrance">
+            <input type="button" value="Регистрация" onClick='location.href="{% url "auth:register" %}"'>
+        </div>
+    </form>
 
 {% endblock %}

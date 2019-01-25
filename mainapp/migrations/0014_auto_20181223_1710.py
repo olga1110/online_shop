@@ -5,7 +5,6 @@ import mainapp.models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('mainapp', '0013_auto_20181223_1446'),
     ]
@@ -14,11 +13,13 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='product',
             name='name',
-            field=models.CharField(error_messages={'required': 'Укажите название товара'}, max_length=150, unique=True, verbose_name='Наименование продукта'),
+            field=models.CharField(error_messages={'required': 'Укажите название товара'}, max_length=150, unique=True,
+                                   verbose_name='Наименование продукта'),
         ),
         migrations.AlterField(
             model_name='product',
             name='price',
-            field=models.DecimalField(decimal_places=2, default=0, max_digits=8, validators=[mainapp.models.validate_positive], verbose_name='Цена'),
+            field=models.DecimalField(decimal_places=2, default=0, max_digits=8,
+                                      validators=[mainapp.models.validate_positive], verbose_name='Цена'),
         ),
     ]

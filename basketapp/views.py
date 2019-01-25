@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.views.generic import (
     FormView, CreateView, UpdateView,
     DeleteView, ListView, DetailView,
-    )
+)
 from django.contrib import messages
 
 from . import forms
@@ -46,8 +46,9 @@ def basket_add(request, pk):
             messages.add_message(request, messages.INFO, f'К сожалению, на данный момент товар отсутствует на складе')
         else:
             if quantity > product.quantity:
-                messages.add_message(request, messages.INFO, f'На данный момент возможен заказ только {product.quantity}'
-                f' единиц(-ы) товара!')
+                messages.add_message(request, messages.INFO,
+                                     f'На данный момент возможен заказ только {product.quantity}'
+                                     f' единиц(-ы) товара!')
                 quantity = product.quantity
 
             old_basket_item = Basket.objects.filter(user=request.user, product=product)
@@ -80,4 +81,3 @@ def basket_remove(request, pk):
 def basket_remove_all(request):
     Basket.objects.filter(user=request.user).delete()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-

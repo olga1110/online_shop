@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand
 from mainapp.models import Category, Product
-import json, os
+import json
+import os
 
 from userapp.models import ShopUser
 
@@ -18,7 +19,6 @@ class Command(BaseCommand):
         for category in categories.values():
             new_category = Category(**category)
             new_category.save()
-
 
         # for product in products:
         #     category_name = product["category"]

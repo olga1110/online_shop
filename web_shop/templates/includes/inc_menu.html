@@ -2,45 +2,46 @@
 {% load cart %}
 <nav>
     <ul class="menu">
-        <li><a href="{% url 'products:start_page'%}">Главная</a></li>
-        <li><a href="{% url 'products:catalog'%}" class="expand-catalog">Каталог</a>
+        <li><a href="{% url 'products:start_page' %}">Главная</a></li>
+        <li><a href="{% url 'products:catalog' %}" class="expand-catalog">Каталог</a>
         </li>
-        <li><a href="{% url 'products:contacts'%}">Контакты</a></li>
+        <li><a href="{% url 'products:contacts' %}">Контакты</a></li>
 
- <!--<svg aria-hidden="true" class="icon icon-basket">-->
-    <!--<use xlink:href="{}"></use>-->
-  <!--</svg>-->
+        <!--<svg aria-hidden="true" class="icon icon-basket">-->
+        <!--<use xlink:href="{}"></use>-->
+        <!--</svg>-->
         <!--<span class="elem-cart__num ng-binding ng-hide" data-ng-bind="cartData.model.totalBasketQuantity" data-ng-show="cartData.model.totalBasketQuantity > 0">0</span>-->
-         <!--Корзина-->
-    <!--</a>-->
+        <!--Корзина-->
+        <!--</a>-->
         {% if user.is_superuser %}
-        <li><a href="{% url 'admin_custom:admin_page' %}">Настройка</a></li>
+            <li><a href="{% url 'admin_custom:admin_page' %}">Настройка</a></li>
         {% endif %}
         <li class="basket">
-            <a href="{% url 'basket:basket' %}"><img src="{%static 'web_shop/img/basket.png' %}" alt="Корзина" class="basket"></a>
+            <a href="{% url 'basket:basket' %}"><img src="{% static 'web_shop/img/basket.png' %}" alt="Корзина"
+                                                     class="basket"></a>
         </li>
         {% if user.is_authenticated %}
-        <li id="total_quantity">
-            <span class="text-inner">{{user.id|total_quantity}}</span>
-        </li>
+            <li id="total_quantity">
+                <span class="text-inner">{{ user.id|total_quantity }}</span>
+            </li>
         {% endif %}
 
     </ul>
     <ul class="menu user">
-     {% if user.is_authenticated %}
-         <li>
-            <a href="{{user.get_absolute_url}}">
-                {{ user.username|default:'User'}}
-            </a>
-        </li>
-    {% endif %}
         {% if user.is_authenticated %}
-        <li class="menu user">
-            <a href="{% url 'auth:logout' %}">Выход</a>
-            {% else %}
-            <a href="{% url 'auth:login' %}" class="menu entrance">Вход</a>
-        </li>
+            <li>
+                <a href="{{ user.get_absolute_url }}">
+                    {{ user.username|default:'User' }}
+                </a>
+            </li>
+        {% endif %}
+        {% if user.is_authenticated %}
+            <li class="menu user">
+                <a href="{% url 'auth:logout' %}">Выход</a>
+                {% else %}
+                <a href="{% url 'auth:login' %}" class="menu entrance">Вход</a>
+            </li>
 
-    {% endif %}
-        </ul>
+        {% endif %}
+    </ul>
 </nav>

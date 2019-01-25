@@ -4,98 +4,95 @@
 
 {% block page_title %} Пользователи {% endblock %}
 {% block page_styles %}
-<link rel="stylesheet" href="{% static 'web_shop/style.css' %}">
-<link rel="stylesheet" href="{% static 'adminapp/css/admin.css' %}">
+    <link rel="stylesheet" href="{% static 'web_shop/style.css' %}">
+    <link rel="stylesheet" href="{% static 'adminapp/css/admin.css' %}">
 {% endblock %}
 
 {% block menu %}
-{% include 'adminapp/includes/inc_menu.html' %}
+    {% include 'adminapp/includes/inc_menu.html' %}
 
 {% endblock %}
 
-
 {% block page_content %}
-{{ block.super }}
+    {{ block.super }}
 
-
-<div class="add_object">
-            <input type="button" id="add_object" value="Добавить пользователя"
-       onClick='location.href="{% url "admin_custom:user_create" %}"'>
-</div>
-    <div class ="objects_list">
-    {% for object in objects %}
+    <div class="add_object">
+        <input type="button" id="add_object" value="Добавить пользователя"
+               onClick='location.href="{% url "admin_custom:user_create" %}"'>
+    </div>
+    <div class="objects_list">
+        {% for object in objects %}
 
             <div class="object_data">
                 {% if not object.is_active %}
-                <p><span>Заблокирован</span></p>
+                    <p><span>Заблокирован</span></p>
                 {% endif %}
-                <p><span>Login: </span> {{object.username}}</p>
+                <p><span>Login: </span> {{ object.username }}</p>
                 {% if object.first_name %}
-                <p><span>Name: </span> {{object.first_name|title }}</p>
+                    <p><span>Name: </span> {{ object.first_name|title }}</p>
                 {% endif %}
                 {% if object.last_name %}
-                <p><span>Surname: </span>{{object.last_name|title}}</p>
+                    <p><span>Surname: </span>{{ object.last_name|title }}</p>
                 {% endif %}
                 <p>
-                <span>Role: </span>
+                    <span>Role: </span>
                     {% if object.is_superuser %}
-                    Администратор
+                        Администратор
                     {% else %}
-                    Пользователь
+                        Пользователь
                     {% endif %}
-                    </p>
+                </p>
                 {% if object.email %}
-                <p><span> Email: </span> {{object.email}} </p>
+                    <p><span> Email: </span> {{ object.email }} </p>
                 {% endif %}
-                <p><span>Last seen: </span>{{object.last_login}}</p>
+                <p><span>Last seen: </span>{{ object.last_login }}</p>
 
 
-            <img src="/media/{{object.avatar|default:'users_avatars/avatar.png'}}" class= "avatar" alt="{{object.username}}">
+                <img src="/media/{{ object.avatar|default:'users_avatars/avatar.png' }}" class="avatar"
+                     alt="{{ object.username }}">
 
-        <div class="user_manage">
+                <div class="user_manage">
 
-                <input type="button"  value="Редактировать"
-                onClick='location.href="{% url "admin_custom:user_update" object.username %}"'>
+                    <input type="button" value="Редактировать"
+                           onClick='location.href="{% url "admin_custom:user_update" object.username %}"'>
 
-                <input type="button"  value="Удалить"
-                onClick='location.href="{% url "admin_custom:user_delete" object.username %}"'>
-
-        </div>
-</div>
+                    <input type="button" value="Удалить"
+                           onClick='location.href="{% url "admin_custom:user_delete" object.username %}"'>
+                </div>
+            </div>
         {% endfor %}
-</div>
+    </div>
 
     <!--Постраничный переход -->
-{% if is_paginated %}
+    {% if is_paginated %}
         <div class="pagination">
             <span class="page-links">
                 {% if page_obj.has_previous %}
-                    <a href="{% url 'admin_custom:users'%}?page={{ page_obj.previous_page_number }}">previous</a>
+                    <a href="{% url 'admin_custom:users' %}?page={{ page_obj.previous_page_number }}">previous</a>
                 {% endif %}
                 <span class="page-current">
                     Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
                 </span>
                 {% if page_obj.has_next %}
-                    <a href="{% url 'admin_custom:users'%}?page={{ page_obj.next_page_number }}">next</a>
+                    <a href="{% url 'admin_custom:users' %}?page={{ page_obj.next_page_number }}">next</a>
                 {% endif %}
             </span>
-<!--Перемещение по номерам страниц-->
-        <div class="num_pages">
-            {% for pn in page_obj.paginator.page_range %}
-            {% if not forloop.first %}
-                &nbsp;&nbsp;|&nbsp;&nbsp;
-            {% endif %}
-
-            {% if page_obj.number != pn %}
-            <a href="{% url 'admin_custom:users' %}?page={{pn}}">
-            {% endif %}
-            {{pn}}
-            {% if page_obj.number != pn %}
-            </a>
-            {% endif %}
-            {% endfor %}
+            <!--Перемещение по номерам страниц-->
+            <div class="num_pages">
+                {% for pn in page_obj.paginator.page_range %}
+                    {% if not forloop.first %}
+                        &nbsp;&nbsp;|&nbsp;&nbsp;
+                    {% endif %}
+                    {% if page_obj.number != pn %}
+                        <a href="{% url 'admin_custom:users' %}?page={{ pn }}">
+                    {% endif %}
+                {{ pn }}
+                {% if page_obj.number != pn %}
+                    </a>
+                {% endif %}
+                {% endfor %}
+            </div>
         </div>
- </div>
-    {% endif %}   
+    {% endif %}
 
 {% endblock %}

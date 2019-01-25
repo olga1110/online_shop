@@ -6,7 +6,6 @@ from django.conf.urls.static import static
 import userapp.views as userapp
 import mainapp.urls
 
-
 app_name = 'auth'
 
 urlpatterns = [
@@ -15,5 +14,3 @@ urlpatterns = [
     path('register/', userapp.UserRegister.as_view(), name='register'),
     path('edit/<slug:slug>/', userapp.UserEdit.as_view(), name='edit'),
 ]
-
-

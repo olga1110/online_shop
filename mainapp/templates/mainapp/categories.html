@@ -5,74 +5,71 @@
 {% block page_title %} Catalog
 {% endblock %}
 {% block page_styles %}
-<link rel="stylesheet" href="{% static 'web_shop/style.css' %}">
+    <link rel="stylesheet" href="{% static 'web_shop/style.css' %}">
 {% endblock %}
 
 {% block script %}
-<script src="{% static 'mainapp/js/ajax.js' %}"></script>
+    <script src="{% static 'mainapp/js/ajax.js' %}"></script>
 
-<script>
-    $(function() {
-    $('#search').keyup(function () {
-    $.ajax({
-            type: 'POST',
-            url: '/catalog/products/search/',
-            data: {
-                'search_text': $('#search').val(),
-                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
-            },
-            success: searchSuccess,
-            datatype: 'html'
-    });
- });
+    <script>
+        $(function () {
+            $('#search').keyup(function () {
+                $.ajax({
+                    type: 'POST',
+                    url: '/catalog/products/search/',
+                    data: {
+                        'search_text': $('#search').val(),
+                        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+                    },
+                    success: searchSuccess,
+                    datatype: 'html'
+                });
+            });
 
- });
-</script>
+        });
+    </script>
 {% endblock %}
 
 {% block page_content %}
-{{ block.super }}
+    {{ block.super }}
 
-<div class="catalog-page">
+    <div class="catalog-page">
 
-    <div class="search_block">
-    <h3>Поиск товара</h3>
-    {% csrf_token %}
+        <div class="search_block">
+            <h3>Поиск товара</h3>
+            {% csrf_token %}
 
-    <input type="text" id="search" name="search" />
-    </div>
-    <ul id="search_results">
-    </ul>
+            <input type="text" id="search" name="search"/>
+        </div>
+        <ul id="search_results">
+        </ul>
 
-
-<div class="category-head">
-    <h1>{{category.short_desc|capfirst}}</h1>
-    <p>Цены в диапозоне: {{min_price|floatformat}} - {{max_price|floatformat}} руб.</p>
-</div>
-
-
+        <div class="category-head">
+            <h1>{{ category.short_desc|capfirst }}</h1>
+            <p>Цены в диапозоне: {{ min_price|floatformat }} - {{ max_price|floatformat }} руб.</p>
+        </div>
 
         <main class="main">
-            {% for product in products%}
-            <figure class="item">
-                <!--<a href="/catalog/{{category.name}}/{{product.name}}/"> <img src="/media/{{product.image.value}}"-->
-                <a href="/{{product.get_absolute_url}}/"> <img src="/media/{{product.image.value}}"
-                                                   alt={{product.short_desc|capfirst}}
-                                                   title={{product.short_desc|capfirst}}
-                                                   height=300>
-                <br>
-                <p>{{product.short_desc|capfirst}}</p>
-    </a>
-    </figure>
-
-    {% endfor %}
-    </main>
-<div class="category-edit">
-{% if user.is_authenticated and user.is_active and user.is_superuser %}
-<a href="/catalog/update/{{category.name}}/">Редактировать</a>
-<a href="/catalog/delete/{{category.name}}/">Удалить</a>
-<a href="{% url 'products:create'%}">Добавить товар</a>
-{% endif %}
-</div>
+            {% for product in products %}
+                <figure class="item">
+                    <!--<a href="/catalog/{{category.name}}/{{product.name}}/"> <img src="/media/{{product.image.value}}"-->
+                    <a href="/{{ product.get_absolute_url }}/"> <img src="/media/{{ product.image.value }}"
+                                                                     alt={{ product.short_desc|capfirst }}
+                                                                             title={{ product.short_desc|capfirst }}
+                                                                     height=300>
+                        <br>
+                        <p>{{ product.short_desc|capfirst }}</p>
+                    </a>
+                </figure>
+            {% endfor %}
+        </main>
+        <div class="category-edit">
+            {% if user.is_authenticated and user.is_active and user.is_superuser %}
+                <a href="/catalog/update/{{ category.name }}/">Редактировать</a>
+                <a href="/catalog/delete/{{ category.name }}/">Удалить</a>
+                <a href="{% url 'products:create' %}">Добавить товар</a>
+            {% endif %}
+        </div>
     </div>
+
 {% endblock %}

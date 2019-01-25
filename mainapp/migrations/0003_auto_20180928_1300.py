@@ -8,6 +8,7 @@ CATEGORIES_DATA = [
     {'name': 'set'},
 ]
 
+
 def create_default_categories(apps, schema_editor):
     Category = apps.get_model('mainapp', 'Category')
 
@@ -16,7 +17,6 @@ def create_default_categories(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('mainapp', '0002_auto_20180927_2338'),
     ]
@@ -24,6 +24,6 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RunPython(
             create_default_categories,
-            lambda x,y: (x,y)
+            lambda x, y: (x, y)
         )
     ]

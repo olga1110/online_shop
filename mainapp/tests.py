@@ -28,7 +28,7 @@ class CategoryCRUDTest(TestCase):
 
     def test_create_category(self):
         self.client.post('/catalog/create/', {'name': 'test1', 'short_desc': 'short_desc',
-                                                         'desc': 'full_desc'}, follow=True)
+                                              'desc': 'full_desc'}, follow=True)
         cat1 = Category.objects.get(name='test1')
         self.assertEqual(cat1.desc, 'full_desc')
 
@@ -38,11 +38,3 @@ class CategoryCRUDTest(TestCase):
                                                     'desc': 'full_desc'}, follow=True)
         cat1 = Category.objects.get(name='test1')
         self.assertEqual(cat1.short_desc, 'new short_desc')
-
-
-
-
-
-
-
-

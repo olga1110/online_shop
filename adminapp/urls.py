@@ -10,16 +10,13 @@ urlpatterns = [
          name='user_update'),
     path('users/delete/<slug:title>/', adminapp.user_delete,
          name='user_delete'),
-
     path('catalog/create/', adminapp.CategoryCreate.as_view(),
          name='category_create'),
     path('catalog/', adminapp.CategoryList.as_view(), name='category'),
-
     path('catalog/update/<slug:slug>/', adminapp.CategoryUpdate.as_view(),
          name='category_update'),
     path('catalog/delete/<slug:title>/', adminapp.category_delete,
          name='category_delete'),
-
     path('products/', adminapp.ProductList.as_view(), name='product_list'),
     path('<slug:slug>/products/', adminapp.ProductCategory.as_view(), name='category_products'),
     path('products/create/', adminapp.ProductCreate.as_view(),

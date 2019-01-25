@@ -22,6 +22,7 @@ from mainapp.mixins import SuperUserMixin
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth.decorators import permission_required
 
+
 # class CategoryCreate(View):
 #     success_url = reverse_lazy('products:catalog')
 #
@@ -110,8 +111,6 @@ class CategoryDetail(SuperUserMixin, DetailView):
         context['max_price'] = context['products'].aggregate(models.Max('price'))['price__max']
         print(context['min_price'])
         return context
-
-
 
 
 # class CategoryDelete(DeleteView):

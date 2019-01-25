@@ -10,4 +10,3 @@ class AnonRequiredMixin:
             messages.error(request, 'Для смены логина необходимо выбрать в меню пункт Выйти')
             return redirect(self.redirect_url)
         return super(AnonRequiredMixin, self).dispatch(request, *args, **kwargs)
-        

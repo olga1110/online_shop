@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.core.exceptions import ValidationError
 
+
 # Create your models here.
 
 def validate_positive(value):
@@ -46,7 +47,7 @@ class Product(models.Model):
     price = models.DecimalField(verbose_name='Цена', max_digits=8,
                                 decimal_places=2, validators=[validate_positive], default=0)
     discount = models.DecimalField(verbose_name='Скидка', max_digits=4,
-                                decimal_places=2, default=0)
+                                   decimal_places=2, default=0)
     is_active = models.BooleanField(verbose_name='Запись активна', default=True)
 
     quantity = models.PositiveIntegerField(verbose_name='Количество на складе', default=0)
@@ -75,6 +76,3 @@ class Product(models.Model):
 
     class Meta:
         ordering = ['-is_active', 'name', 'price']
-
-
-

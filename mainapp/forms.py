@@ -4,7 +4,6 @@ from mainapp.models import Category, Product
 from images.models import Image
 
 
-
 class CategoryForm(forms.Form):
     name = forms.CharField(
         label='name',
@@ -12,9 +11,10 @@ class CategoryForm(forms.Form):
 
     )
     short_desc = forms.CharField(label='short_desc', required=False)
-    desc = forms.CharField(label='desc', required=False, widget=forms.widgets.Textarea(attrs={'class': 'form-control', 'placeholder': 'Подробное описание'}
+    desc = forms.CharField(label='desc', required=False, widget=forms.widgets.Textarea(
+        attrs={'class': 'form-control', 'placeholder': 'Подробное описание'}
         )
-    )
+                           )
 
 
 class ProductForm(forms.Form):
@@ -64,7 +64,6 @@ class ProductForm(forms.Form):
 
 
 class ProductModelForm(forms.ModelForm):
-
     class Meta:
         model = Product
         fields = ['name', 'category', 'image', 'short_desc', 'desc', 'price', 'discount', 'quantity']
@@ -77,22 +76,13 @@ class ProductModelForm(forms.ModelForm):
         }
         widgets = {'desc': forms.Textarea(attrs={'rows': 10, 'cols': 40})}
 
-
     # def __init__(self, *args, **kwargs):
     #     super(ProductModelForm, self).__init__(*args, **kwargs)
-        # self.fields['name'].error_messages = {'required': 'Укажите название товара',
-        #                                       'max_length': 'Название поле не должно превышать 150 символов'}
+    # self.fields['name'].error_messages = {'required': 'Укажите название товара',
+    #                                       'max_length': 'Название поле не должно превышать 150 символов'}
 
 
 class CategoryModelForm(forms.ModelForm):
     class Meta:
         model = Category
         fields = ['name', 'short_desc', 'desc']
-
-
-
-
-
-
-
-

@@ -25,18 +25,17 @@ router.register('categories', CategoryViewSet)
 router.register('basket', BasketViewSet)
 router.register('users', ShopUserViewSet)
 
-
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('admin_custom/', include(adminapp)),
-    path('', include(products)),
-    path('catalog/', include(categories)),
-    path('auth/', include(userapp)),
-    path('basket/', include(basketapp)),
-    path('api/', include(router.urls)),
-    path('schema/', schema_view),
-    # path('pages/', include('django.contrib.flatpages.urls'),
-    # url(r'^catalog/', include(('mainapp.urls', 'catalog'), namespace='catalog')),
-    # url(r'^admin/', admin.site.urls),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) \
+                  path('admin/', admin.site.urls),
+                  path('admin_custom/', include(adminapp)),
+                  path('', include(products)),
+                  path('catalog/', include(categories)),
+                  path('auth/', include(userapp)),
+                  path('basket/', include(basketapp)),
+                  path('api/', include(router.urls)),
+                  path('schema/', schema_view),
+                  # path('pages/', include('django.contrib.flatpages.urls'),
+                  # url(r'^catalog/', include(('mainapp.urls', 'catalog'), namespace='catalog')),
+                  # url(r'^admin/', admin.site.urls),
+              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) \
               + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

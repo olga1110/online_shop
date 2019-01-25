@@ -3,14 +3,12 @@ from basketapp.models import Basket
 
 
 class BasketAdmin(admin.ModelAdmin):
-
     list_display = [
         'user', 'product', 'quantity', 'add_datetime',
     ]
 
     list_filter = [
         'user', 'product', 'add_datetime',
-
     ]
 
     search_fields = [
@@ -25,4 +23,3 @@ class BasketAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Basket, BasketAdmin)
-

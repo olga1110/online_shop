@@ -22,14 +22,6 @@ def admin_page(request):
     return render(request, 'adminapp/admin.html', {})
 
 
-# def users(request):
-#     users_list = ShopUser.objects.all().order_by('-is_active', \
-#                                                  '-is_superuser', '-is_staff', 'username')
-#     content = {
-#         'objects': users_list
-#     }
-#     return render(request, 'adminapp/users.html', content)
-
 # CDUD-методы. Пользователи
 class UserList(LoginRequiredMixin, ListView):
     model = ShopUser
@@ -43,28 +35,12 @@ class UserList(LoginRequiredMixin, ListView):
         return queryset
 
 
-
-
-# def user_create(request):
-#
-#     if request.method == 'POST':
-#         user_form = ShopUserRegisterForm(request.POST, request.FILES)
-#     if user_form.is_valid():
-#         user_form.save()
-#         return HttpResponseRedirect(reverse('admin_custom:users'))
-#     else:
-#         user_form = ShopUserRegisterForm()
-#         content = {'update_form': user_form}
-#         return render(request, 'adminapp/update.html', content)
-
-
 class UserCreate(LoginRequiredMixin, SuperUserMixin, CreateView):
     model = ShopUser
     form_class = ShopUserRegisterForm
     template_name = 'create.html'
     success_url = reverse_lazy('admin_custom:users')
     handle_no_permission = '/auth/login/'
-    # url_cancel = 'admin_custom:users'
 
     def get_context_data(self, **kwargs):
         context = super(UserCreate, self).get_context_data(**kwargs)
@@ -153,6 +129,7 @@ def category_delete(request, title):
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
     return render(request, 'delete.html', content)
 
+
 # Модель Product. CRUD
 
 
@@ -161,7 +138,6 @@ class ProductList(ListView):
     template_name = 'adminapp/product_list.html'
     context_object_name = 'products'
 
-
     def get_context_data(self, **kwargs):
         context = super(ProductList, self).get_context_data(**kwargs)
         # context['categories'] = Category.objects.all().order_by('name')
@@ -169,7 +145,6 @@ class ProductList(ListView):
                                                                values('category')).order_by('name')
         context['archive_categories'] = Category.objects.filter(id__in=Product.objects.filter(is_active=0).
                                                                 values('category')).order_by('name')
-
         # Category.objects.filter(id__in=Product.objects.filter(is_active=1).values('category')).order_by('name')
         return context
 
@@ -213,11 +188,6 @@ class ProductCreate(LoginRequiredMixin, SuperUserMixin, CreateView):
         context['OK_text'] = 'Добавить товар'
         return context
 
-    # def get_absolute_url(self):
-    #     # return reverse('admin_custom:products', kwargs={'title': self.model.category.name})
-    #     print(self.model.category.name)
-    #     return reverse('products', kwargs={'title': self.form_class.category.name})
-
 
 class ProductUpdate(LoginRequiredMixin, SuperUserMixin, UpdateView):
     model = Product
@@ -244,7 +214,30 @@ def product_delete(request, title):
         product.is_active = False
         product.save()
         # return HttpResponseRedirect(request.META["HTTP_REFERER"])
-        return HttpResponseRedirect("/admin_custom/products/category/"+product.category.name)
+        return HttpResponseRedirect("/admin_custom/products/category/" + product.category.name)
     return render(request, 'delete.html', content)
 
+# def users(request):
+#     users_list = ShopUser.objects.all().order_by('-is_active', \
+#                                                  '-is_superuser', '-is_staff', 'username')
+#     content = {
+#         'objects': users_list
+#     }
+#     return render(request, 'adminapp/users.html', content)
 
+# def user_create(request):
+#
+#     if request.method == 'POST':
+#         user_form = ShopUserRegisterForm(request.POST, request.FILES)
+#     if user_form.is_valid():
+#         user_form.save()
+#         return HttpResponseRedirect(reverse('admin_custom:users'))
+#     else:
+#         user_form = ShopUserRegisterForm()
+#         content = {'update_form': user_form}
+#         return render(request, 'adminapp/update.html', content)
+
+# def get_absolute_url(self):
+#     # return reverse('admin_custom:products', kwargs={'title': self.model.category.name})
+#     print(self.model.category.name)
+#     return reverse('products', kwargs={'title': self.form_class.category.name})

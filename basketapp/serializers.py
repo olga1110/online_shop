@@ -4,7 +4,6 @@ from .models import Basket
 
 
 class BasketSerializer(serializers.HyperlinkedModelSerializer):
-
     class Meta:
         model = Basket
         fields = (

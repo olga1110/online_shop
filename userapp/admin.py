@@ -12,4 +12,3 @@ class ShopUserAdmin(admin.ModelAdmin):
         },
          ),
     )
-

@@ -9,6 +9,3 @@ def quantity(value):
     if Basket.objects.filter(user=value).count():
         return Basket.objects.filter(user=value)[0].total_quantity
     return ''
-
-
-

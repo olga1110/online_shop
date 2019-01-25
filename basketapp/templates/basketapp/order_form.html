@@ -1,66 +1,64 @@
-
 {% extends 'master.html' %}
 
 {% load static %}
 
 {% block page_title %} Корзина {% endblock %}
 {% block page_styles %}
-<link rel="stylesheet" href="{% static 'web_shop/style.css' %}">
+    <link rel="stylesheet" href="{% static 'web_shop/style.css' %}">
 {% endblock %}
 
 {% block page_content %}
 
-                <form action="#" class="order">
-                    <h2>Форма заказа:</h2>
+    <form action="#" class="order">
+        <h2>Форма заказа:</h2>
+        <br>
+        <fieldset>
+            <div class="form-group">
+                <label class="form-field">
+                    Покупатель:
+                    <input type="radio" name="customer_type" value="individual" checked>Физическое лицо
+
+                    <input type="radio" name="customer_type" value="entity">Юридическое лицо
+                </label>
+                <br><br>
+                <label>
+
+                    Контактное лицо:
+                    <input type="text" name="customer_name" placeholder="{{ user.first_name }}">
+                </label>
+                <br><br>
+                <label>
+                    Телефон:
+                    <input type="tel" name="customer_name" placeholder="{{ user.phone }}">
+                </label>
+                <br><br>
+                <label>
+                    Эл/почта:
+                    <input type="email" name="customer_name" placeholder="{{ user.email }}">
+                </label>
+                <br><br>
+                <label>Укажите дату доставки:
+                    <input type="date" name="date"> </label>
+                <br><br>
+
+                <label>Выберите время доставки:
+                    <input type="time" name="time"> </label>
+                <br>
+                <br>
+                <label>
+                    Способ доставки:
+                    <input type="radio" name="delivery" value="curier" checked>Доставка курьером
+                    <input type="radio" name="delivery" value="itself">Самовывоз
+                </label>
+                <div class="form-group">
                     <br>
-                    <fieldset>
-                        <div class="form-group">
-                        <label class="form-field">
-                            Покупатель:
-                        <input type="radio" name="customer_type" value="individual" checked>Физическое лицо
-
-                        <input type="radio" name="customer_type" value="entity">Юридическое лицо
-                            </label>
-                        <br><br>
-                        <label>
-
-                            Контактное лицо:
-                            <input type="text" name="customer_name" placeholder="{{user.first_name}}">
-                        </label>
-                        <br><br>
-                         <label>
-                             Телефон:
-                            <input type="tel" name="customer_name" placeholder="{{user.phone}}">
-                        </label>
-                        <br><br>
-                         <label>
-                             Эл/почта:
-                            <input type="email" name="customer_name" placeholder="{{user.email}}">
-                        </label>
-                        <br><br>
-                        <label>Укажите дату доставки:
-                            <input type="date" name="date"> </label>
-                        <br><br>
-
-                        <label>Выберите время доставки:
-                            <input type="time" name="time"> </label>
-                        <br>
-                        <br>
-                        <label>
-                            Способ доставки:
-                        <input type="radio" name="delivery" value="curier" checked>Доставка курьером
-                        <input type="radio" name="delivery" value="itself">Самовывоз
-                        </label>
-                            <div class="form-group">
-                        <br>
-                        <br>
-                        <div class="button">
-                            <button type="submit">Отправить</button>
-                            <button type="reset">Очистить</button>
-                        </div>
-                        <br> </fieldset>
-                </form>
-
-
+                    <br>
+                    <div class="button">
+                        <button type="submit">Отправить</button>
+                        <button type="reset">Очистить</button>
+                    </div>
+                    <br>
+        </fieldset>
+    </form>
 
 {% endblock %}

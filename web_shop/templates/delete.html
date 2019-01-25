@@ -2,30 +2,32 @@
 
 {% load static %}
 
-{% block page_title %} {{title}} {% endblock %}
+{% block page_title %} {{ title }} {% endblock %}
 {% block page_styles %}
-   <link rel="stylesheet" href="{% static 'web_shop/style.css' %}">
+    <link rel="stylesheet" href="{% static 'web_shop/style.css' %}">
 {% endblock %}
 
 {% block menu %}
-{% include 'adminapp/includes/inc_menu.html' %}
+    {% include 'adminapp/includes/inc_menu.html' %}
 {% endblock %}
 
 {% block page_content %}
-{{ block.super }}
+    {{ block.super }}
 
-<div class = "object_delete">
-    <p>Подтвердите перемещение {{subject}} {{name}} в раздел {{part_name}}.</p>
-    <p>Запись останется в БД с is_active=0</p>
+    <div class="object_delete">
+        <p>Подтвердите перемещение {{ subject }} {{ name }} в раздел {{ part_name }}.</p>
+        <p>Запись останется в БД с is_active=0</p>
 
-    <form method="post">
-    {% csrf_token %}
+        <form method="post">
+            {% csrf_token %}
 
-    <input class="replace-button" type="submit" value="Переместить">
+            <input class="replace-button" type="submit" value="Переместить">
 
-</form>
-    <div class="delete_cancel_button">
-    <input type="button"  value="Отмена"
-       onClick='location.href="{{ url_cancel }}"'>
-</div>
+        </form>
+        <div class="delete_cancel_button">
+            <input type="button" value="Отмена"
+                   onClick='location.href="{{ url_cancel }}"'>
+        </div>
+    </div>
+
 {% endblock %}

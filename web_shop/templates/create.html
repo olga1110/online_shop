@@ -2,28 +2,27 @@
 
 {% load static %}
 
-{% block page_title %} {{title}} {% endblock %}
+{% block page_title %} {{ title }} {% endblock %}
 {% block page_styles %}
     <link rel="stylesheet" href="{% static 'web_shop/style.css' %}">
 {% endblock %}
 
 {% block menu %}
-{% include 'adminapp/includes/inc_menu.html' %}
+    {% include 'adminapp/includes/inc_menu.html' %}
 {% endblock %}
 
 {% block page_content %}
-{% include 'includes/form.html' %}
+    {% include 'includes/form.html' %}
 
-<div class="cancel_button">
-{% if request.resolver_match.url_name == 'update' and request.resolver_match.app_name == 'products' %}
-    <input type="button"  value="Отмена"
-       onClick='location.href="{% url url_cancel category_product %}"'>
-{% else %}
-    <input type="button"  value="Отмена"
-       onClick='location.href="{% url url_cancel %}"'>
-
-{% endif %}
-</div>
+    <div class="cancel_button">
+        {% if request.resolver_match.url_name == 'update' and request.resolver_match.app_name == 'products' %}
+            <input type="button" value="Отмена"
+                   onClick='location.href="{% url url_cancel category_product %}"'>
+        {% else %}
+            <input type="button" value="Отмена"
+                   onClick='location.href="{% url url_cancel %}"'>
+        {% endif %}
+    </div>
 
 {% endblock %}
 

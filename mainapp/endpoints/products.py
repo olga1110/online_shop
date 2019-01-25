@@ -8,8 +8,6 @@ from mainapp.models import Product
 
 
 # API DRF
-
-
 class ProductViewSet(ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer

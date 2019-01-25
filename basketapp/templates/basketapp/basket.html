@@ -4,70 +4,73 @@
 
 {% block page_title %} Корзина {% endblock %}
 {% block page_styles %}
-<link rel="stylesheet" href="{% static 'web_shop/style.css' %}">
+    <link rel="stylesheet" href="{% static 'web_shop/style.css' %}">
 {% endblock %}
 
 {% block script %}
-<script>
-    (function($) {
-            $(function() {
+    <script>
+        (function ($) {
+            $(function () {
                 $('#bot_name').effect('pulsate', 20000);
             });
-    })(jQuery);
-</script>
+        })(jQuery);
+    </script>
 
 {% endblock %}
 {% block page_content %}
 
-{% if not basket_items %}
+    {% if not basket_items %}
 
-<p>Сейчас ваша корзина пуста.
-    
-    Закажите товар по телефону 8(342)229-78-28 или перейдите к <a href="{% url 'products:catalog'%}">каталогу</a>
-</p>
+        <p>Сейчас ваша корзина пуста.
 
-{% else %}
-    <div class="basket-page">
+            Закажите товар по телефону 8(342)229-78-28 или перейдите к <a
+                    href="{% url 'products:catalog' %}">каталогу</a>
+        </p>
+
+    {% else %}
+        <div class="basket-page">
 
         <div class="basket_summary">
-            В корзине <span>{{basket_items.0.total_quantity}}</span> товара(-ов) общей стоимостью
-            <span>{{ basket_items.0.total_cost|floatformat}}</span> руб.
+            В корзине <span>{{ basket_items.0.total_quantity }}</span> товара(-ов) общей стоимостью
+            <span>{{ basket_items.0.total_cost|floatformat }}</span> руб.
         </div>
         <p id="bot_name">@CothyKitchenBot</p>
         <div class="bot_hover">
             <p>Заходите в наш чат-бот в Telegram и определите ближайший к Вам магазин прямо сейчас!</p>
             <p>Выберите удобный способ доставки и оплаты товара!</p>
         </div>
-     <input type="button" id="send_order" value="Оформить заказ"
-    onClick='alert("Функционал в разработке!!!")'>
-    <!--onClick='location.href="{% url "basket:order_send" %}"'>-->
+        <input type="button" id="send_order" value="Оформить заказ"
+               onClick='alert("Функционал в разработке!!!")'>
+        <!--onClick='location.href="{% url "basket:order_send" %}"'>-->
 
         {% for item in basket_items %}
-        <div class="basket_item">
-            <div class="product_image">
-            <p class = "category_name">{{item.product.short_desc|capfirst}}</p>
-                <img src ="/media/{{item.product.image.value}}" id = "product_image" alt ="{{item.product.short_desc}}">
-             </div>
-            <div class="product_item">
-            <p><span>Цена: </span>{{item.product.price|floatformat}}&nbsp;руб.</p>
-            <p><span>Количество: </span>{{item.quantity}}&nbsp;шт.</p>
-            <!--<label>Количество: <input type = "number" name ="{{item.pk}}" min ="0" value ="{{item.quantity}}"></label>-->
-            <input type="button" class="cart_del" value="Удалить"
-                onClick='location.href="{% url "basket:basket_remove" item.pk %}"'>
+            <div class="basket_item">
+                <div class="product_image">
+                    <p class="category_name">{{ item.product.short_desc|capfirst }}</p>
+                    <img src="/media/{{ item.product.image.value }}" id="product_image"
+                         alt="{{ item.product.short_desc }}">
+                </div>
+                <div class="product_item">
+                    <p><span>Цена: </span>{{ item.product.price|floatformat }}&nbsp;руб.</p>
+                    <p><span>Количество: </span>{{ item.quantity }}&nbsp;шт.</p>
+                    <!--<label>Количество: <input type = "number" name ="{{item.pk}}" min ="0" value ="{{item.quantity}}"></label>-->
+                    <input type="button" class="cart_del" value="Удалить"
+                           onClick='location.href="{% url "basket:basket_remove" item.pk %}"'>
+                </div>
             </div>
-        </div>
 
-    {% endfor %}
+        {% endfor %}
 
     {% endif %}
 
 <div class="basket-buttons">
-    <input type="button"  value="На главную"
-    onClick='location.href="{% url "products:start_page" %}"'>
+    <input type="button" value="На главную"
+           onClick='location.href="{% url "products:start_page" %}"'>
 
-    <input type="button"  value="Очистить корзину"
-    onClick='location.href="{% url "basket:basket_remove_all" %}"'>
+    <input type="button" value="Очистить корзину"
+           onClick='location.href="{% url "basket:basket_remove_all" %}"'>
 
- </div>
 </div>
+</div>
+
 {% endblock %}

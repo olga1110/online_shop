@@ -21,5 +21,3 @@ class ShopUser(AbstractUser):
 
     class Meta:
         ordering = ['-is_active', '-is_superuser', 'username']
-
-

@@ -4,110 +4,106 @@
 
 {% block page_title %} Товары {% endblock %}
 {% block page_styles %}
-<link rel="stylesheet" href="{% static 'web_shop/style.css' %}">
-<link rel="stylesheet" href="{% static 'adminapp/css/admin.css' %}">
+    <link rel="stylesheet" href="{% static 'web_shop/style.css' %}">
+    <link rel="stylesheet" href="{% static 'adminapp/css/admin.css' %}">
 {% endblock %}
 
 {% block menu %}
-{% include 'adminapp/includes/inc_menu.html' %}
+    {% include 'adminapp/includes/inc_menu.html' %}
 {% endblock %}
 
 {% block page_content %}
-{{ block.super }}
+    {{ block.super }}
 
-
-<div class = "products_list">
-<div class="add_object">
-        <input type="button"  value="Добавить товар" id="add_object"
-       onClick='location.href="{% url "admin_custom:product_create" %}"'>
-</div>
-    {% if active_categories %}
-    <h2>Действующий каталог</h2>
-    {% endif%}
-
-    {% for category in active_categories %}
-    <h2 class="category">Категория {{category.name}}</h2>
-
-    <div class ="objects_list">
-    {% for object in products %}
-        {% if object.is_active and object.category.id == category.id %}
-
-        <div class="object_data">
-        <section class="object_name">
-                {{object.name|capfirst}}
-        </section>
-            <p><span>Цена: </span>
-            {{object.price|floatformat}} руб.</p>
-            <p><span>Количество: </span>
-            {{object.quantity}} шт.</p>
-            <p><span>Скидка: </span>
-            {{object.discount|floatformat}}%</p>
-            <p><span>Краткое описание: </span>
-                {{object.short_desc|capfirst}}</p>
-
-            <img src = "/media/{{object.image.value|default:'adminapp/img/default.jpg'}}"
-            alt="{{object.name}}" class="product_image">
-
-        <div class="product_actions">
-
-                <input type="button"  value="Редактировать"
-               onClick='location.href="{% url "admin_custom:product_update" object.name %}"'>
-
-                <input type="button"  value="Удалить"
-               onClick='location.href="{% url "admin_custom:product_delete" object.name %}"'>
+    <div class="products_list">
+        <div class="add_object">
+            <input type="button" value="Добавить товар" id="add_object"
+                   onClick='location.href="{% url "admin_custom:product_create" %}"'>
         </div>
-        </div>
+        {% if active_categories %}
+            <h2>Действующий каталог</h2>
+        {% endif %}
 
+        {% for category in active_categories %}
+            <h2 class="category">Категория {{ category.name }}</h2>
 
-    {% endif %}
-{% endfor%}
-        </div>
-    {% endfor%}
+            <div class="objects_list">
+                {% for object in products %}
+                    {% if object.is_active and object.category.id == category.id %}
 
-    {% if archive_categories %}
-    <h2>Архивный каталог</h2>
-    {% endif%}
+                        <div class="object_data">
+                            <section class="object_name">
+                                {{ object.name|capfirst }}
+                            </section>
+                            <p><span>Цена: </span>
+                                {{ object.price|floatformat }} руб.</p>
+                            <p><span>Количество: </span>
+                                {{ object.quantity }} шт.</p>
+                            <p><span>Скидка: </span>
+                                {{ object.discount|floatformat }}%</p>
+                            <p><span>Краткое описание: </span>
+                                {{ object.short_desc|capfirst }}</p>
 
-    {% for category in archive_categories %}
-    <h2 class="category">Категория {{category.name}}</h2>
+                            <img src="/media/{{ object.image.value|default:'adminapp/img/default.jpg' }}"
+                                 alt="{{ object.name }}" class="product_image">
 
-    <div class ="objects_list">
-    {% for object in products %}
-        {% if not object.is_active and object.category.id == category.id %}
+                            <div class="product_actions">
 
-        <div class="object_data">
-        <section class="object_name">
-                {{object.name|capfirst}}
-        </section>
-            <p><span>Цена: </span>
-            {{object.price|floatformat}} руб.</p>
-            <p><span>Количество: </span>
-            {{object.quantity}} шт.</p>
-            <p><span>Скидка: </span>
-            {{object.discount|floatformat}}%</p>
-            <p><span>Краткое описание: </span>
-                {{object.short_desc|capfirst}}</p>
+                                <input type="button" value="Редактировать"
+                                       onClick='location.href="{% url "admin_custom:product_update" object.name %}"'>
 
-            <img src = "/media/{{object.image.value|default:'adminapp/img/default.jpg'}}"
-            alt="{{object.name}}" class="product_image">
+                                <input type="button" value="Удалить"
+                                       onClick='location.href="{% url "admin_custom:product_delete" object.name %}"'>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endfor %}
 
-        <div class="product_actions">
+        {% if archive_categories %}
+            <h2>Архивный каталог</h2>
+        {% endif %}
 
-                <input type="button"  value="Редактировать"
-               onClick='location.href="{% url "admin_custom:product_update" object.name %}"'>
+        {% for category in archive_categories %}
+            <h2 class="category">Категория {{ category.name }}</h2>
 
-                <input type="button"  value="Удалить"
-               onClick='location.href="{% url "admin_custom:product_delete" object.name %}"'>
-        </div>
+            <div class="objects_list">
+                {% for object in products %}
+                    {% if not object.is_active and object.category.id == category.id %}
 
+                        <div class="object_data">
+                            <section class="object_name">
+                                {{ object.name|capfirst }}
+                            </section>
+                            <p><span>Цена: </span>
+                                {{ object.price|floatformat }} руб.</p>
+                            <p><span>Количество: </span>
+                                {{ object.quantity }} шт.</p>
+                            <p><span>Скидка: </span>
+                                {{ object.discount|floatformat }}%</p>
+                            <p><span>Краткое описание: </span>
+                                {{ object.short_desc|capfirst }}</p>
+
+                            <img src="/media/{{ object.image.value|default:'adminapp/img/default.jpg' }}"
+                                 alt="{{ object.name }}" class="product_image">
+
+                            <div class="product_actions">
+
+                                <input type="button" value="Редактировать"
+                                       onClick='location.href="{% url "admin_custom:product_update" object.name %}"'>
+
+                                <input type="button" value="Удалить"
+                                       onClick='location.href="{% url "admin_custom:product_delete" object.name %}"'>
+                            </div>
+
+                        </div>
+                        <br>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endfor %}
     </div>
-    <br>
-    {% endif %}
-{% endfor%}
-    </div>
-    {% endfor%}
-
-</div>
 
 {% endblock %}
 

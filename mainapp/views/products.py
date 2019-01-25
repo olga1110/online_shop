@@ -146,7 +146,6 @@ class ProductDetail(DetailView):
     context_object_name = 'product'
     slug_field = 'name'
 
-
     def get_context_data(self, **kwargs):
         context = super(ProductDetail, self).get_context_data(**kwargs)
         form = CartForm(self.request.POST)
@@ -163,6 +162,7 @@ class ProductDetail(DetailView):
     #     category = product.category.name
     #
     #     return queryset.get(name=self.kwargs['slug'])
+
 
 # def product_detail(request, slug):
 #     update_price_from_file(slug)
@@ -189,7 +189,6 @@ class ProductDetail(DetailView):
 
 @user_passes_test(lambda u: u.is_superuser)
 def product_delete(request, slug):
-
     product = get_object_or_404(Product, name=slug)
     content = {'object_to_delete': product, 'title': 'Удаление продукта', 'subject': 'продукта',
                'name': product.name, 'part_name': 'Архив', 'url_cancel': request.META.get('HTTP_REFERER', '/')}

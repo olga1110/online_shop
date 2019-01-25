@@ -5,7 +5,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 import basketapp.views as basketapp
 
-
 app_name = 'basket'
 
 urlpatterns = [

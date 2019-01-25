@@ -5,235 +5,232 @@
 
 {% block page_title %} Cozy kitchen {% endblock %}
 {% block page_styles %}
-<link rel="stylesheet" href="{%static 'web_shop/style.css' %}">
-<link rel="stylesheet" href="{%static 'mainapp/css/jcarousel.css' %}">
-<link rel="stylesheet" href="{%static 'mainapp/css/font-awesome.min.css' %}">
-<link rel="stylesheet" href="{%static 'mainapp/css/popup_window.css' %}">
+    <link rel="stylesheet" href="{% static 'web_shop/style.css' %}">
+    <link rel="stylesheet" href="{% static 'mainapp/css/jcarousel.css' %}">
+    <link rel="stylesheet" href="{% static 'mainapp/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'mainapp/css/popup_window.css' %}">
 
 {% endblock %}
 
 {% block script %}
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 
-    <script src="{%static 'mainapp/js/jquery.jcarousel.js' %}"></script>
-    <script src="{%static 'mainapp/js/jcarousel.basic.js' %}"></script>
+    <script src="{% static 'mainapp/js/jquery.jcarousel.js' %}"></script>
+    <script src="{% static 'mainapp/js/jcarousel.basic.js' %}"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
-    <script src="{%static 'mainapp/js/jquery.cookie.js' %}"></script>
-    <script src= "{%static 'mainapp/js/main.js' %}"></script>
-    <script src= "{%static 'mainapp/js/popup_window.js' %}"></script>
+    <script src="{% static 'mainapp/js/jquery.cookie.js' %}"></script>
+    <script src="{% static 'mainapp/js/popup_window.js' %}"></script>
 
-<script>
+    <script>
 
-     $(function () {
+        $(function () {
 
-<!--Заполнение корзины при перезагрузке страницы-->
+            <!--Заполнение корзины при перезагрузке страницы-->
 
- //localStorage.clear();
+            //localStorage.clear();
 
-      if (localStorage.getItem('count')) {
-        var count = localStorage.getItem('count');
-        var product_key = 0;
-        var price_key = 0;
-        for (var i = 0; i <= count; i++) {
-          product_key = 'product_name_' + i;
-          price_key = 'product_price_' + i;
+            if (localStorage.getItem('count')) {
+                var count = localStorage.getItem('count');
+                var product_key = 0;
+                var price_key = 0;
+                for (var i = 0; i <= count; i++) {
+                    product_key = 'product_name_' + i;
+                    price_key = 'product_price_' + i;
 
-          var NameValue = localStorage.getItem(product_key);
+                    var NameValue = localStorage.getItem(product_key);
 
-          var PriceValue = localStorage.getItem(price_key);
+                    var PriceValue = localStorage.getItem(price_key);
 
-          var item = ($('<li/>', {
-            class: 'cartList__item'
-          }));
-          item.append($('<div/>', {
-            text: NameValue,
-            class: 'productName'
-          }));
-          item.append($('<div/>', {
-                text: PriceValue,
-                class: 'productPrice'
-              })
-          );
+                    var item = ($('<li/>', {
+                        class: 'cartList__item'
+                    }));
+                    item.append($('<div/>', {
+                        text: NameValue,
+                        class: 'productName'
+                    }));
+                    item.append($('<div/>', {
+                            text: PriceValue,
+                            class: 'productPrice'
+                        })
+                    );
 
-          $('.cartList').append(item);
-        }
-        // Выводим общую сумму
-        $('#general_sum').text(localStorage.getItem('sum'));
-      };
+                    $('.cartList').append(item);
+                }
+                // Выводим общую сумму
+                $('#general_sum').text(localStorage.getItem('sum'));
+            }
+            ;
 
+            if (localStorage.getItem('sum')) {
+                var sum = parseInt(localStorage.getItem('sum'));
+            } else
+                var sum = 0;
 
-    if (localStorage.getItem('sum')) {
-      var sum = parseInt(localStorage.getItem('sum'));
-    }
-    else
-      var sum = 0;
+            $(function () {
+                $('.jcarousel').jcarousel({
+                    animation: {
+                        duration: 900,
+                        easing: 'linear',
+                        complete: function () {
+                        }
+                    },
+                    wrap: 'circular'
+                })
+            });
 
+            $('.jcarousel').jcarouselAutoscroll({
+                interval: 3000,
+                target: '+=1',
+                autostart: true
+            });
 
-    $(function () {
-        $('.jcarousel').jcarousel({
-            animation: {
-                duration: 900,
-                easing: 'linear',
-                complete: function () {}
-            },
-            wrap: 'circular'
-        })
-    });
+            $('.carousel__item').draggable({
+                opacity: 0.7,
+                cursor: 'move',
+                helper: 'clone'
+            });
 
-    $('.jcarousel').jcarouselAutoscroll({
-        interval: 3000,
-        target: '+=1',
-        autostart: true
-    });
+            $('#cartBlock').droppable({
+                drop: function (event, ui) {
+                    $(this).addClass('ui-state-highlight')
+                    var item = ($('<li/>', {
+                        class: 'cartList__item'
+                    }));
+                    item.append($('<div/>', {
+                        text: ui['draggable'].find('.productName').eq(0).text(),
+                        class: 'productName'
+                    }));
+                    item.append($('<div/>', {
+                            <!--text: ui['draggable'].find('.productPrice').eq(0).text().split('.')[0] + ' руб.',-->
+                            text: ui['draggable'].find('.productPrice').eq(0).text(),
+                            class: 'productPrice'
+                        })
+                    );
+                    sum += parseInt(ui['draggable'].find('.productPrice').eq(0).text().split(' ')[0]);
+                    $('#cartList').append(item);
+                    $('#general_sum').text(sum);
+                    if (localStorage.getItem('count')) {
+                        var count = parseInt(localStorage.getItem('count'));
+                    } else
+                        var count = 0;
+                    var product_key = 'product_name_' + count;
+                    var price_key = 'product_price_' + count;
 
-        $('.carousel__item').draggable({ opacity: 0.7,
-     cursor: 'move',
-        helper: 'clone'
- });
-
-           $('#cartBlock').droppable({
-      drop: function (event, ui) {
-        $(this).addClass('ui-state-highlight')
-        var item = ($('<li/>', {
-          class: 'cartList__item'
-        }));
-        item.append($('<div/>', {
-          text: ui['draggable'].find('.productName').eq(0).text(),
-          class: 'productName'
-        }));
-        item.append($('<div/>', {
-          <!--text: ui['draggable'].find('.productPrice').eq(0).text().split('.')[0] + ' руб.',-->
-          text: ui['draggable'].find('.productPrice').eq(0).text(),
-          class: 'productPrice'
-        })
-        );
-          sum += parseInt(ui['draggable'].find('.productPrice').eq(0).text().split(' ')[0]);
-        $('#cartList').append(item);
-        $('#general_sum').text(sum);
-        if (localStorage.getItem('count')) {
-          var count = parseInt(localStorage.getItem('count'));
-        }
-        else
-          var count = 0;
-        var product_key = 'product_name_' + count;
-        var price_key = 'product_price_' + count;
-
-        localStorage.setItem(product_key, ui['draggable'].find('.productName').eq(0).text());
-        localStorage.setItem(price_key, ui['draggable'].find('.productPrice').eq(0).text());
-        count += 1;
-        localStorage.setItem('count', String(count));
-        localStorage.setItem('sum', String(sum));
-
+                    localStorage.setItem(product_key, ui['draggable'].find('.productName').eq(0).text());
+                    localStorage.setItem(price_key, ui['draggable'].find('.productPrice').eq(0).text());
+                    count += 1;
+                    localStorage.setItem('count', String(count));
+                    localStorage.setItem('sum', String(sum));
 
 
 //        Переход по ссылке с методом
-            var product_id = parseInt(ui['draggable'].find('.productId').eq(0).text());
-            var url = '/basket/add/' + product_id;
-            $('#hide_button').on('click', location.replace(url));
-            $('#hide_button').click();
-        }
-    });
-});
+                    var product_id = parseInt(ui['draggable'].find('.productId').eq(0).text());
+                    var url = '/basket/add/' + product_id;
+                    $('#hide_button').on('click', location.replace(url));
+                    $('#hide_button').click();
+                }
+            });
+        });
 
-</script>
+    </script>
 
 {% endblock %}
 
 {% block page_content %}
 
-{{ block.super }}
-<div class="main-page">
-<main>
-    <div class="about_company">
-<h1>{{company.title|title}}</h1>
-<sector><em>{{company.advertisement}}</em></sector>
-</div>
+    {{ block.super }}
+    <div class="main-page">
+        <main>
+            <div class="about_company">
+                <h1>{{ company.title|title }}</h1>
+                <sector><em>{{ company.advertisement }}</em></sector>
+            </div>
 
-<div class="spec_discount">
-{% offer as discount%}
-{% if discount %}
-<p>Специальное предложение!!!</p>
-<p>Только сегодня скидка на все товары от {{discount}}!!! </p>
-{% endif %}
-</div>
-<div class="shopBlock">
-            <div class="wrapper">
-                <div class="jcarousel-wrapper">
-                    <div class="jcarousel">
-                        <ul>
-                            {% for product in products %}
-                            <li>
-                                <div class="carousel__item">
-                                    <h3 class="productName">{{product.short_desc|capfirst}}</h3>
-                                    <h3 class="productId" style="display: none">{{product.id}}</h3>
-                                    <a href="/{{product.get_absolute_url}}/">
-                                        <img class="img" src="/media/{{product.image.value}}"
-                                               alt={{product.short_desc|capfirst}}
-                                               title={{product.short_desc|capfirst}}>
-                                    </a>
-                                    <h3 class="productPrice">{{product.price|floatformat}} руб.</h3>
-                                </div>
-                            </li>
-                            {% endfor %}
-                        </ul>
+            <div class="spec_discount">
+                {% offer as discount %}
+                {% if discount %}
+                    <p>Специальное предложение!!!</p>
+                    <p>Только сегодня скидка на все товары от {{ discount }}!!! </p>
+                {% endif %}
+            </div>
+            <div class="shopBlock">
+                <div class="wrapper">
+                    <div class="jcarousel-wrapper">
+                        <div class="jcarousel">
+                            <ul>
+                                {% for product in products %}
+                                    <li>
+                                        <div class="carousel__item">
+                                            <h3 class="productName">{{ product.short_desc|capfirst }}</h3>
+                                            <h3 class="productId" style="display: none">{{ product.id }}</h3>
+                                            <a href="/{{ product.get_absolute_url }}/">
+                                                <img class="img" src="/media/{{ product.image.value }}"
+                                                     alt={{ product.short_desc|capfirst }}
+                                                             title={{ product.short_desc|capfirst }}>
+                                            </a>
+                                            <h3 class="productPrice">{{ product.price|floatformat }} руб.</h3>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
 
+                        </div>
+                        <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
+                        <a href="#" class="jcarousel-control-next">&rsaquo;</a>
                     </div>
-                    <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
-                    <a href="#" class="jcarousel-control-next">&rsaquo;</a>
+                </div>
+                <div class="cartBlock" id="cartBlock">
+                    <div class="cartImg">
+                        <img src="{% static 'web_shop/img/basket.png' %}" alt="Cart">
+                    </div>
+                    <h1 class="cartTitle">Корзина</h1>
+                    <ul class="cartList" id="cartList"></ul>
+                    <p><b>Общая сумма:</b> <span id="general_sum">0</span> руб. </p>
                 </div>
             </div>
-    <div class="cartBlock" id="cartBlock">
-        <div class="cartImg">
-            <img src="{%static 'web_shop/img/basket.png' %}" alt="Cart">
-        </div>
-        <h1 class="cartTitle">Корзина</h1>
-        <ul class="cartList" id="cartList"></ul>
-        <p><b>Общая сумма:</b> <span id="general_sum">0</span> руб. </p>
+        </main>
     </div>
-</div>
+    <script>
+        {% if messages %}
+            {% for message in messages %}
+                alert('{{ message }}');
+            {% endfor %}
+        {% endif %}
+    </script>
 
-</main>
+    <!--Всплывающее окно при первой загрузке сайта-->
+    {% if not user.is_authenticated %}
+        <div id="pp">
+            <div class="pp-header">
+                <h3>Приветствуем Вас на сайте Cozy Kitchen!!!</h3>
+            </div>
+            <div class="pp-content">
+                <div class="pp-content-main">
 
-</div>
-<script>
-{% if messages %}
-    {% for message in messages %}
-    alert('{{ message }}');
-    {% endfor %}
-{% endif %}
-</script>
+                    <h4>*Товар дня*</h4>
+                    <p> Только сегодня
+                        {% for cat in categories %}
+                            {% if cat.spec_discount %}
+                                скидка на все <span>{{ cat.short_desc|upper }}</span> до
+                                <span>{{ cat.spec_discount|floatformat }}%</span>
+                            {% endif %}
+                        {% endfor %}
+                    </p>
+                </div>
 
-<!--Всплывающее окно при первой загрузке сайта-->
-{% if not user.is_authenticated %}
-<div id="pp">
-	    <div class="pp-header">
-	        <h3>Приветствуем Вас на сайте Cozy Kitchen!!!</h3>
-	    </div>
-	    <div class="pp-content">
-	        <div class="pp-content-main">
+            </div>
+            <div class="pp-footer">
+                <p><a href="{% url 'auth:register' %}">Зарегистрируйтесь </a> и получите индивидуальную скидку на весь
+                    модельный ряд!!!</p>
+            </div>
+            <div class="btn btn-blob">&times;</div>
+        </div>
 
-	            <h4>*Товар дня*</h4>
-                <p> Только сегодня
-                {% for cat in categories %}
-                {% if cat.spec_discount %}
-                    скидка на все <span>{{cat.short_desc|upper}}</span> до <span>{{cat.spec_discount|floatformat}}%</span>
-                {% endif %}
-                {% endfor %}
-                </p>
-	        </div>
+        <div id="pp-bg"></div>
 
-	    </div>
-	    <div class="pp-footer">
-	        <p><a href="{% url 'auth:register' %}">Зарегистрируйтесь </a> и получите индивидуальную скидку на весь модельный ряд!!!</p>
-	    </div>
-        <div class="btn btn-blob">&times;</div>
-	</div>
+    {% endif %}
 
-	<div id="pp-bg"></div>
-
-{% endif %}
-
-<button class="hide_button"></button>
+    <button class="hide_button"></button>
 
 {% endblock %}
 
