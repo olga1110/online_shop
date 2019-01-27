@@ -125,14 +125,8 @@ header {
     display: block;
 }
 
-.main-page sector, .category_name, h1, #pp .pp-content-main {
+.about_company sector, .category_name, h1, #pp .pp-content-main{
     text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0, 0, 0, .1), 0 0 5px rgba(0, 0, 0, .1), 0 1px 3px rgba(0, 0, 0, .3), 0 3px 5px rgba(0, 0, 0, .2), 0 5px 10px rgba(0, 0, 0, .25), 0 10px 10px rgba(0, 0, 0, .2), 0 20px 20px rgba(0, 0, 0, .15);
-}
-
-.main-page main p, .main-page main sector,
-.category_name, #pp .pp-content-main:not(.spec_discount p) {
-    /* width:500px;
-    */
     font-style: italic;
     font-size: 20px;
     font-weight: 700;
@@ -373,6 +367,14 @@ header {
 
 .product-edit a:visited, .catalog-edit a:visited, .category-edit a:visited {
     color: darkviolet;
+}
+
+.formset input[type="checkbox"] {
+    margin-left: 20px;
+}
+
+.formset_field {
+    margin-bottom: 20px;
 }
 
 .search_block {
@@ -790,10 +792,11 @@ summary {
 select {
     border-radius: 5px;
     color: #483D8B;
+    font-size: 18px;
     border-color: antiquewhite;
     background-color: whitesmoke;
-    width: 238px;
-    height: 30px;
+    width: 290px;
+    height: 44px;
 }
 
 
@@ -804,8 +807,9 @@ select {
 }
 
 textarea {
-    width: 238.44px;
+    width: 290px;
     color: #483D8B;
+    font-size: 18px;
 }
 
 .OK_button, .cancel_button {

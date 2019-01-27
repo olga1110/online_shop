@@ -30,6 +30,7 @@ class ShopUserRegisterForm(UserCreationForm):
 class ShopUserEditForm(UserChangeForm):
     class Meta:
         model = ShopUser
+        widgets = {'avatar': forms.FileInput(attrs={'id': 'avatar'})}
         fields = ('username', 'first_name', 'password', 'email', 'avatar', 'phone')
 
     def __init__(self, *args, **kwargs):

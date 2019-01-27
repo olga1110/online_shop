@@ -17,7 +17,6 @@ endpointspatterns = [
 urlpatterns = [
                   path('', mainapp_index, name='start_page'),
                   path('contacts/', mainapp_Contacts, name='contacts'),
-                  # path('registration/', mainapp_registration, name='registration'),
                   re_path(r'^catalog/((?P<page>\d+)|/)?$', category_product_list, name='catalog'),
                   path('create/', ProductGenericCreate.as_view(), name='create'),
                   re_path(r'^catalog/[^create delete update]\w+/(?P<slug>\w+)/$', ProductDetail.as_view(),

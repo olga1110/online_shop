@@ -10,26 +10,12 @@
 {% endblock %}
 
 {% block page_content %}
-    <!--<form class ="form-horizontal" action = "{% url 'auth:register' %}"-->
-    <!--method="post" enctype="multipart/form-data">-->
-    <!--{% csrf_token %}-->
-    <!--{{ register_form.as_p }}-->
-    <!--<br>-->
-    <!--<input class="form-control" type="submit" value="Зарегистрироваться">-->
-    <!--</form>-->
 
     {% include 'includes/form.html' %}
-            <!--<input type="button" value="Отмена"-->
-                   <!--onClick='location.href="{% url url_cancel %}"'>-->
 
-    <!--<form>-->
-    <input type="button"  value="Отмена"
-    onClick='location.href="{{url_cancel}}"'>
-    <!--</form>-->
+<input type="button" value="Отмена" class="cancel_button"
+                   onClick='location.href="{{url_cancel}}"'>
 
-    <!--<button class="btn btn -round form-control">-->
-    <!--<a href ="{% url 'auth:register' %}" class=""> Зарегистрироваться </a>-->
-    <!--</button>-->
 {% endblock %}
 
 

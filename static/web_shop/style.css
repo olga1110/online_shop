@@ -129,7 +129,7 @@ header {
     text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0, 0, 0, .1), 0 0 5px rgba(0, 0, 0, .1), 0 1px 3px rgba(0, 0, 0, .3), 0 3px 5px rgba(0, 0, 0, .2), 0 5px 10px rgba(0, 0, 0, .25), 0 10px 10px rgba(0, 0, 0, .2), 0 20px 20px rgba(0, 0, 0, .15);
 }
 
-.main-page main p, .main-page main sector,
+.main-page main p, .about_company sector,
 .category_name, #pp .pp-content-main:not(.spec_discount p) {
     /* width:500px;
     */
@@ -767,41 +767,59 @@ summary {
 .form-field {
     clear: both;
     text-align: right;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
 }
 
 .form-field label {
     float: left;
     padding-right: 10px;
+    padding-top: 8px;
     color: darkblue;
-    font-weight: 500;
+    font-weight: 800;
+    font-size: 18px;
+}
+
+.form-field input {
+    margin-left: 75px;
+}
+
+#avatar.form-control {
+    width: 245px;
 }
 
 select {
     border-radius: 5px;
     color: #483D8B;
+    font-size: 18px;
     border-color: antiquewhite;
     background-color: whitesmoke;
-    width: 238px;
-    height: 30px;
+    width: 290px;
+    height: 44px;
 }
 
 
 .form-group {
     float: left;
-    margin: 30px auto 0;
+    margin-top: 75px;
+    margin-left: 210px;
 }
 
 textarea {
-    width: 238.44px;
+    width: 290px;
     color: #483D8B;
+    font-size: 18px;
 }
 
 .OK_button, .cancel_button {
     clear: both;
-    /*display:flex;*/
-    /*justify-content: center;*/
-    /*width:465.16px;*/
+}
+
+.OK_button {
+    margin-top: 50px;
+}
+
+.cancel_button {
+    margin-left: 275px;
 }
 
 .cancel_button {
@@ -861,7 +879,7 @@ textarea {
 }
 
 label:focus {
-    font-weight: 900;
+    font-weight: 700;
 }
 
 .registration input {
@@ -916,6 +934,7 @@ input:not([type="checkbox"]):not([type="submit"]):not([type="button"]) {
     padding: 10px 50px 10px 10px;
     color: #483D8B;
     font-style: italic;
+    font-size: 18px;
 }
 
 .feedback input:not([type="checkbox"]), .order input {
@@ -928,8 +947,9 @@ input:not([type="checkbox"]):not([type="submit"]):not([type="button"]) {
 input:not([type="checkbox"]):focus {
     outline: none;
     border-color: #D2973D;
-    box-shadow: 5px 5px 0 5px #D2973D;
-    font-weight: 700;
+    box-shadow: 1px 1px 0 1px #D2973D;
+    border-radius: 8px;
+    /*font-weight: 700;*/
 }
 
 input[type="checkbox"] {

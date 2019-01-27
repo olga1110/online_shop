@@ -80,7 +80,7 @@ class UserRegister(CreateView):
         context = super(UserRegister, self).get_context_data(**kwargs)
         context['title'] = 'Регистрация'
         context['url_cancel'] = self.request.META.get('HTTP_REFERER', '/')
-        context['OK_text'] = 'Зарегистрироваться!'
+        context['OK_text'] = 'Регистрация'
         return context
 
 
@@ -107,7 +107,7 @@ class UserEdit(UpdateView):
         context = super(UserEdit, self).get_context_data(**kwargs)
         context['title'] = 'Личный кабинет'
         context['url_cancel'] = self.request.META.get('HTTP_REFERER', '/')
-        context['OK_button'] = 'Сохранить'
+        context['OK_text'] = 'Сохранить'
         return context
 
 # def edit(request):

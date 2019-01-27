@@ -68,7 +68,7 @@ class ProductModelForm(forms.ModelForm):
         model = Product
         fields = ['name', 'category', 'image', 'short_desc', 'desc', 'price', 'discount', 'quantity']
         labels = {
-            'category': 'Категория:',
+            'category': 'Категория',
             'image': 'Изображение'
         }
         help_texts = {

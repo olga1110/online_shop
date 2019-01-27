@@ -9,6 +9,7 @@ class ShopUserAdminEditForm(ShopUserEditForm):
     class Meta:
         model = ShopUser
         fields = '__all__'
+        widgets = {'avatar': forms.FileInput(attrs={'id': 'avatar'})}
 
 
 class CategoryEditForm(forms.ModelForm):

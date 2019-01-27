@@ -12,14 +12,14 @@
 {% endblock %}
 
 {% block page_content %}
-    <form method="POST" enctype="multipart/form-data">
+    <form method="POST" enctype="multipart/form-data" class="formset">
         {% csrf_token %}
         {{ formset.management_form }}
 
         {% for form in formset %}
             {% for field in form %}
                 {% if field.label != 'Порядок' and field.label != 'Удалить' %}
-                    <div>
+                    <div class="formset_field">
                         <label for="{{ field.name }}">
                             {{ field.label }}
                         </label>
@@ -44,6 +44,7 @@
         {% endfor %}
 
         <input type="submit" value="Сохранить">
+
     </form>
 
 {% endblock %}
