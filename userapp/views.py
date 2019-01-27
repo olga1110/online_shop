@@ -98,7 +98,7 @@ class UserRegister(CreateView):
 
 class UserEdit(UpdateView):
     model = ShopUser
-    form_class = ShopUserRegisterForm
+    form_class = ShopUserEditForm
     template_name = 'userapp/register.html'
     success_url = reverse_lazy('auth:login')
     slug_field = 'username'
@@ -107,7 +107,7 @@ class UserEdit(UpdateView):
         context = super(UserEdit, self).get_context_data(**kwargs)
         context['title'] = 'Личный кабинет'
         context['url_cancel'] = self.request.META.get('HTTP_REFERER', '/')
-        context['OK_text'] = 'Сохранить'
+        context['OK_button'] = 'Сохранить'
         return context
 
 # def edit(request):

@@ -257,7 +257,7 @@ header {
 }
 
 .short_desc select {
-    color: black;
+    color: #483D8B;
     font-size: 16px;
     font-style: italic;
     font-weight: 500;
@@ -679,7 +679,7 @@ summary {
     margin-top: 10px;
 }
 
-.short_desc label, select p: {
+.short_desc label, select p {
     color: black;
     font-size: 16px;
 }
@@ -767,18 +767,29 @@ summary {
 .form-field {
     clear: both;
     text-align: right;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
 }
 
 .form-field label {
     float: left;
     padding-right: 10px;
+    padding-top: 8px;
     color: darkblue;
-    font-weight: 500;
+    font-weight: 800;
+    font-size: 18px;
+}
+
+.form-field input {
+    margin-left: 75px;
+}
+
+#avatar.form-control {
+    width: 245px;
 }
 
 select {
     border-radius: 5px;
+    color: #483D8B;
     border-color: antiquewhite;
     background-color: whitesmoke;
     width: 238px;
@@ -788,17 +799,25 @@ select {
 
 .form-group {
     float: left;
+    margin-top: 75px;
+    margin-left: 210px;
 }
 
 textarea {
     width: 238.44px;
+    color: #483D8B;
 }
 
 .OK_button, .cancel_button {
     clear: both;
-    /*display:flex;*/
-    /*justify-content: center;*/
-    /*width:465.16px;*/
+}
+
+.OK_button {
+    margin-top: 50px;
+}
+
+.cancel_button {
+    margin-left: 275px;
 }
 
 .cancel_button {
@@ -858,7 +877,7 @@ textarea {
 }
 
 label:focus {
-    font-weight: 900;
+    font-weight: 700;
 }
 
 .registration input {
@@ -913,6 +932,7 @@ input:not([type="checkbox"]):not([type="submit"]):not([type="button"]) {
     padding: 10px 50px 10px 10px;
     color: #483D8B;
     font-style: italic;
+    font-size: 18px;
 }
 
 .feedback input:not([type="checkbox"]), .order input {
@@ -925,8 +945,9 @@ input:not([type="checkbox"]):not([type="submit"]):not([type="button"]) {
 input:not([type="checkbox"]):focus {
     outline: none;
     border-color: #D2973D;
-    box-shadow: 5px 5px 0 5px #D2973D;
-    font-weight: 700;
+    box-shadow: 1px 1px 0 1px #D2973D;
+    border-radius: 8px;
+    /*font-weight: 700;*/
 }
 
 input[type="checkbox"] {

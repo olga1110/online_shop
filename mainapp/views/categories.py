@@ -109,7 +109,6 @@ class CategoryDetail(SuperUserMixin, DetailView):
         context['products'] = Product.objects.filter(category=self.object.id)
         context['min_price'] = context['products'].aggregate(models.Min('price'))['price__min']
         context['max_price'] = context['products'].aggregate(models.Max('price'))['price__max']
-        print(context['min_price'])
         return context
 
 
@@ -126,7 +125,6 @@ def category_delete(request, title):
     content = {'object_to_delete': category, 'title': 'Удаление категории', 'subject': 'категории',
                'name': category.name, 'part_name': 'Архив', 'url_cancel': request.META.get('HTTP_REFERER',
                                                                                            'products:catalog')}
-    print(request.META.get('HTTP_REFERER', '/'))
     if request.method == 'POST':
         category.is_active = False
         category.save()

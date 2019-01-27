@@ -71,7 +71,6 @@ def user_delete(request, title):
     content = {'object_to_delete': user, 'title': 'Удаление пользователя', 'subject': 'пользователя',
                'name': user.username, 'part_name': 'Заблокированные пользователи',
                'url_cancel': request.META.get('HTTP_REFERER', 'admin_custom:users')}
-    print(request.resolver_match.app_name)
     if request.method == 'POST':
         user.is_active = False
         user.save()
@@ -238,6 +237,5 @@ def product_delete(request, title):
 #         return render(request, 'adminapp/update.html', content)
 
 # def get_absolute_url(self):
-#     # return reverse('admin_custom:products', kwargs={'title': self.model.category.name})
-#     print(self.model.category.name)
+#     # return reverse('admin_custom:products', kwargs={'title': self.model.category.name})#
 #     return reverse('products', kwargs={'title': self.form_class.category.name})

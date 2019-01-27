@@ -17,6 +17,7 @@ class ShopUserLoginForm(AuthenticationForm):
 class ShopUserRegisterForm(UserCreationForm):
     class Meta:
         model = ShopUser
+        widgets = {'avatar': forms.FileInput(attrs={'id': 'avatar'})}
         fields = ('username', 'first_name', 'password1', 'password2', 'email', 'avatar', 'phone')
 
     def __init__(self, *args, **kwargs):

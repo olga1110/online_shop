@@ -192,7 +192,6 @@ def product_delete(request, slug):
     product = get_object_or_404(Product, name=slug)
     content = {'object_to_delete': product, 'title': 'Удаление продукта', 'subject': 'продукта',
                'name': product.name, 'part_name': 'Архив', 'url_cancel': request.META.get('HTTP_REFERER', '/')}
-    print(request.META.get('HTTP_REFERER', '/'))
     if request.method == 'POST':
         product.is_active = False
         product.save()

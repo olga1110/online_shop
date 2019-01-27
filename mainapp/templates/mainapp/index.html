@@ -106,7 +106,8 @@
                             class: 'productPrice'
                         })
                     );
-                    sum += parseInt(ui['draggable'].find('.productPrice').eq(0).text().split(' ')[0]);
+                    <!--sum += parseInt(ui['draggable'].find('.productPrice').eq(0).text().split(' ')[0]);-->
+                    sum += parseInt(ui['draggable'].find('.productPrice').eq(0).text());
                     $('#cartList').append(item);
                     $('#general_sum').text(sum);
                     if (localStorage.getItem('count')) {
@@ -185,7 +186,7 @@
                     </div>
                     <h1 class="cartTitle">Корзина</h1>
                     <ul class="cartList" id="cartList"></ul>
-                    <p><b>Общая сумма:</b> <span id="general_sum">0</span> руб. </p>
+                    <p><b>Общая сумма:</b> <span id="general_sum">0</span> тыс.руб. </p>
                 </div>
             </div>
         </main>

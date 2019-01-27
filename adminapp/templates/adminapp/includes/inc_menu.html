@@ -4,7 +4,6 @@
     <ul class="menu">
         <li><a href="{% url 'products:start_page' %}">Вернуться на сайт</a></li>
         <li><a href="/api/">API</a></li>
-        <li><a href="#">Analytics</a></li>
         <li><a href="{% url 'admin_custom:users' %}"
 
                class="{% if request.resolver_match.url_name|startswith:'user' %} active {% endif %}">
