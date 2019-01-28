@@ -1,0 +1,201 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+
+.title {
+    text-align: center;
+    margin: 10px;
+}
+
+.shopBlock {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 50px;
+    /*flex-wrap: wrap;*/
+}
+
+.carousel__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cartBlock {
+    width: 400px;
+    height: 490px;
+    border: 1px solid dimgray;
+    border-radius: 10px;
+    margin: 10px;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+img {
+    cursor: pointer;
+    width: 600px;
+    height: 400px;
+}
+
+.cartImg {
+    text-align: center;
+    color: dimgray;
+}
+
+.cartImg img {
+    width: 90px;
+    height: 90px;
+}
+
+.cartTitle {
+    text-align: center;
+}
+
+.dialogText {
+    display: none;
+}
+
+.cartList {
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.cartList__item {
+    display: flex;
+    /*flex-direction: row;*/
+    justify-content: space-between;
+}
+
+.productName, .productPrice {
+    font-weight: 600;
+    font-style: italic;
+    font-color: darkblue;
+}
+
+.cartBlock.productName {
+    text-align: left;
+    width: 270px;
+}
+
+.cartBlock.productPrice{
+    text-align: right;
+    width: 285px;
+}
+
+.jcarousel-wrapper {
+    margin: 20px 40px;
+    position: relative;
+    border: 10px solid #fff;
+    width: 600px;
+    height: 450px;
+    box-shadow: 0 0 2px #999;
+}
+
+.jcarousel-wrapper .photo-credits {
+    position: absolute;
+    right: 15px;
+    bottom: 0;
+    font-size: 13px;
+    color: #fff;
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.85);
+    opacity: .66;
+}
+
+.jcarousel-wrapper .photo-credits a {
+    color: #fff;
+}
+
+
+/** Carousel **/
+
+.jcarousel {
+    position: relative;
+    overflow: hidden;
+}
+
+.jcarousel ul {
+    width: 10000em;
+    position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.jcarousel li {
+    float: left;
+}
+
+
+/** Carousel Controls **/
+
+.jcarousel-control-prev,
+.jcarousel-control-next {
+    position: absolute;
+    top: 200px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    background: #4E443C;
+    color: #fff;
+    text-decoration: none;
+    text-shadow: 0 0 1px #000;
+    font: 24px/27px Arial, sans-serif;
+    border-radius: 30px;
+    box-shadow: 0 0 2px #999;
+}
+
+.jcarousel-control-prev {
+    left: -50px;
+}
+
+.jcarousel-control-next {
+    right: -50px;
+}
+
+.jcarousel-control-prev:hover span,
+.jcarousel-control-next:hover span {
+    display: block;
+}
+
+.jcarousel-control-prev.inactive,
+.jcarousel-control-next.inactive {
+    opacity: .5;
+    cursor: default;
+}
+
+
+/** Carousel Pagination **/
+
+.jcarousel-pagination {
+    position: absolute;
+    bottom: 0;
+    left: 15px;
+}
+
+.jcarousel-pagination a {
+    text-decoration: none;
+    display: inline-block;
+    font-size: 11px;
+    line-height: 14px;
+    min-width: 14px;
+    background: #fff;
+    color: #4E443C;
+    border-radius: 14px;
+    padding: 3px;
+    text-align: center;
+    margin-right: 2px;
+    opacity: .75;
+}
+
+.jcarousel-pagination a.active {
+    background: #4E443C;
+    color: #fff;
+    opacity: 1;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.75);
+}

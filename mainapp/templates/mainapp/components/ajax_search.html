@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+{% if objects %}
+
+{% for object in objects %}
+<li class="search"><a href="/{{object.get_absolute_url}}/" title={{object.desc}}>{{object.short_desc}}</a></li>
+{% endfor %}
+
+{% else %}
+
+<p>Соответствий не найдено</p>
+
+{% endif %}
+
+</body>
+</html>
